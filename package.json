@@ -11,6 +11,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "clean": "rimraf node_modules",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "docs:dev": "vitepress dev docs",
@@ -19,14 +20,22 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "commit": "git-cz",
+    "check-types": "turbo run check-types",
+    "postinstall": "npx simple-git-hooks",
+    "preinstall": "npx only-allow pnpm",
+    "ncu": "ncu -i"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.2",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@unocss/eslint-plugin": "^66.5.0",
     "eslint": "^9.34.0",
     "eslint-plugin-format": "^1.0.1",
+    "git-cz": "^4.9.0",
     "lint-staged": "^16.1.6",
+    "only-allow": "^1.2.1",
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.1",
     "turbo": "^2.5.6",
@@ -34,7 +43,8 @@
     "vitepress": "2.0.0-alpha.12"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "npx --no-install commitlint --edit $1"
   },
   "lint-staged": {
     "*": "eslint --fix"

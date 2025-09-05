@@ -18,15 +18,15 @@
     "source.organizeImports": "never"
   },
   // Enable file nesting
-  // "explorer.fileNesting.enabled": true, // 开启文件嵌套
-  // "explorer.fileNesting.patterns": {
+  "explorer.fileNesting.enabled": true, // 开启文件嵌套
+  "explorer.fileNesting.patterns": {
   //   ".env": ".env.*",
   //   "tsconfig.json": "tsconfig.*.json, env.d.ts, .npmrc, .nvmrc",
   //   "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*,",
   //   "package.json": "package-lock.json, pnpm*",
   //   "eslint.config.js": "commitlint.config.js, stylelint.config.mjs, .git-cz.json, .editorconfig",
   //   "README.md": "index.html,favicon.ico,robots.txt,CHANGELOG.md,LICENSE*,.versionrc"
-  // },
+  },
 
   // Enable eslint for all supported languages
   "eslint.validate": [
