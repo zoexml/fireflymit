@@ -38,5 +38,5 @@ features:
     details: 20+ High quality components, 98%+ Unit test coverage, Support Tree Shaking
   - title: Actual Combat
     icon: 🍔
-    details: Do it yourself to make a vite based UI component library
+    details: 验证工作流是否生效
 ---
