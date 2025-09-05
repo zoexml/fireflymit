@@ -1,20 +1,41 @@
 {
   "name": "fireflymit",
+  "type": "module",
   "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "keywords": [
+    "pnpm",
+    "monorepo"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "dev:docs": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^5.2.2",
+    "@unocss/eslint-plugin": "^66.5.0",
+    "eslint": "^9.34.0",
+    "eslint-plugin-format": "^1.0.1",
+    "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
+    "simple-git-hooks": "^2.13.1",
     "turbo": "^2.5.6",
     "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
