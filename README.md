@@ -1,6 +1,6 @@
 # fireflymit
 
-monorepo + workspaces + pnpm + turbo
+pnpm-monorepo + Turborepo
 
 ## Using this example
 
@@ -23,6 +23,23 @@ npx create-turbo@latest
   <!-- - 📜 [z-paging](https://z-paging.zxlee.cn/) - 上拉加载下拉刷新组件 -->
   <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
   <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
+
+## 安装教程
+
+```bash
+# 安装公共依赖
+pnpm i xxx -w
+# 安装开发依赖
+pnpm i xxx -Dw
+# 安装xxx依赖到 packages/* 项目下
+pnpm add <package_name> --filter <package_selector>
+# 运行单个包的scripts脚本
+pnpm dev --filter <package_selector>
+# 各个 packages/* 模块包间的相互依赖,递归安装依赖
+pnpm install xxx -r
+pnpm install <package_selector1> -r --filter <package_selector2>
+
+```
 
 ### Apps and Packages
 

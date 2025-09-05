@@ -8,6 +8,7 @@
     "fireflymit",
     "joet",
     "radash",
+    "Turborepo",
     "vitepress"
   ],
   // Disable the default formatter, use eslint instead
