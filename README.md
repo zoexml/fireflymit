@@ -1,6 +1,6 @@
-# Turborepo starter
+# fireflymit
 
-This Turborepo starter is maintained by the Turborepo core team.
+monorepo + workspaces + pnpm + turbo
 
 ## Using this example
 
@@ -10,9 +10,19 @@ Run the following command:
 npx create-turbo@latest
 ```
 
-## What's inside?
+## 🛠️ 技术栈
 
-This Turborepo includes the following packages/apps:
+- 🔧 [antfu eslint config](https://github.com/antfu/eslint-config) - 代码规范
+- 🔷 [typescript](https://www.typescriptlang.org/) - JavaScript 超集
+- ⚡️ [radash](https://radash.uihtm.com/) - 函数库
+- 🎨 [unocss](https://unocss.dev/) - 原子化 CSS 引擎
+  <!-- - 🖖 [vue3](https://vuejs.org/) - 渐进式框架 -->
+  <!-- - 🚦 [uni-mini-router](https://github.com/uni-helper/uni-mini-router) - 小程序路由管理器 -->
+  <!-- - 🚀 [alova](https://alova.js.org/) - 轻量级请求策略库 -->
+  <!-- - 🎯 [wot-design](https://wot-design-uni.cn/) - Vue3 UI 框架 -->
+  <!-- - 📜 [z-paging](https://z-paging.zxlee.cn/) - 上拉加载下拉刷新组件 -->
+  <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
+  <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
 
 ### Apps and Packages
 
