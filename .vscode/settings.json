@@ -24,9 +24,9 @@
   //   ".env": ".env.*",
   //   "tsconfig.json": "tsconfig.*.json, env.d.ts, .npmrc, .nvmrc",
   //   "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*,",
-  //   "package.json": "package-lock.json, pnpm*",
-  //   "eslint.config.js": "commitlint.config.js, stylelint.config.mjs, .git-cz.json, .editorconfig",
-  //   "README.md": "index.html,favicon.ico,robots.txt,CHANGELOG.md,LICENSE*,.versionrc"
+    "package.json": "package-lock.json, pnpm*, .npmrc, .nvmrc",
+    "eslint.config.js": "commitlint.config.mjs, stylelint.config.mjs, .git-cz.json, .editorconfig",
+    "README.md": "CHANGELOG.md,LICENSE*,.versionrc"
   },
 
   // Enable eslint for all supported languages
