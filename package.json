@@ -2,7 +2,7 @@
   "name": "fireflymit",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@10.15.1",
   "keywords": [
     "pnpm",
     "monorepo"
