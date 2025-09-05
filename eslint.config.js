@@ -15,6 +15,7 @@ export default antfu({
     'vue/attribute-hyphenation': 'off', // 属性允许使用驼峰命名
     'style/brace-style': ['error', '1tbs', { allowSingleLine: true }], // if-else 格式
     'curly': ['error', 'multi-line'], // 允许单行 if/else 无 {}
+    'ts/explicit-function-return-type': 'off', // 允许隐式返回类型
   },
   typescript: true,
   lessOpinionated: true,
