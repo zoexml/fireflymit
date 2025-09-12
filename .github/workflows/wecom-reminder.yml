@@ -1,0 +1,26 @@
+name: WeCom Daily Reminder
+
+# 定时触发：每周一到周五的19:00 (CST)
+on:
+  schedule:
+    # - cron: '0 11 * * 1-5' # UTC 时间 11:00 = CST 19:00
+    - cron: '*/5 * * * *' # 每 5 分钟
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send WeCom Friendly Reminder
+        uses: wei/curl-action@v1
+        with:
+          args: |
+            -X POST https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WECOM_WEBHOOK_KEY }} \
+            -H "Content-Type: application/json" \
+            -d '{
+                  "msgtype": "text",
+                  "text": {
+                      "content": "大家好~ 😊\n📌 今天的日报记得填写哦，让大家都能了解彼此的工作进展！\n感谢大家的配合～💡\n\n📄 日报入口：\nhttps://doc.weixin.qq.com/sheet/e3_AZsAhgZoAPECNEvGUDWGKQrigyDSR?scode=ANEAwAeTAAcDQu2g7HAZsAhgZoAPE&journal_source=chat&tab=BB08J2",
+                      "mentioned_list": ["@all"]
+                  }
+                }'
