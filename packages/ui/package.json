@@ -16,5 +16,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.7.4"
   }
 }
