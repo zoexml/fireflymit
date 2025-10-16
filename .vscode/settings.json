@@ -26,8 +26,8 @@
   //   ".env": ".env.*",
   //   "tsconfig.json": "tsconfig.*.json, env.d.ts, .npmrc, .nvmrc",
   //   "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*,",
-    "package.json": "package-lock.json, pnpm*, .npmrc, .nvmrc",
-    "eslint.config.js": "commitlint.config.mjs, stylelint.config.mjs, .git-cz.json, .editorconfig",
+    "package.json": "package-lock.json, pnpm*,",
+    "commitlint.config.mjs": ".git-cz.json",
     "README.md": "CHANGELOG.md,LICENSE*,.versionrc"
   },
 

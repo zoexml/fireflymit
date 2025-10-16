@@ -1,5 +1,6 @@
 packages:
   - 'apps/*'
-  - 'packages/*'
-  - docs
-  - play
+  - 'packages/*' # ui库、工具库, cli等相关库
+  - docs # 组件库文档
+  - play # 演示
+  - test # test
