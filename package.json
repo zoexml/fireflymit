@@ -33,6 +33,7 @@
     "ncu": "ncu -i"
   },
   "dependencies": {
+    "@fireflymit/ui": "workspace:^",
     "radash": "^12.1.1"
   },
   "devDependencies": {
@@ -47,6 +48,7 @@
     "lint-staged": "^16.1.6",
     "only-allow": "^1.2.1",
     "prettier": "^3.6.2",
+    "sass": "^1.93.2",
     "simple-git-hooks": "^2.13.1",
     "turbo": "^2.5.6",
     "typescript": "5.9.2",
