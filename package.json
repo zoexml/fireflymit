@@ -15,6 +15,7 @@
     "node": ">=22",
     "pnpm": ">=10"
   },
+  "workspaces": ["packages/*"],
   "scripts": {
     "clean": "rimraf node_modules",
     "build": "turbo run build",

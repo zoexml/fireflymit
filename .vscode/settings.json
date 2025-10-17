@@ -9,7 +9,8 @@
     "joet",
     "radash",
     "Turborepo",
-    "vitepress"
+    "vitepress",
+    "vueuse"
   ],
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
