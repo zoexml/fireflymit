@@ -59,6 +59,33 @@ This Turborepo has some additional tools already setup for you:
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
+### 一键生成文档
+
+- 采用 TSDoc 规范编写代码注释
+- [api-extractor] 分析代码注释生成文档模型
+- [api-documenter] 解析文档模型生成接口md文档
+
+使用 `@microsoft/api-extractor` 和 `@microsoft/api-documenter` 一键生成 API 文档。
+
+1. 初始化生成配置文件 api-extractor.json
+2. pnpm api 提取文档
+3. pnpm md 生成md文档
+
+### 项目打包
+
+1. unbuild
+2. vite build 打包
+
+```js
+// 什么是 esm、cjs、iife 格式
+
+// esm 格式：ECMAScript Module，现在使用的模块方案，使用 import export 来管理依赖
+
+// cjs 格式：CommonJS，只能在 NodeJS 上运行，使用 require("module") 读取并加载模块；
+
+// iife 格式：通过 <script> 标签引入的自执行函数；
+```
+
 ### Build
 
 To build all apps and packages, run the following command:
@@ -154,3 +181,8 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.com/docs/reference/configuration)
 - [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- [如何去搞 Vue/React Hooks 和 Utils 的企业开源工具库？](https://juejin.cn/post/7165671737076482062#heading-2)
+- [使用 Vite 和 TypeScript 带你从零打造一个属于自己的 Vue3 组件库](https://juejin.cn/post/7117886038126624805#heading-17)
+- [pnpm workspace 指南](https://pnpm.io/zh/feature-comparison)
+- [基于TSDoc规范生成漂亮的开源项目文档](https://juejin.cn/post/7275943600780787753?searchId=202408312125260968A15D4199BF36B1A5#heading-4)
+- [个人工具函数库 摇树优化 一键生成文档站点](https://juejin.cn/post/7245584147456426045#heading-7)
