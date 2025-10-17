@@ -3,6 +3,7 @@
  */
 import type { App } from 'vue'
 import { Badge } from './Badge'
+import { SearchBar } from './SearchBar'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
 // import { TextEllipsis } from './text-ellipsis'
@@ -22,6 +23,7 @@ import { Badge } from './Badge'
 const components = [
   // ImageView,
   Badge,
+  SearchBar,
   // Breadcrumb,
   // BreadcrumbItem,
   // Button,
