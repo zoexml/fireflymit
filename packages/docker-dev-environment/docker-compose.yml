@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  front:
+    build: .
+    container_name: front_pnpm_dev
+    ports:
+      - "5173:5173"     # Vite / Vue / React 默认
+      - "3000:3000"     # Next.js 默认
+    volumes:
+      - .:/app
+      - /app/node_modules   # 防止宿主机覆盖容器 node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true     # 解决 Mac/WSL 文件监听问题
+    command: pnpm dev

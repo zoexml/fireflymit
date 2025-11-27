@@ -1,0 +1,38 @@
+# 依赖目录（一定不要复制！）
+node_modules
+
+# 构建产物
+dist
+dist-ssr
+build
+
+# 锁文件以外的安装缓存
+.pnpm-store
+
+# 编辑器配置文件
+.vscode
+.idea
+
+# 日志文件
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+*.log
+
+# Git 相关
+.git
+.gitignore
+
+# 环境文件（如果你不想 COPY 到镜像，可启用）
+# .env
+# .env.*.local
+
+# 本地操作系统文件
+.DS_Store
+Thumbs.db
+
+# 其它各种缓存
+.cache
+.eslintcache
+.stylelintcache
