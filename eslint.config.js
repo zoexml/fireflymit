@@ -27,3 +27,7 @@ export default antfu({
     // ...globs
   ],
 })
+
+// import fireflymit from '@fireflymit/eslint-config'
+
+// export default fireflymit
