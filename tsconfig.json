@@ -9,6 +9,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "paths": {
+      "@fireflymit/*": ["packages/*"],
       "@fireflymit/ui/*": ["packages/ui/src/*"]
     },
     "resolveJsonModule": true,

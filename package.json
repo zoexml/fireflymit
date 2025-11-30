@@ -34,8 +34,6 @@
     "ncu": "ncu -i"
   },
   "dependencies": {
-    "@fireflymit/eslint-config": "workspace:^",
-    "@fireflymit/ui": "workspace:^",
     "radash": "^12.1.1"
   },
   "devDependencies": {
@@ -43,6 +41,8 @@
     "@changesets/cli": "^2.29.6",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@fireflymit/eslint-config": "workspace:^",
+    "@fireflymit/ui": "workspace:^",
     "@unocss/eslint-plugin": "^66.5.0",
     "eslint": "^9.34.0",
     "eslint-plugin-format": "^1.0.1",
