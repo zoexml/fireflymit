@@ -35,6 +35,13 @@ export default {
         ignoreFunctions: ['mix', 'lighten', 'darken', 'rgba', 'v-bind'], // 忽略这些常用 SCSS 函数
       },
     ],
+    // 允许 global 、export 、v-deep等伪类
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['global', 'export', 'deep', 'v-deep'],
+      },
+    ],
     // 关闭 SCSS 全局函数名称检查
     'scss/no-global-function-names': null,
 
