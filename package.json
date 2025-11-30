@@ -21,6 +21,7 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "build": "turbo run build",
+    "build:commitlint": "pnpm -F @fireflymit/commitlint-config run build",
     "dev": "turbo run dev",
     "play:dev": "pnpm -C play dev",
     "docs:dev": "vitepress dev docs",
@@ -42,7 +43,6 @@
     "@antfu/eslint-config": "^5.2.2",
     "@changesets/cli": "^2.29.6",
     "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
     "@fireflymit/commitlint-config": "workspace:^",
     "@fireflymit/eslint-config": "workspace:^",
     "@fireflymit/prettier-config": "workspace:^",
