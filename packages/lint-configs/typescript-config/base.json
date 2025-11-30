@@ -17,6 +17,7 @@
     "target": "ES2022",
     "noEmit": true,
     "jsx": "preserve",
+    // 路径别名（统一管理）
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -25,7 +26,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true
   },
-  "exclude": ["**/node_modules/**", "**/dist/**", "**/lib/**"]
+  "exclude": ["**/node_modules/**", "**/dist/**", "**/__tests__", "**/lib/**"]
 }

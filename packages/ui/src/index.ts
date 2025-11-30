@@ -4,8 +4,7 @@
 // src/index.ts
 // import './style/variables.scss'
 
+export * from './_utils'
 export { default } from './components'
-
 export * from './components'
-export * from './hooks'
-export * from './utils'
+// export * from '../../hooks'

@@ -1,10 +1,29 @@
 {
-  "extends": "../../tsconfig.json",
+  // 继承 Vite 配置
+  "extends": "@fireflymit/typescript-config/vite.json",
   "compilerOptions": {
+    // JSX 保留模式
+    "jsx": "preserve",
+    // 包含的库文件
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    // 基础路径
+    "baseUrl": ".",
+    // 使用 Bundler 模块解析策略
+    "moduleResolution": "bundler",
+    // 路径映射
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "declaration": true,
     "declarationDir": "dist/types",
-    "outDir": "dist"
+    // 移除 .d.ts.map 文件映射
+    "declarationMap": false,
+    "outDir": "dist",
+    // 跳过对声明文件的类型检查
+    "skipLibCheck": true
   },
+  // 包含的文件路径
   "include": ["src/**/*", "env.d.ts", "src/auto-imports.d.ts", "src/components.d.ts"],
-  "exclude": ["node_modules", "dist/**/*"]
+  // 排除的文件路径
+  "exclude": ["src/types/global.d.ts"]
 }
