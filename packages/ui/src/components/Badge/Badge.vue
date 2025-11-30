@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import type { BadgeType } from './types'
-import { createNamespace } from '../../utils'
+import { createNamespace } from '~/_utils'
 import { badgeProps } from './types'
 
 defineOptions({ name: 'ArtBadge' })

@@ -1,4 +1,4 @@
-import { withInstall } from '../../utils'
+import { withInstall } from '~/_utils'
 import _Badge from './Badge.vue'
 
 // 类型导出
