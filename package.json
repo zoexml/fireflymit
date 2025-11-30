@@ -7,9 +7,18 @@
     "name": "joet桀",
     "github": "https://github.com/zoexml"
   },
+  "license": "MIT",
+  "homepage": "https://github.com/zoexml/fireflymit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoexml/fireflymit"
+  },
+  "bugs": "https://github.com/zoexml/fireflymit/issues",
   "keywords": [
     "pnpm",
-    "monorepo"
+    "monorepo",
+    "ui",
+    "turbo"
   ],
   "engines": {
     "node": ">=22",
@@ -34,6 +43,12 @@
     "check-types": "turbo run check-types",
     "postinstall": "npx simple-git-hooks",
     "preinstall": "npx only-allow pnpm",
+    "changeset:version": "pnpm changeset && pnpm changeset version",
+    "deps:update": "pnpm update -r --latest",
+    "deps:check": "pnpm outdated -r",
+    "rename-pkg": "bash ./scripts/rename-package.sh",
+    "generate:component": "node scripts/generate-component.mjs",
+    "publish": "turbo run publish",
     "ncu": "ncu -i"
   },
   "dependencies": {
