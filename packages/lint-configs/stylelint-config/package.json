@@ -1,0 +1,32 @@
+{
+  "name": "@fireflymit/stylelint-config",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "default": "./index.mjs"
+    }
+  },
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "peerDependencies": {
+    "stylelint": "catalog:lint"
+  },
+  "devDependencies": {
+    "postcss": "catalog:lint",
+    "postcss-html": "catalog:lint",
+    "postcss-scss": "catalog:lint",
+    "stylelint": "catalog:lint",
+    "stylelint-config-recess-order": "catalog:lint",
+    "stylelint-config-recommended-vue": "catalog:lint",
+    "stylelint-config-standard": "catalog:lint",
+    "stylelint-config-standard-scss": "catalog:lint",
+    "stylelint-order": "catalog:lint",
+    "stylelint-scss": "catalog:lint"
+  }
+}
