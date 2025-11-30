@@ -23,15 +23,16 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  // Enable file nesting
-  "explorer.fileNesting.enabled": true, // 开启文件嵌套
+  // 控制相关文件嵌套展示
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-  //   ".env": ".env.*",
-  //   "tsconfig.json": "tsconfig.*.json, env.d.ts, .npmrc, .nvmrc",
-  //   "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*,",
-    "package.json": "package-lock.json, pnpm*,",
-    "commitlint.config.mjs": ".git-cz.json",
-    "README.md": "CHANGELOG.md,.versionrc"
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx, $(capture).d.ts",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx,$(capture).d.ts",
+    "*.env": "$(capture).env.*",
+    "README.md": "README*,CHANGELOG*,LICENSE,CNAME,Todo*",
+    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.nvmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
+    "eslint.config.js": ".eslintignore,.prettierignore,.stylelintignore,commitlint.config.mjs,.commitlintrc.*,.prettierrc.*,prettier.config.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json"
   },
 
   // Enable eslint for all supported languages
