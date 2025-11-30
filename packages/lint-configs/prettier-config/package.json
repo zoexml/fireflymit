@@ -3,11 +3,21 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
-  "dependencies": {
-    "prettier": "^3.6.2"
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "default": "./index.mjs"
+    }
+  },
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "peerDependencies": {
+    "prettier": "catalog:lint"
+  },
+  "devDependencies": {
+    "prettier": "catalog:lint"
   }
 }

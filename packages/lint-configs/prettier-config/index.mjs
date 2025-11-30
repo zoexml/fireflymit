@@ -33,7 +33,7 @@ const basePrettierConfig = {
   // 所有标签周围的空格（或缺少空格）被认为是重要的。
   htmlWhitespaceSensitivity: 'strict',
   // 确保在文本文件中仅使用 ( \n)换行，常见于 Linux 和 macOS 以及 git repos 内部。
-  endOfLine: 'lf',
+  endOfLine: 'auto',
   // 格式化文件时，回到包含所选语句的第一行的开头。
   rangeStart: 0,
   // 每个文件格式化的范围是文件的全部内容
