@@ -30,7 +30,7 @@
   //   "vite.config.*": "pages.config.*, manifest.config.*, uno.config.*, volar.config.*,",
     "package.json": "package-lock.json, pnpm*,",
     "commitlint.config.mjs": ".git-cz.json",
-    "README.md": "CHANGELOG.md,LICENSE*,.versionrc"
+    "README.md": "CHANGELOG.md,.versionrc"
   },
 
   // Enable eslint for all supported languages
