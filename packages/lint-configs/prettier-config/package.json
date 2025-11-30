@@ -1,0 +1,13 @@
+{
+  "name": "@fireflymit/prettier-config",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "prettier": "^3.6.2"
+  }
+}
