@@ -1,0 +1,24 @@
+{
+  "name": "@fireflymit/commitlint-config",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "default": "./index.mjs"
+    }
+  },
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "catalog:lint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "catalog:lint",
+    "@commitlint/config-conventional": "catalog:lint"
+  }
+}
