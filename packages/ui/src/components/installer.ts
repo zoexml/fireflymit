@@ -3,10 +3,26 @@
  */
 import type { App } from 'vue'
 import { Badge } from './Badge'
+// import { Checkbox } from './checkbox'
+// import { Empty } from './empty'
 import { SearchBar } from './SearchBar'
+// import { TextEllipsis } from './text-ellipsis'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
 // import { TextEllipsis } from './text-ellipsis'
+// import { Dialog } from './Dialog'
+// import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
+// import { Button } from './button'
+// import { ImageView } from './image-view'
+// import { InputNumber } from './input-number'
+// import { Message, showLoadingMessage, showMessage } from './message'
+// import { Sku } from './sku'
+// import { Step, StepItem } from './step'
+// import { Tab, TabPanel } from './tab'
+// import { Carousel, CarouselItem } from './carousel'
+// import { Checkbox } from './checkbox'
+// import { Confirm, showConfirm } from './confirm'
+
 // import { Dialog } from './Dialog'
 // import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
 // import { Button } from './button'
@@ -46,3 +62,19 @@ const components = [
 export function installer(app: App) {
   components.forEach(component => app.component(component.name as string, component))
 }
+
+// export function installer(app: App) {
+//   components.forEach(component => app.component(component.name as string, component))
+
+//   // app.config.globalProperties.$confirm = showConfirm
+//   // app.config.globalProperties.$message = showMessage
+//   // app.config.globalProperties.$loading = showLoadingMessage
+// }
+
+// declare module 'vue' {
+//   export interface globalProperties {
+//     // $confirm: typeof showConfirm
+//     // $message: typeof showMessage
+//     // $loading: typeof showLoadingMessage
+//   }
+// }
