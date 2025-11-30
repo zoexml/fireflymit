@@ -14,10 +14,7 @@
   "scripts": {
     "clean": "rimraf .turbo node_modules"
   },
-  "peerDependencies": {
-    "prettier": "catalog:lint"
-  },
-  "devDependencies": {
-    "prettier": "catalog:lint"
+  "dependencies": {
+    "prettier": "^3.6.2"
   }
 }
