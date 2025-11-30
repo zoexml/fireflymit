@@ -1,8 +1,8 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import AutoImport from 'unplugin-auto-import/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -16,21 +16,26 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    AutoImport({
-      imports: [
-        'vue',
-        '@vueuse/core',
-      ],
-      dts: 'src/auto-imports.d.ts',
-      resolvers: [ElementPlusResolver()],
-      vueTemplate: true,
-    }),
-
+    // AutoImport({
+    //   imports: [
+    //     'vue',
+    //     '@vueuse/core',
+    //   ],
+    //   dts: 'src/types/auto-imports.d.ts',
+    //   resolvers: [ElementPlusResolver()],
+    //   vueTemplate: true,
+    // }),
     dts({
       entryRoot: './src', // 入口源码目录
       outDir: ['dist/es', 'dist/lib'], // 同时生成 ES 和 CJS 类型声明
       tsconfigPath: './tsconfig.json',
     }),
+    // Components({
+    //   // 不开起自动生成声明文件 dts: false
+    //   dts: false,
+    //   // 原因：Toast Confirm 这类组件的样式还是需要单独引入，样式全局引入了，关闭自动引入
+    //   resolvers: [ElementPlusResolver({ importStyle: false })],
+    // }),
     // dts({
     //   // 包含的文件类型
     //   include: ['src/**/*.{vue,ts,tsx}'],
