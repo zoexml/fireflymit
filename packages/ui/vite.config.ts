@@ -1,6 +1,9 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -13,6 +16,16 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    AutoImport({
+      imports: [
+        'vue',
+        '@vueuse/core',
+      ],
+      dts: 'src/auto-imports.d.ts',
+      resolvers: [ElementPlusResolver()],
+      vueTemplate: true,
+    }),
+
     dts({
       entryRoot: './src', // 入口源码目录
       outDir: ['dist/es', 'dist/lib'], // 同时生成 ES 和 CJS 类型声明
@@ -38,6 +51,7 @@ export default defineConfig({
     //   },
     // },
   ],
+
   build: {
     target: 'esnext', // 目标版本: 编译目标为 ES Modules（支持现代浏览器）
     outDir: 'dist', // 输出目录
@@ -61,10 +75,9 @@ export default defineConfig({
     },
     rollupOptions: {
       // 排除依赖的库,css
-      external: ['vue', '@vueuse/core', '@element-plus/icons-vue', /\.scss/], // 'element-plus',
+      external: ['vue', '@element-plus/icons-vue', /\.scss/], // 'element-plus','@vueuse/core'
       // 入口地址
       input: ['src/index.ts'],
-      // 输出配置
       output: [
         // {
         //   format: 'iife',
@@ -79,7 +92,7 @@ export default defineConfig({
         // },
         {
           format: 'es', // 按需加载 vite tree shaking
-          entryFileNames: '[name].mjs', // 不用打包成.es.js,这里我们想把它打包成.js // erabbit.esm-browser.js
+          entryFileNames: '[name].mjs', // 不用打包成.es.js,这里我们想把它打包成.js // xxx.esm-browser.js
           dir: 'dist/es',
           preserveModules: true, // 保留原始文件结构，不合并成单个文件
           inlineDynamicImports: false, // 不内联动态 import
