@@ -24,7 +24,7 @@ npx create-turbo@latest
   <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
   <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
 
-## 安装教程
+## 安装
 
 ```bash
 # 安装公共依赖
@@ -56,7 +56,7 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 This Turborepo has some additional tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
+- [ESLint](https://eslint.org/) for code linting.
 - [Prettier](https://prettier.io) for code formatting
 
 ### 一键生成文档
@@ -70,6 +70,10 @@ This Turborepo has some additional tools already setup for you:
 1. 初始化生成配置文件 api-extractor.json
 2. pnpm api 提取文档
 3. pnpm md 生成md文档
+
+<!-- 实时查看规则：让配置一目了然 -->
+
+npx @eslint/config-inspector
 
 ### 项目打包
 
