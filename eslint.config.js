@@ -1,7 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu({
-  type: 'lib',
   rules: {
     'no-console': 'off',
     'node/prefer-global/process': 'off', // process is not global in node
@@ -27,7 +26,3 @@ export default antfu({
     // ...globs
   ],
 })
-
-// import fireflymit from '@fireflymit/eslint-config'
-
-// export default fireflymit
