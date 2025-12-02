@@ -2,8 +2,8 @@
   "extends": "@fireflymit/typescript-config/base.json",
   "compilerOptions": {
     "paths": {
-      "@fireflymit/*": ["packages/*"],
-      "@fireflymit/ui/*": ["packages/ui/src/*"]
+      "@ffm/*": ["packages/*"],
+      "@ffm/ui/*": ["packages/ui/src/*"]
     }
   }
 }
