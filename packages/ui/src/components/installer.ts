@@ -5,7 +5,7 @@ import type { App } from 'vue'
 import { Badge } from './Badge'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
-import { SearchBar } from './SearchBar'
+// import { SearchBar } from './SearchBar'
 // import { TextEllipsis } from './text-ellipsis'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
@@ -22,7 +22,6 @@ import { SearchBar } from './SearchBar'
 // import { Carousel, CarouselItem } from './carousel'
 // import { Checkbox } from './checkbox'
 // import { Confirm, showConfirm } from './confirm'
-
 // import { Dialog } from './Dialog'
 // import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
 // import { Button } from './button'
@@ -39,7 +38,7 @@ import { SearchBar } from './SearchBar'
 const components = [
   // ImageView,
   Badge,
-  SearchBar,
+  // SearchBar,
   // Breadcrumb,
   // BreadcrumbItem,
   // Button,

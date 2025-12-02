@@ -4,6 +4,6 @@
 import { installer } from './installer'
 
 export * from './Badge'
-export * from './SearchBar'
+// export * from './SearchBar'
 
 export default installer

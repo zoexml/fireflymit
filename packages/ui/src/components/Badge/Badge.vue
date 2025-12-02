@@ -1,15 +1,10 @@
-<!--
- * @Description: 状态多彩徽章组件。不同状态展示不同颜色的徽章，视觉上更直观。
--->
-
 <script setup lang="ts">
-import type { BadgeType } from './types'
+import type { BadgeProps, BadgeType } from './Badge.types'
 import { createNamespace } from '~/_utils'
-import { badgeProps } from './types'
 
 defineOptions({ name: 'ArtBadge' })
 
-const props = defineProps(badgeProps)
+const props = defineProps<BadgeProps>()
 
 const [className, bem] = createNamespace('badge')
 
@@ -31,22 +26,6 @@ const colors: Record<BadgeType, string> = {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.art-badge {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 14px;
-  line-height: 20px;
-
-  &--type {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-  }
-
-  &--text {
-    line-height: inherit;
-  }
-}
+<style lang="scss">
+@use './Badge.scss' as *;
 </style>
