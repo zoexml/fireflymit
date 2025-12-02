@@ -17,7 +17,7 @@ export default defineConfig({
     port: 4444,
   },
   optimizeDeps: {
-    include: ['vue', 'element-plus'],
+    include: ['vue', 'element-plus', 'ant-design-vue'],
   },
 })
 
