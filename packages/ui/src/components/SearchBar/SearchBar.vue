@@ -30,7 +30,7 @@ import {
   ElTimeSelect,
   ElTreeSelect,
 } from 'element-plus'
-import { computed, defineExpose, defineModel, defineOptions, defineProps, ref, toRefs, useTemplateRef } from 'vue'
+import { computed, ref, toRefs, useTemplateRef } from 'vue'
 
 defineOptions({ name: 'ArtSearchBar' })
 

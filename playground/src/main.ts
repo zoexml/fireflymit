@@ -1,10 +1,10 @@
+// 引入@fireflymit/ui
+import ArtUI from '@fireflymit/ui/src/index'
 // import ArtUI from '@fireflymit/ui'
 // 引入antdv
 import Antd from 'ant-design-vue'
 import ElementPlus from 'element-plus'
 import { createApp } from 'vue'
-// 引入@fireflymit/ui
-import ArtUI from '../../packages/ui/src/index'
 // import '@fireflymit/ui/style.css';
 import App from './App.vue'
 
