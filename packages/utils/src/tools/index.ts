@@ -33,3 +33,36 @@ export const copyToClipboard = (text: string) => {
   document.execCommand('copy')
   document.body.removeChild(textArea)
 }
+
+/**
+ * 生成随机颜色值
+ *
+ * @returns 返回一个以 `#` 开头的六位十六进制颜色值字符串
+ */
+export function randomColor() {
+  const r = Math.floor(Math.random() * 256)
+  const g = Math.floor(Math.random() * 256)
+  const b = Math.floor(Math.random() * 256)
+  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`
+}
+
+// test
+// console.log('🚀 ~ randomColor():', randomColor()) // '#a0b0c0'
+
+/**
+ * 解析URL查询参数
+ *
+ * @param url 待解析的URL
+ * @returns 返回解析后的查询参数对象，以键值对形式表示
+ * @example
+ * ```ts
+ * parseQuery('https://www.baidu.com/?a=1&b=2') // { a: '1', b: '2' }
+ *
+ * parseQuery('a=1&b=2&c=3') // { a: '1', b: '2', c: '3' }
+ * ```
+ */
+export const parseQuery = (url: string) => {
+  const q: Record<string, string> = {}
+  url.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (q[k] = decodeURIComponent(v)))
+  return q
+}
