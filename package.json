@@ -33,6 +33,7 @@
     "dev:play": "pnpm -F @fireflymit/playground dev",
     "dev:docs": "vitepress dev docs",
     "build": "turbo run build",
+    "build:utils": "pnpm --dir packages/utils build",
     "build:commitlint": "pnpm -F @fireflymit/commitlint-config run build",
     "build:docs": "vitepress build docs",
     "preview:docs": "vitepress preview docs",
@@ -47,6 +48,7 @@
     "deps:update": "pnpm update -r --latest",
     "deps:check": "pnpm outdated -r",
     "rename-pkg": "bash ./scripts/rename-package.sh",
+    "plop:component": "plop component",
     "generate:component": "node scripts/generate-component.mjs",
     "publish": "turbo run publish",
     "ncu": "ncu -i"
@@ -71,6 +73,7 @@
     "git-cz": "^4.9.0",
     "lint-staged": "^16.1.6",
     "only-allow": "^1.2.1",
+    "plop": "^4.0.4",
     "prettier": "^3.6.2",
     "rimraf": "^6.1.2",
     "rollup": "^4.53.3",

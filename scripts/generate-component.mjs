@@ -43,7 +43,7 @@ const vueTemplate = `<template>
 import type { ${componentName}Emits, ${componentName}Props } from './${componentName}.types';
 
 defineOptions({
-  name: 'V${componentName}',
+  name: 'Art${componentName}',
 });
 
 const props = defineProps<${componentName}Props>();

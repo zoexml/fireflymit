@@ -317,3 +317,56 @@ Learn more about the power of Turborepo:
 - [pnpm workspace 指南](https://pnpm.io/zh/feature-comparison)
 - [基于TSDoc规范生成漂亮的开源项目文档](https://juejin.cn/post/7275943600780787753?searchId=202408312125260968A15D4199BF36B1A5#heading-4)
 - [个人工具函数库 摇树优化 一键生成文档站点](https://juejin.cn/post/7245584147456426045#heading-7)
+
+```json
+{
+  "scripts": {
+    "dev:apifox": "pnpm --dir packages/apifox-cli dev",
+    "dev:ui": "pnpm --dir packages/ui dev",
+    "build:ui": "pnpm --dir packages/ui build",
+    "apifox:build": "pnpm --dir packages/apifox-cli build",
+    "apifox:build:out": "pnpm --dir packages/apifox-cli build:out",
+    "test": "vitest test",
+    "test:update": "vitest -u",
+    "coverage": "vitest run --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "1.6.1",
+    "@storybook/addon-essentials": "^8.2.7",
+    "@storybook/addon-interactions": "^8.2.7",
+    "@storybook/addon-links": "^8.2.7",
+    "@storybook/addon-onboarding": "^8.2.7",
+    "@storybook/blocks": "^8.2.7",
+    "@storybook/test": "^8.2.7",
+    "@storybook/vue3": "^8.2.7",
+    "@storybook/vue3-vite": "^8.2.7",
+    "@types/node": "^20.16.4",
+    "@vitejs/plugin-vue": "^5.1.1",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.9.4",
+    "eslint-plugin-format": "^0.1.2",
+    "eslint-plugin-storybook": "^0.8.0",
+    "sass": "^1.77.8",
+    "storybook": "^8.2.7",
+    "vite": "^5.3.4",
+    "vite-plugin-dts": "4.0.0-beta.2",
+    "vitepress": "^1.3.1",
+    "vitest": "^2.0.5",
+    "vue": "^3.5.1",
+    "vue-tsc": "^2.0.24"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
+```
