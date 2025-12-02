@@ -1,7 +1,7 @@
 # 将本地开发环境集成到docker
 
-
 ## 启动
+
 ```sh
 docker compose up --build
 
@@ -10,6 +10,7 @@ http://localhost:5173   (Vite)
 http://localhost:3000   (Next.js)
 
 ```
+
 ## 不同框架的命令修改
 
 1. Vite/Vue/React
@@ -20,25 +21,23 @@ command: pnpm dev
 
 command: pnpm dev
 
-
 3. 外加确保端口暴露
-ports:
-  - "3000:3000"
-environment:
-  - WATCHPACK_POLLING=true
+   ports:
+
+- "3000:3000"
+  environment:
+- WATCHPACK_POLLING=true
 
 4. Nuxt3
 
 command: pnpm dev -o
 ports:
-  - "3000:3000"
 
-
+- "3000:3000"
 
 ## VSCode 容器开发
 
 ```json
-
 {
   "name": "Front Dev with pnpm",
   "dockerComposeFile": "../docker-compose.yml",
