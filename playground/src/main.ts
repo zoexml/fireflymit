@@ -1,23 +1,47 @@
-import { setupCounter } from './counter.ts'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
+import { createApp } from 'vue'
+// 统一入口默认导出的是 installer
+// import ArtUI from '@fireflymit/ui'
+import ArtUI from '../../packages/ui/src/index'
+import App from '../../playground/src/App.vue'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+import './style.css'
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const app = createApp(App)
+
+app.use(ArtUI)
+app.mount('#app')
+
+// import { createApp } from 'vue';
+
+// import App from './App.vue';
+// import router from './router';
+// // 引入antdv
+// import Antd from 'ant-design-vue';
+// import 'ant-design-vue/dist/reset.css';
+// // 引入@mylib/ui
+// import MyLibUI from '@mylib/ui';
+// import '@mylib/ui/style.css';
+
+// const app = createApp(App);
+// app.use(Antd); // 全局引入antdv组件
+// app.use(MyLibUI); // 全局引入@mylib/ui组件
+// app.use(router);
+// app.mount('#app');
+
+// import YhUI from '@yhclt/ui/src/index'
+
+// import ElementPlus from 'element-plus'
+// import { createApp } from 'vue'
+
+// import App from '../../play/src/App1.vue'
+// import 'element-plus/dist/index.css'
+// import './style.css'
+
+// // const plugins = [Badge, Empty]
+
+// const app = createApp(App)
+
+// // plugins.forEach(plugin => app.use(plugin)) // 将组件注册成了全局组件 ，可以直接使用了
+// app.use(ElementPlus)
+// app.use(YhUI)
+// app.mount('#app')
