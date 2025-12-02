@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { BadgeProps, BadgeType } from './Badge.types'
+import type { BadgeType } from './Badge.types'
 import { createNamespace } from '~/_utils'
+import { badgeProps } from './Badge.types'
 
 defineOptions({ name: 'ArtBadge' })
 
-const props = defineProps<BadgeProps>()
+const props = defineProps(badgeProps)
 
 const [className, bem] = createNamespace('badge')
 
@@ -19,9 +20,9 @@ const colors: Record<BadgeType, string> = {
 
 <template>
   <div :class="className">
-    <span :class="bem('type')" :style="`background-color: ${colors[props?.type]}`" />
+    <span :class="bem('type')" :style="`background-color: ${colors[props.type]}`" />
     <div :class="bem('text')">
-      {{ props?.text }}
+      {{ props.text }}
     </div>
   </div>
 </template>

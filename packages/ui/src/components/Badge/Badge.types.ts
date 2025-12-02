@@ -14,4 +14,4 @@ export const badgeProps = {
   },
 } as const
 
-export type BadgeProps = ExtractPropTypes<typeof badgeProps>
+export type ArtBadgeProps = ExtractPropTypes<typeof badgeProps>

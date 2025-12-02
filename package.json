@@ -30,7 +30,7 @@
   "scripts": {
     "clean": "turbo run clean --continue && rimraf .turbo dist && rm -rf node_modules",
     "dev": "turbo run dev",
-    "dev:play": "pnpm -F @fireflymit/playground dev",
+    "dev:play": "pnpm -F playground dev",
     "dev:docs": "vitepress dev docs",
     "build": "turbo run build",
     "build:utils": "pnpm --dir packages/utils build",
