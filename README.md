@@ -16,13 +16,13 @@ npx create-turbo@latest
 - 🔷 [typescript](https://www.typescriptlang.org/) - JavaScript 超集
 - ⚡️ [radash](https://radash.uihtm.com/) - 函数库
 - 🎨 [unocss](https://unocss.dev/) - 原子化 CSS 引擎
-  <!-- - 🖖 [vue3](https://vuejs.org/) - 渐进式框架 -->
-  <!-- - 🚦 [uni-mini-router](https://github.com/uni-helper/uni-mini-router) - 小程序路由管理器 -->
-  <!-- - 🚀 [alova](https://alova.js.org/) - 轻量级请求策略库 -->
-  <!-- - 🎯 [wot-design](https://wot-design-uni.cn/) - Vue3 UI 框架 -->
-  <!-- - 📜 [z-paging](https://z-paging.zxlee.cn/) - 上拉加载下拉刷新组件 -->
-  <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
-  <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
+- 🖖 [vue3](https://vuejs.org/) - 渐进式框架
+    <!-- - 🚦 [uni-mini-router](https://github.com/uni-helper/uni-mini-router) - 小程序路由管理器 -->
+    <!-- - 🚀 [alova](https://alova.js.org/) - 轻量级请求策略库 -->
+    <!-- - 🎯 [wot-design](https://wot-design-uni.cn/) - Vue3 UI 框架 -->
+    <!-- - 📜 [z-paging](https://z-paging.zxlee.cn/) - 上拉加载下拉刷新组件 -->
+    <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
+    <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
 
 ## 安装
 
@@ -41,15 +41,142 @@ pnpm install <package_selector1> -r --filter <package_selector2>
 
 ```
 
-### docs and Packages
+### 项目结构
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+```
+fireflymit
+├─ .changeset                                  // 发包管理
+│  ├─ README.md                                //
+│  └─ config.json                              //
+├─ .editorconfig                               //
+├─ .npmrc                                      //
+├─ .nvmrc                                      //
+├─ .stylelintignore                            //
+├─ LICENSE                                     //
+├─ README.md                                   //
+├─ commitlint.config.mjs                       //
+├─ docs                                       // 文档
+├─ eslint.config.js                            //
+├─ package.json                                //
+├─ packages                                    //
+│  ├─ docker-dev-environment                   //
+│  │  ├─ .dockerignore                         //
+│  │  ├─ Dockerfile                            //
+│  │  ├─ README.md                             //
+│  │  └─ docker-compose.yml                    //
+│  ├─ hooks                                    //
+│  ├─ lint-configs                             //
+│  │  ├─ eslint-config                         //
+│  │  ├─ prettier-config                       //
+│  │  ├─ stylelint-config                      //
+│  │  └─ typescript-config                     //
+│  ├─ shared                                   //
+│  ├─ ui                                       //
+│  │  ├─ README.md                             //
+│  │  ├─ package.json                          //
+│  │  ├─ src                                   //
+│  │  │  ├─ __tests__                          //
+│  │  │  ├─ _utils                             //
+│  │  │  │  ├─ bem.ts                          //
+│  │  │  │  ├─ index.ts                        //
+│  │  │  │  ├─ install.ts                      //
+│  │  │  │  └─ with-install.ts                 //
+│  │  │  ├─ components                         //
+│  │  │  │  ├─ Badge                           //
+│  │  │  │  │  ├─ Badge.vue                    //
+│  │  │  │  │  ├─ index.ts                     //
+│  │  │  │  │  └─ types.ts                     //
+│  │  │  │  ├─ SearchBar                       //
+│  │  │  │  │  ├─ SearchBar.vue                //
+│  │  │  │  │  ├─ index.ts                     //
+│  │  │  │  │  └─ types.ts                     //
+│  │  │  │  ├─ index.ts                        //
+│  │  │  │  └─ installer.ts                    //
+│  │  │  ├─ index.ts                           //
+│  │  │  ├─ style                              //
+│  │  │  │  └─ variables.scss                  //
+│  │  │  ├─ types                              //
+│  │  │  │  ├─ auto-imports.d.ts               //
+│  │  │  │  └─ global.d.ts                     //
+│  │  │  ├─ utils                              //
+│  │  │  └─ version.ts                         //
+│  │  ├─ tsconfig.json                         //
+│  │  ├─ vite.config.ts                        //
+│  │  └─ vitest.config.ts                      //
+│  └─ utils                                    //
+│     ├─ package.json                          //
+│     ├─ src                                   //
+│     │  ├─ array                              //
+│     │  │  └─ index.ts                        //
+│     │  ├─ date                               //
+│     │  │  └─ index.ts                        //
+│     │  ├─ dom                                //
+│     │  │  └─ index.ts                        //
+│     │  ├─ index.ts                           //
+│     │  ├─ random                             //
+│     │  │  └─ index.ts                        //
+│     │  ├─ string                             //
+│     │  │  └─ index.ts                        //
+│     │  ├─ tools                              //
+│     │  │  └─ index.ts                        //
+│     │  ├─ url                                //
+│     │  │  └─ index.ts                        //
+│     │  └─ version.ts                         //
+│     └─ tsconfig.json                         //
+├─ playground                                  //
+│  ├─ README.md                                //
+│  ├─ index.html                               //
+│  ├─ package.json                             //
+│  ├─ public                                   //
+│  │  └─ vite.svg                              //
+│  ├─ src                                      //
+│  │  ├─ App.vue                               //
+│  │  ├─ App1.vue                              //
+│  │  ├─ counter.ts                            //
+│  │  ├─ layouts                               //
+│  │  │  ├─ MainLayout.vue                     //
+│  │  │  ├─ TabsView.vue                       //
+│  │  │  └─ container                          //
+│  │  │     ├─ Directives.vue                  //
+│  │  │     ├─ Hooks.vue                       //
+│  │  │     ├─ Ui.vue                          //
+│  │  │     └─ Utils.vue                       //
+│  │  ├─ main.ts                               //
+│  │  ├─ router                                //
+│  │  │  └─ index.ts                           //
+│  │  ├─ types                                 //
+│  │  │  └─ router.d.ts                        //
+│  │  ├─ views                                 //
+│  │  │  ├─ Directives                         //
+│  │  │  │  └─ vFocus.vue                      //
+│  │  │  ├─ Hooks                              //
+│  │  │  │  └─ useCounter.vue                  //
+│  │  │  ├─ Ui                                 //
+│  │  │  │  ├─ ArtBadge.vue                    //
+│  │  │  │  ├─ Button.vue                      //
+│  │  │  │  ├─ Dialog.vue                      //
+│  │  │  │  └─ SearchBar.vue                   //
+│  │  │  └─ Utils                              //
+│  │  │     ├─ All.vue                         //
+│  │  │     └─ __test__                        //
+│  │  │        ├─ array.spec.ts                //
+│  │  │        └─ string.spec.ts               //
+│  │  └─ vite-env.d.ts                         //
+│  ├─ tsconfig.json                            //
+│  ├─ vite.config.ts                           //
+│  └─ vitest.workspace.ts                      //
+├─ pnpm-lock.yaml                              //
+├─ pnpm-workspace.yaml                         //
+├─ prettier.config.js                          //
+├─ scripts                                     //
+│  ├─ generate-component.mjs                   //
+│  └─ rename-package.sh                        //
+├─ stylelint.config.mjs                        //
+├─ tsconfig.json                               //
+├─ turbo.json                                  //
+└─ uno.config.ts                               //
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+```
 
 ### Utilities
 
