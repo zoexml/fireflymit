@@ -62,19 +62,3 @@ const components = [
 export function installer(app: App) {
   components.forEach(component => app.component(component.name as string, component))
 }
-
-// export function installer(app: App) {
-//   components.forEach(component => app.component(component.name as string, component))
-
-//   // app.config.globalProperties.$confirm = showConfirm
-//   // app.config.globalProperties.$message = showMessage
-//   // app.config.globalProperties.$loading = showLoadingMessage
-// }
-
-// declare module 'vue' {
-//   export interface globalProperties {
-//     // $confirm: typeof showConfirm
-//     // $message: typeof showMessage
-//     // $loading: typeof showLoadingMessage
-//   }
-// }
