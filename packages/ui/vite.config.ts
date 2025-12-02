@@ -83,6 +83,7 @@ export default defineConfig({
       external: ['vue', '@element-plus/icons-vue', /\.scss/], // 'element-plus','@vueuse/core'
       // 入口地址
       input: ['src/index.ts'],
+      // 输出配置
       output: [
         // {
         //   format: 'iife',
@@ -96,31 +97,26 @@ export default defineConfig({
         //   inlineDynamicImports: false,
         // },
         {
+          exports: 'named',
           format: 'es', // 按需加载 vite tree shaking
           entryFileNames: '[name].mjs', // 不用打包成.es.js,这里我们想把它打包成.js // xxx.esm-browser.js
           dir: 'dist/es',
-          preserveModules: true, // 保留原始文件结构，不合并成单个文件
+          // 保留原始模块结构，而不是将所有模块合并成一个大文件
+          preserveModules: true,
+          // 将 src 目录设置为模块的根目录，这样输出的文件就会直接从 src 的子目录开始，去掉 src 这一层。dist/es/components/Badge/Badge.vue  // 不再有 src 前缀
+          preserveModulesRoot: 'src',
           inlineDynamicImports: false, // 不内联动态 import
-          exports: 'named',
         },
         {
+          exports: 'named',
           format: 'cjs', // ssr lib commonjs
           entryFileNames: '[name].js',
           preserveModules: true,
+          preserveModulesRoot: 'src',
           dir: 'dist/lib',
           inlineDynamicImports: false,
-          exports: 'named',
         },
       ],
-      // 输出配置
-      // output: {
-      //   // 导出方式
-      //   exports: 'named',
-      //   // 保留原始模块结构，而不是将所有模块合并成一个大文件
-      //   preserveModules: true,
-      //   // 将 src 目录设置为模块的根目录，这样输出的文件就会直接从 src 的子目录开始，去掉 src 这一层。
-      //   preserveModulesRoot: 'src',
-      // },
     },
   },
 })
