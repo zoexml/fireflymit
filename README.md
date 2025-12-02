@@ -17,12 +17,8 @@ npx create-turbo@latest
 - ⚡️ [radash](https://radash.uihtm.com/) - 函数库
 - 🎨 [unocss](https://unocss.dev/) - 原子化 CSS 引擎
 - 🖖 [vue3](https://vuejs.org/) - 渐进式框架
-    <!-- - 🚦 [uni-mini-router](https://github.com/uni-helper/uni-mini-router) - 小程序路由管理器 -->
-    <!-- - 🚀 [alova](https://alova.js.org/) - 轻量级请求策略库 -->
-    <!-- - 🎯 [wot-design](https://wot-design-uni.cn/) - Vue3 UI 框架 -->
-    <!-- - 📜 [z-paging](https://z-paging.zxlee.cn/) - 上拉加载下拉刷新组件 -->
-    <!-- - 📦 [pinia](https://pinia.vuejs.org/) - 状态管理 -->
-    <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
+- 🚀 [alova](https://alova.js.org/) - 轻量级请求策略库
+  <!-- - 📦 [openapi-ts-request](https://github.com/openapi-ui/openapi-ts-request) - api自动生成 -->
 
 ## 安装
 
@@ -38,6 +34,8 @@ pnpm dev --filter <package_selector>
 # 各个 packages/* 模块包间的相互依赖,递归安装依赖
 pnpm install xxx -r
 pnpm install <package_selector1> -r --filter <package_selector2>
+# 模板
+pnpm create vite play --template vue-ts
 
 ```
 
@@ -312,8 +310,8 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.com/docs/reference/configuration)
 - [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
-- [如何去搞 Vue/React Hooks 和 Utils 的企业开源工具库？](https://juejin.cn/post/7165671737076482062#heading-2)
-- [使用 Vite 和 TypeScript 带你从零打造一个属于自己的 Vue3 组件库](https://juejin.cn/post/7117886038126624805#heading-17)
+- [业务组件库按需引入](https://juejin.cn/post/7572480736362119174)
+- [组件库template](https://github.com/huangmingfu/vue3-turbo-component-lib-template)
 - [pnpm workspace 指南](https://pnpm.io/zh/feature-comparison)
 - [基于TSDoc规范生成漂亮的开源项目文档](https://juejin.cn/post/7275943600780787753?searchId=202408312125260968A15D4199BF36B1A5#heading-4)
 - [个人工具函数库 摇树优化 一键生成文档站点](https://juejin.cn/post/7245584147456426045#heading-7)
@@ -322,51 +320,12 @@ Learn more about the power of Turborepo:
 {
   "scripts": {
     "dev:apifox": "pnpm --dir packages/apifox-cli dev",
-    "dev:ui": "pnpm --dir packages/ui dev",
     "build:ui": "pnpm --dir packages/ui build",
     "apifox:build": "pnpm --dir packages/apifox-cli build",
     "apifox:build:out": "pnpm --dir packages/apifox-cli build:out",
     "test": "vitest test",
     "test:update": "vitest -u",
-    "coverage": "vitest run --coverage",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
-  },
-  "devDependencies": {
-    "@chromatic-com/storybook": "1.6.1",
-    "@storybook/addon-essentials": "^8.2.7",
-    "@storybook/addon-interactions": "^8.2.7",
-    "@storybook/addon-links": "^8.2.7",
-    "@storybook/addon-onboarding": "^8.2.7",
-    "@storybook/blocks": "^8.2.7",
-    "@storybook/test": "^8.2.7",
-    "@storybook/vue3": "^8.2.7",
-    "@storybook/vue3-vite": "^8.2.7",
-    "@types/node": "^20.16.4",
-    "@vitejs/plugin-vue": "^5.1.1",
-    "@vitejs/plugin-vue-jsx": "^4.0.0",
-    "commitizen": "^4.3.0",
-    "cz-git": "^1.9.4",
-    "eslint-plugin-format": "^0.1.2",
-    "eslint-plugin-storybook": "^0.8.0",
-    "sass": "^1.77.8",
-    "storybook": "^8.2.7",
-    "vite": "^5.3.4",
-    "vite-plugin-dts": "4.0.0-beta.2",
-    "vitepress": "^1.3.1",
-    "vitest": "^2.0.5",
-    "vue": "^3.5.1",
-    "vue-tsc": "^2.0.24"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "coverage": "vitest run --coverage"
   }
 }
 ```
