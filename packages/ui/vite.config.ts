@@ -71,7 +71,7 @@ export default defineConfig({
       name: 'art-ui',
       // 输出格式
       formats: ['es', 'cjs'],
-      // // 输出文件名
+      // 输出文件名
       // fileName: (format) => {
       //   return `${format === 'es' ? 'esm' : 'cjs'}/[name].${format === 'es' ? 'mjs' : 'js'}`
       // },
@@ -88,7 +88,7 @@ export default defineConfig({
         //   format: 'iife',
         //   entryFileNames: 'yh.min.js',
         //   dir: 'dist',
-        //   name: 'YhUI',
+        //   name: 'ArtUI',
         //   globals: {
         //     'vue': 'Vue',
         //     '@vueuse/core': 'VueUse',
