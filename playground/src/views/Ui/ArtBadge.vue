@@ -2,7 +2,6 @@
 
 <template>
   <div class="badge-page">
-    <h4>ArtBadge组件</h4>
     <ArtBadge type="primary" text="主要状态" />
     <ArtBadge type="success" text="成功" />
     <ArtBadge type="warning" text="警告" />

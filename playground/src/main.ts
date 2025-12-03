@@ -1,17 +1,14 @@
-// 引入@fireflymit/ui
-import ArtUI from '@fireflymit/ui'
-// 引入antdv
 import Antd from 'ant-design-vue'
+
 import ElementPlus from 'element-plus'
 import { createApp } from 'vue'
+// 引入@fireflymit/ui
+import ArtUI from '~/@fireflymit/ui'
 // import '@fireflymit/ui/style.css';
 import App from './App.vue'
 import router from './router'
 import 'element-plus/dist/index.css'
 import 'ant-design-vue/dist/reset.css'
-
-// import './style.css'
-// const plugins = [Badge, Empty]
 
 const app = createApp(App)
 

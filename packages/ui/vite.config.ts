@@ -1,7 +1,7 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-// import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
@@ -16,19 +16,24 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    // AutoImport({
-    //   imports: [
-    //     'vue',
-    //     '@vueuse/core',
-    //   ],
-    //   dts: 'src/types/auto-imports.d.ts',
-    //   resolvers: [ElementPlusResolver()],
-    //   vueTemplate: true,
-    // }),
+    AutoImport({
+      imports: [
+        'vue',
+        '@vueuse/core',
+      ],
+      dts: 'src/types/auto-imports.d.ts',
+      //   resolvers: [ElementPlusResolver()],
+      vueTemplate: true,
+    }),
     dts({
-      entryRoot: './src', // 入口源码目录
-      outDir: ['dist/es', 'dist/lib'], // 同时生成 ES 和 CJS 类型声明
+      // 入口源码目录
+      entryRoot: './src',
+      // 同时生成 ES 和 CJS 类型声明
+      outDir: ['dist/es', 'dist/lib'],
       tsconfigPath: './tsconfig.json',
+      // 包含的文件类型
+      include: ['src/**/*.{vue,ts,tsx}'],
+      exclude: ['src/__tests__/*', 'src/**/*.{test,spec,stories,demo}.{vue,ts,tsx}'],
     }),
     // Components({
     //   // 不开起自动生成声明文件 dts: false
@@ -36,19 +41,7 @@ export default defineConfig({
     //   // 原因：Toast Confirm 这类组件的样式还是需要单独引入，样式全局引入了，关闭自动引入
     //   resolvers: [ElementPlusResolver({ importStyle: false })],
     // }),
-    // dts({
-    //   // 包含的文件类型
-    //   include: ['src/**/*.{vue,ts,tsx}'],
-    //   exclude: ['src/__tests__/*', 'src/**/*.{test,spec,stories,demo}.{vue,ts,tsx}'],
-    //   // 输出目录
-    //   outDir: ['dist/types'],
-    //   // 写入文件前的处理
-    //   beforeWriteFile: (filePath, content) => ({
-    //     // 替换文件路径中的 '/src/' 为 '/'，不然类型产物都会被放在src文件夹下面
-    //     filePath: filePath.replace('/src/', '/'),
-    //     content,
-    //   }),
-    // }),
+
     // // 自定义复制插件（可以使用 vite-plugin-static-copy 插件代替）
     // {
     //   name: 'copy-global-dts',
