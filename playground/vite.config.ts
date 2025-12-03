@@ -1,10 +1,20 @@
 import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    AutoImport({
+      imports: ['vue'],
+      // 生成自动导入声明文件
+      dts: './src/types/auto-import.d.ts',
+      // resolvers: [ElementPlusResolver()],
+    }),
+  ],
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, './src'),
@@ -17,14 +27,12 @@ export default defineConfig({
     port: 4444,
   },
   optimizeDeps: {
-    include: ['vue', 'element-plus', 'ant-design-vue'],
+    include: ['vue', 'element-plus'],
   },
 })
 
-// import { defineConfig } from 'vite'
-// import vue from '@vitejs/plugin-vue'
 //
-// import AutoImport from 'unplugin-auto-import/vite'
+//
 // import Components from 'unplugin-vue-components/vite'
 // // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
@@ -33,13 +41,7 @@ export default defineConfig({
 //   plugins: [
 //     vue(),
 //
-//     AutoImport({
-//     // 自动导入 Vue 相关函数，如:ref, reactive, toRef 等
-//       imports: ['vue'],
-//       // 生成自动导入声明文件
-//       dts: './auto-imports.d.ts',
-//       // resolvers: [ElementPlusResolver()],
-//     }),
+
 //     Components({
 //     // 不开起自动生成声明文件 dts: false
 //       dts: false,
@@ -49,16 +51,10 @@ export default defineConfig({
 //   ],
 // })
 
-// import vue from '@vitejs/plugin-vue'
-// import vueJsx from '@vitejs/plugin-vue-jsx'
-
-// // import AutoImport from 'unplugin-auto-import/vite'
 // // import Components from 'unplugin-vue-components/vite'
 // // import DefineOptions from 'unplugin-vue-define-options/vite';
 // export default defineConfig({
 //   plugins: [
-//     vue(),
-//     vueJsx(),
 
 //     // AutoImport({
 //     //   resolvers: [ElementPlusResolver({
@@ -72,9 +68,4 @@ export default defineConfig({
 //     //   })],
 //     // })
 //   ],
-//   resolve: {
-//     alias: {
-//
-//     },
-//   },
 // })

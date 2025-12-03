@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 interface Props {
   name: string
 }
 
 const props = defineProps<Props>()
+
+// 当前tab索引
 const activeKey = ref(0)
 
+// 动态加载 views 下所有演示组件
 const components = import.meta.glob('../views/**/**.vue', {
   eager: true,
   import: 'default',
 })
 
+// 根据文件路径筛选组件
 const renderCmp = Object.entries(components)
   .filter(([path]) =>
     path.includes(`/${props.name.charAt(0).toUpperCase() + props.name.slice(1)}/`),
@@ -29,9 +31,15 @@ const renderCmp = Object.entries(components)
 
 <template>
   <div :class="`${name}-demo`">
-    <a-tabs v-model:active-key="activeKey" type="card">
-      <a-tab-pane v-for="item in renderCmp" :key="item.index" :tab="item.name" />
-    </a-tabs>
+    <el-tabs v-model="activeKey" type="card">
+      <el-tab-pane
+        v-for="item in renderCmp"
+        :key="item.index"
+        :label="item.name"
+        :name="item.index"
+      />
+    </el-tabs>
+
     <component :is="renderCmp[activeKey]?.component" />
   </div>
 </template>
