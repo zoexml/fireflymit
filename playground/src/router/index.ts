@@ -1,10 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import {
-  CommentOutlined,
-  ExperimentOutlined,
-  SettingOutlined,
-  ToolOutlined,
-} from '@ant-design/icons-vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
@@ -13,7 +7,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'UI',
     meta: {
       title: 'UI 组件',
-      icon: CommentOutlined,
     },
     component: () => import('@/layouts/container/Ui.vue'),
   },
@@ -22,7 +15,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'Hooks',
     meta: {
       title: 'Hooks',
-      icon: ExperimentOutlined,
     },
     component: () => import('@/layouts/container/Hooks.vue'),
   },
@@ -31,7 +23,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'Directives',
     meta: {
       title: 'Directives',
-      icon: SettingOutlined,
     },
     component: () => import('@/layouts/container/Directives.vue'),
   },
@@ -40,7 +31,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'Utils',
     meta: {
       title: 'Utils',
-      icon: ToolOutlined,
     },
     component: () => import('@/layouts/container/Utils.vue'),
   },
