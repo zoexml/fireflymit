@@ -9,6 +9,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# 启用 Node.js 24 避免弃用警告
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # 设置GITHUB_TOKEN的权限，以允许部署到GITHUB页面
 permissions:
   contents: read
