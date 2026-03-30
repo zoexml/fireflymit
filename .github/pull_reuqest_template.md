@@ -1,35 +1,35 @@
-<!---☝️ PR title should follow conventional commits (https://conventionalcommits.org) -->
+<!---☝️ PR 标题应遵循常规提交规范 (https://conventionalcommits.org) -->
 
-### 🔗 Linked issue
+### 🔗 关联 Issue
 
-<!-- Please ensure there is an open issue and mention its number as #123 -->
+<!-- 请确保存在已开放的 issue，并注明其编号，例如 #123 -->
 
-### ❓ Type of change
+### ❓ 变更类型
 
-<!-- What types of changes does your code introduce? Put an `x` in all the boxes that apply. -->
+<!-- 你的代码引入了哪种类型的变更？在所有适用的选项框中填入 `x` -->
 
-- [ ] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)
-- [ ] 🐞 Bug fix (a non-breaking change that fixes an issue)
-- [ ] 👌 Enhancement (improving an existing functionality like performance)
-- [ ] ✨ New feature (a non-breaking change that adds functionality)
-- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)
-- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)
+- [ ] 📖 文档（更新文档、README 或 JSdoc 注释）
+- [ ] 🐞 Bug 修复（修复问题的非破坏性变更）
+- [ ] 👌 优化（改进现有功能，例如性能提升）
+- [ ] ✨ 新功能（添加新功能的非破坏性变更）
+- [ ] 🧹 事务（构建流程、辅助工具和库的更新）
+- [ ] ⚠️ 破坏性变更（会改变现有功能的修复或特性）
 
-### 📚 Description
+### 📚 描述
 
-<!-- Describe your changes in detail -->
-<!-- Why is this change required? What problem does it solve? -->
-<!-- If it resolves an open issue, please link to the issue here. For example "Resolves #1337" -->
+<!-- 详细描述你的变更 -->
+<!-- 为什么需要此变更？它解决了什么问题？ -->
+<!-- 如果解决了某个开放 issue，请在此处关联。例如 "Resolves #1337" -->
 
-### 📸 Screenshots (if appropriate)
+### 📸 截图（如适用）
 
-<!-- Add screenshots to help explain the change. -->
+<!-- 添加截图以帮助解释变更。 -->
 
-### 📝 Checklist
+### 📝 检查清单
 
-<!-- Put an `x` in all the boxes that apply. -->
-<!-- If your change requires a documentation PR, please link it appropriately -->
-<!-- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+<!-- 在所有适用的选项框中填入 `x` -->
+<!-- 如果你的变更需要更新文档，请适当关联 -->
+<!-- 如果不确定任何一项，请随时提问，我们随时提供帮助！ -->
 
-- [ ] I have linked an issue or discussion.
-- [ ] I have updated the documentation accordingly.
+- [ ] 我已关联 issue 或讨论。
+- [ ] 我已相应更新文档。
