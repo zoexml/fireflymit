@@ -7,6 +7,7 @@ export default defineConfig({
   title: 'fireflymit-FE',
   description: '物料库',
   srcDir: 'src',
+  ignoreDeadLinks: true,
   head: [
     [
       'link',
