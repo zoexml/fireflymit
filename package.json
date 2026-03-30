@@ -2,7 +2,7 @@
   "name": "fireflymit",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.33.0",
   "author": {
     "name": "joet桀",
     "github": "https://github.com/zoexml"
