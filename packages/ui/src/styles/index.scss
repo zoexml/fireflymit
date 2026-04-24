@@ -1,48 +1,13 @@
 /*
  * @Description: 公共样式
+ * @入口文件：导入变量和公共样式
  */
 
-// 主色/品牌色
-$yh-main-color: #1453ff;
-$yh-compel-color1: #5f31f5;
-$yh-compel-color2: #8b14ff;
-$yh-compel-color3: #2414ff;
-$yh-compel-color4: #1453ff;
-$yh-compel-color5: #2181ff;
-$yh-compel-color6: #59b2ed;
-$yh-compel-color7: #17c9ff;
-$yh-compel-color8: #6decf5;
-$yh-compel-color9: #84e3ca;
-$yh-compel-color10: #f7f8fc;
-$yh-compel-color11: #f2f4f7;
-$yh-compel-color12: #f3f6fe;
-$yh-compel-color13: rgba(20 83 255 / 5%);
-$yh-main-text-color: #141222;
-$yh-base-space: 16px;
-$yh-base-space1: 20px;
-$yh-base-space2: 12px;
-$yh-border-color-gray: rgba(130 131 149 / 15%);
+@import './variables.scss';
 
-:root {
-  --er-primary: #27ba9b;
-  --er-plain: #e6faf6;
-  --er-info: #e0e0e0;
-  --er-warning: #ffb302;
-  --er-success: #1dc779;
-  --er-danger: #cf4444;
-  --er-help: #e26237;
-
-  --er-white: #fff;
-  --er-black: #333;
-  --er-gray: #ccc;
-  --er-border: #e4e4e4;
-  --er-text: #666;
-  --er-bg: #f5f5f5;
-}
-
-// change the color of the focus outline
+// Change the color of the focus outline
 :focus-visible {
-  outline: var(--er-primary) auto 1px;
+  outline: #27ba9b auto 1px;
 }
 
 .ellipsis {

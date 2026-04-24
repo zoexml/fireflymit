@@ -1,12 +1,77 @@
-// _variables.scss
+// _variables.scss - Design tokens for @fireflymit/ui
+// 与 art-design-pro 保持一致
 
 :root {
-  --art-main-bg-color: #fff;
-  --custom-radius: 4px;
+  // Base Colors
+  --art-color: #ffffff;
+  --theme-color: #409eff;
   --main-color: #409eff;
+
+  // Theme Colors (OKLCH format)
+  --art-primary: oklch(0.7 0.23 260);
+  --art-secondary: oklch(0.72 0.19 231.6);
+  --art-error: oklch(0.73 0.15 25.3);
+  --art-info: oklch(0.58 0.03 254.1);
+  --art-success: oklch(0.78 0.17 166.1);
+  --art-warning: oklch(0.78 0.14 75.5);
+  --art-danger: oklch(0.68 0.22 25.3);
+
+  // Gray Scale - Light Mode
+  --art-gray-100: #f9fafb;
+  --art-gray-200: #f2f4f5;
+  --art-gray-300: #e6eaeb;
+  --art-gray-400: #dbdfe1;
+  --art-gray-500: #949eb7;
+  --art-gray-600: #7987a1;
+  --art-gray-700: #4d5875;
+  --art-gray-800: #383853;
+  --art-gray-900: #323251;
+
+  // Border Colors
+  --art-card-border: rgba(0, 0, 0, 0.08);
+  --default-border: #e2e8ee;
+  --default-border-dashed: #dbdfe9;
+
+  // Background Colors
+  --default-bg-color: #fafbfc;
+  --default-box-color: #ffffff;
+
+  // Hover/Active Colors
+  --art-hover-color: #edeff0;
+  --art-active-color: #f2f4f5;
+  --art-el-active-color: #f2f4f5;
+
+  // Component Sizes
+  --custom-radius: 4px;
+  --el-component-custom-height: 32px;
+
+  // Element Plus Theme Colors
   --ElColor-primary: #409eff;
 }
 
+// Dark mode support
+.dark {
+  --art-color: #000000;
+  --art-gray-100: #110f0f;
+  --art-gray-200: #17171c;
+  --art-gray-300: #393946;
+  --art-gray-400: #505062;
+  --art-gray-500: #73738c;
+  --art-gray-600: #8f8fa3;
+  --art-gray-700: #ababba;
+  --art-gray-800: #c7c7d1;
+  --art-gray-900: #e3e3e8;
+  --art-card-border: rgba(255, 255, 255, 0.08);
+  --default-border: rgba(255, 255, 255, 0.1);
+  --default-border-dashed: #363843;
+  --default-bg-color: #070707;
+  --default-box-color: #161618;
+  --art-hover-color: #252530;
+  --art-active-color: #202226;
+  --art-el-active-color: #2e2e38;
+}
+
+// SCSS Variables (for internal use in .scss files)
 $color-primary: #1453ff;
 $color-success: #0dc986;
 $font-size-base: 14px;
