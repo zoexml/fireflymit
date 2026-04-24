@@ -184,6 +184,37 @@ This Turborepo has some additional tools already setup for you:
 - [ESLint](https://eslint.org/) for code linting.
 - [Prettier](https://prettier.io) for code formatting
 
+### apps/art-design-pro
+
+第三方开源项目 [art-design-pro](https://github.com/Daymychen/art-design-pro)，已克隆到本地作为参考应用。
+
+**同步上游更新：**
+
+```bash
+# 进入项目目录
+cd apps/art-design-pro
+
+# 获取上游最新代码
+git fetch vendor
+
+# 查看最新提交
+git log --oneline vendor/main -1
+
+# 合并上游变更到本地
+git merge vendor/main
+
+# 如果有 fork，推送到你的远程
+git push origin <your-branch>
+```
+
+或者运行同步脚本：
+
+```bash
+pnpm run sync-art-design-pro
+```
+
+> 注意：该目录已移除 `.git` 目录，作为普通项目直接管理。如需持续跟踪上游变更，可考虑改用 git submodule。
+
 ### 一键生成文档
 
 - 采用 TSDoc 规范编写代码注释
