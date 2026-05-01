@@ -1,8 +1,9 @@
 // src/index.ts
-// import './style/variables.scss'
+// 注意: 样式需要单独引入 import '@fireflymit/ui/dist/styles/index.css'
+// 或者在入口文件中手动引入 styles
 
-// 将utils 抽离到了 @fireflymit/utils, 内部使用的_utils 不进行导出
-// export * from './_utils'
+// 注入组件库 CSS 变量
+import './styles/variables.scss'
 
 export { default } from './components'
 export * from './components'

@@ -15,10 +15,10 @@
 <template>
   <div class="utils-list">
     工具函数汇总：
-    <a-space direction="vertical">
+    <el-space direction="vertical">
       <!-- <div v-for="item in allUtils" :key="item.name">
         <div>{{ item.name }}()</div>
       </div> -->
-    </a-space>
+    </el-space>
   </div>
 </template>
