@@ -3,6 +3,10 @@
  */
 import type { App } from 'vue'
 import { Badge } from './Badge'
+// import { Banner } from './Banner'
+// import { CardBanner } from './CardBanner'
+import { CountTo } from './CountTo'
+import { DragVerify } from './DragVerify'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
 // import { SearchBar } from './SearchBar'
@@ -37,7 +41,11 @@ import { Badge } from './Badge'
 
 const components = [
   // ImageView,
+  // Banner,
+  // CardBanner,
   Badge,
+  CountTo,
+  DragVerify,
   // SearchBar,
   // Breadcrumb,
   // BreadcrumbItem,
