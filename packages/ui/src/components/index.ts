@@ -9,6 +9,7 @@ export * from './CountTo'
 export * from './DragVerify'
 export * from './Form'
 export * from './SearchBar'
+export * from './SvgIcon'
 export * from './TextScroll'
 
 export default installer

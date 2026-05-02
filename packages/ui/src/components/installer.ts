@@ -8,6 +8,7 @@ import { CountTo } from './CountTo'
 import { DragVerify } from './DragVerify'
 import { ArtForm } from './Form'
 import { SearchBar } from './SearchBar'
+import { SvgIcon } from './SvgIcon'
 import { TextScroll } from './TextScroll'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
@@ -52,6 +53,7 @@ const components = [
   ArtForm,
   SearchBar,
   TextScroll,
+  SvgIcon,
   // SearchBar,
   // Breadcrumb,
   // BreadcrumbItem,
