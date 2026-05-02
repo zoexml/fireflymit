@@ -7,5 +7,12 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "@fireflymit/shared",
+    "@fireflymit/prettier-config",
+    "@fireflymit/commitlint-config",
+    "@fireflymit/stylelint-config",
+    "@fireflymit/eslint-config",
+    "@fireflymit/typescript-config"
+  ]
 }
