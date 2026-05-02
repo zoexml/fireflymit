@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import type { MenuItemType } from './ContextMenu.types'
+import { createNamespace } from '~/_utils'
 import { contextMenuProps } from './ContextMenu.types'
 
 defineOptions({ name: 'ContextMenu' })
@@ -12,6 +13,8 @@ const emit = defineEmits<{
   (e: 'show'): void
   (e: 'hide'): void
 }>()
+
+const [className, bem] = createNamespace('context-menu')
 
 const visible = ref(false)
 const position = ref({ x: 0, y: 0 })
@@ -115,7 +118,7 @@ const hide = () => {
 // Handle document click outside menu
 const handleDocumentClick = (e: Event) => {
   const target = e.target as Element
-  const menuElement = document.querySelector('.art-context-menu')
+  const menuElement = document.querySelector(`.${className}`)
   if (menuElement && menuElement.contains(target)) return
   hide()
 }
@@ -206,58 +209,56 @@ defineExpose({
 </script>
 
 <template>
-  <div class="art-context-menu-wrapper">
+  <div :class="bem('__wrapper')">
     <Transition name="context-menu" @before-enter="onBeforeEnter" @after-leave="onAfterLeave">
       <div
         v-show="visible"
         :style="menuStyle"
-        class="art-context-menu"
+        :class="className"
       >
-        <ul class="art-context-menu__list" :style="menuListStyle">
+        <ul :class="bem('__list')" :style="menuListStyle">
           <template v-for="item in menuItems" :key="item.key">
             <!-- Menu item without children -->
             <li
               v-if="!item.children"
-              class="art-context-menu__item"
-              :class="{ 'is-disabled': item.disabled, 'has-line': item.showLine }"
+              :class="[bem('__item'), { 'is-disabled': item.disabled, 'has-line': item.showLine }]"
               :style="menuItemStyle"
               @click="handleMenuClick(item)"
             >
               <slot name="icon" :item="item">
-                <span v-if="item.icon" class="art-context-menu__icon" />
+                <span v-if="item.icon" :class="bem('__icon')" />
               </slot>
-              <span class="art-context-menu__label">{{ item.label }}</span>
+              <span :class="bem('__label')">{{ item.label }}</span>
             </li>
 
             <!-- Submenu with children -->
             <li
               v-else
-              class="art-context-menu__item art-context-menu__submenu"
+              :class="[bem('__item'), bem('__submenu')]"
               :style="menuItemStyle"
             >
-              <div class="art-context-menu__submenu-title">
+              <div :class="bem('__submenu-title')">
                 <slot name="icon" :item="item">
-                  <span v-if="item.icon" class="art-context-menu__icon" />
+                  <span v-if="item.icon" :class="bem('__icon')" />
                 </slot>
-                <span class="art-context-menu__label">{{ item.label }}</span>
-                <span class="art-context-menu__arrow" />
+                <span :class="bem('__label')">{{ item.label }}</span>
+                <span :class="bem('__arrow')" />
               </div>
               <ul
-                class="art-context-menu__submenu-list"
+                :class="bem('__submenu-list')"
                 :style="submenuListStyle"
               >
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  class="art-context-menu__item art-context-menu__submenu-item"
-                  :class="{ 'is-disabled': child.disabled, 'has-line': child.showLine }"
+                  :class="[bem('__item'), bem('__submenu-item'), { 'is-disabled': child.disabled, 'has-line': child.showLine }]"
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"
                 >
                   <slot name="icon" :item="child">
-                    <span v-if="child.icon" class="art-context-menu__icon" />
+                    <span v-if="child.icon" :class="bem('__icon')" />
                   </slot>
-                  <span class="art-context-menu__label">{{ child.label }}</span>
+                  <span :class="bem('__label')">{{ child.label }}</span>
                 </li>
               </ul>
             </li>
@@ -269,7 +270,7 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.art-context-menu-wrapper {
+.art-context-menu__wrapper {
   --context-menu-border-radius: v-bind('`${props.borderRadius}px`');
 }
 

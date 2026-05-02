@@ -14,6 +14,7 @@
   "main": "dist/lib/index.js",
   "module": "dist/es/index.mjs",
   "types": "dist/es/index.d.ts",
+  "style": "dist/es/style.css",
   "files": [
     "CHANGELOG.md",
     "dist"

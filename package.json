@@ -69,6 +69,7 @@
     "@fireflymit/ui": "workspace:^",
     "@fireflymit/utils": "workspace:^",
     "@unocss/eslint-plugin": "^66.5.0",
+    "@vitejs/plugin-vue-jsx": "^5.1.1",
     "eslint": "^9.34.0",
     "eslint-plugin-format": "^1.0.1",
     "git-cz": "^4.9.0",

@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import { computed, nextTick, onUnmounted, shallowRef, watch } from 'vue'
+import { createNamespace } from '~/_utils'
 import { countToProps } from './CountTo.types'
 
 defineOptions({ name: 'CountTo' })
 
 const props = defineProps(countToProps)
-
 const emit = defineEmits<{
   started: [value: number]
   finished: [value: number]
   paused: [value: number]
   reset: []
 }>()
+
+const [className, bem] = createNamespace('count-to')
 
 const EPSILON = Number.EPSILON
 const MIN_DURATION = 100
@@ -240,7 +242,7 @@ defineExpose({
 </script>
 
 <template>
-  <span class="art-count-to" :class="isRunning ? 'transition-opacity duration-300 ease-in-out' : ''">
+  <span :class="[className, isRunning ? 'transition-opacity duration-300 ease-in-out' : '']">
     {{ formattedValue }}
   </span>
 </template>

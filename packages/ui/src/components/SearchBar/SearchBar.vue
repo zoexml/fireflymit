@@ -34,6 +34,7 @@ import {
   ElTreeSelect,
 } from 'element-plus'
 import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
+import { createNamespace } from '~/_utils'
 
 defineOptions({ name: 'SearchBar' })
 
@@ -58,6 +59,8 @@ const props = withDefaults(defineProps<SearchBarProps>(), {
 })
 
 const emit = defineEmits<SearchBarEmits>()
+
+const [className, bem] = createNamespace('search-bar')
 
 const componentMap = {
   input: ElInput,
@@ -337,7 +340,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
 
 <template>
-  <section class="art-search-bar" :class="{ 'is-expanded': isExpanded }">
+  <section :class="[className, { 'is-expanded': isExpanded }]">
     <ElForm ref="formRef" :model="modelValue" :label-position="labelPosition" v-bind="{ ...$attrs }">
       <ElRow class="search-form-row" :gutter="gutter">
         <ElCol

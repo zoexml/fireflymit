@@ -2,16 +2,18 @@
 <script setup lang="ts">
 import type { BannerMeteor } from './Banner.types'
 import { computed, onMounted, ref } from 'vue'
+import { createNamespace } from '~/_utils'
 import { bannerProps } from './Banner.types'
 
 defineOptions({ name: 'Banner' })
 
 const props = defineProps(bannerProps)
-
 const emit = defineEmits<{
   (e: 'click'): void
   (e: 'buttonClick'): void
 }>()
+
+const [className, bem] = createNamespace('banner')
 
 // 计算按钮样式属性
 const buttonColor = computed(() => props.buttonConfig?.color ?? '#fff')
@@ -43,13 +45,12 @@ function generateMeteors(count: number): BannerMeteor[] {
 
 <template>
   <div
-    class="art-banner"
-    :class="[{ 'has-decoration': decoration }, boxStyle]"
+    :class="[className, { 'has-decoration': decoration }, boxStyle]"
     :style="{ height }"
     @click="emit('click')"
   >
     <!-- 流星效果 -->
-    <div v-if="meteorConfig?.enabled && dark" class="art-banner__meteors">
+    <div v-if="meteorConfig?.enabled && dark" :class="bem('__meteors')">
       <span
         v-for="(meteor, index) in meteors"
         :key="index"
@@ -63,17 +64,17 @@ function generateMeteors(count: number): BannerMeteor[] {
       />
     </div>
 
-    <div class="art-banner__content">
+    <div :class="bem('__content')">
       <!-- title slot -->
       <slot name="title">
-        <p v-if="title" class="art-banner__title" :style="{ color: titleColor }">
+        <p v-if="title" :class="bem('__title')" :style="{ color: titleColor }">
           {{ title }}
         </p>
       </slot>
 
       <!-- subtitle slot -->
       <slot name="subtitle">
-        <p v-if="subtitle" class="art-banner__subtitle" :style="{ color: subtitleColor }">
+        <p v-if="subtitle" :class="bem('__subtitle')" :style="{ color: subtitleColor }">
           {{
             subtitle
           }}
@@ -84,7 +85,7 @@ function generateMeteors(count: number): BannerMeteor[] {
       <slot name="button">
         <div
           v-if="buttonConfig?.show"
-          class="art-banner__button"
+          :class="bem('__button')"
           :style="{
             backgroundColor: buttonColor,
             color: buttonTextColor,
@@ -102,7 +103,7 @@ function generateMeteors(count: number): BannerMeteor[] {
       <!-- background image -->
       <img
         v-if="imageConfig.src"
-        class="art-banner__background-image"
+        :class="bem('__background-image')"
         :src="imageConfig.src"
         :style="{ width: imageConfig.width, bottom: imageConfig.bottom, right: imageConfig.right }"
         loading="lazy"

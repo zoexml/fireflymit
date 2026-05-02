@@ -3,7 +3,7 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import type { FormEmits, FormItem } from './Form.types'
+import type { FormEmits, FormItem } from './ProForm.types'
 import { useWindowSize } from '@vueuse/core'
 import {
   ElButton,
@@ -29,13 +29,15 @@ import {
   ElTreeSelect,
 } from 'element-plus'
 import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
-import { formProps } from './Form.types'
+import { createNamespace } from '~/_utils'
+import { formProps } from './ProForm.types'
 
-defineOptions({ name: 'ArtForm' })
+defineOptions({ name: 'ProForm' })
 
 const props = defineProps(formProps)
-
 const emit = defineEmits<FormEmits>()
+
+const [className, bem] = createNamespace('form')
 
 const componentMap = {
   input: ElInput,
@@ -325,9 +327,9 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
 
 <template>
-  <section class="art-form">
+  <section :class="className">
     <ElForm ref="formRef" :model="modelValue" :label-position="labelPosition" v-bind="{ ...$attrs }">
-      <ElRow class="art-form__row" :gutter="gutter">
+      <ElRow :class="bem('__row')" :gutter="gutter">
         <ElCol
           v-for="item in visibleFormItems"
           :key="item.key"
@@ -387,9 +389,9 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
             </slot>
           </ElFormItem>
         </ElCol>
-        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="art-form__action">
-          <div class="art-form__action-buttons" :style="actionButtonsStyle">
-            <div class="art-form__buttons">
+        <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" :class="bem('__action')">
+          <div :class="bem('__action-buttons')" :style="actionButtonsStyle">
+            <div :class="bem('__buttons')">
               <ElButton v-if="showReset" class="reset-button" @click="handleReset">
                 {{ resetText }}
               </ElButton>

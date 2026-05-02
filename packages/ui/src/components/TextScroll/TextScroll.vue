@@ -8,16 +8,18 @@ import {
   useRafFn,
   useTimeoutFn,
 } from '@vueuse/core'
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { createNamespace } from '~/_utils'
 import { textScrollProps } from './TextScroll.types'
 
 defineOptions({ name: 'TextScroll' })
 
 const props = defineProps(textScrollProps)
-
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
+
+const [className, bem] = createNamespace('text-scroll')
 
 const handleClose = () => {
   emit('close')
@@ -79,7 +81,7 @@ const containerStyle = computed(() => ({
 
 const contentClass = computed(() => {
   if (!isHorizontal.value) {
-    return 'art-text-scroll__content--vertical'
+    return bem('__content--vertical')
   }
   return ''
 })
@@ -198,30 +200,29 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="containerRef"
-    class="art-text-scroll"
+    :class="[className]"
     :style="containerStyle"
   >
-    <div class="art-text-scroll__side art-text-scroll__side--left" :style="{ backgroundColor: bgColor }">
+    <div :class="[bem('__side'), bem('__side--left')]" :style="{ backgroundColor: bgColor }">
       <slot name="icon">
-        <span class="art-text-scroll__icon">📢</span>
+        <span :class="bem('__icon')">📢</span>
       </slot>
     </div>
 
     <div
       ref="contentRef"
-      class="art-text-scroll__content"
-      :class="[contentClass, { 'art-text-scroll__content--ready': isReady }]"
+      :class="[bem('__content'), contentClass, { [bem('__content--ready')]: isReady }]"
       :style="contentStyle"
       @click="handleContentClick"
     >
       <!-- 原始内容 -->
-      <span ref="textRef" class="art-text-scroll__text">
+      <span ref="textRef" :class="bem('__text')">
         <slot>
           <span v-html="text" />
         </slot>
       </span>
       <!-- 克隆内容用于无缝循环 -->
-      <span v-if="shouldClone" class="art-text-scroll__clone" :style="cloneSpacing">
+      <span v-if="shouldClone" :class="bem('__clone')" :style="cloneSpacing">
         <slot>
           <span v-html="text" />
         </slot>
@@ -230,12 +231,12 @@ onBeforeUnmount(() => {
 
     <div
       v-if="showClose"
-      class="art-text-scroll__side art-text-scroll__side--right"
+      :class="[bem('__side'), bem('__side--right')]"
       :style="{ backgroundColor: bgColor }"
       @click="handleClose"
     >
       <slot name="close-icon">
-        <span class="art-text-scroll__close-icon">×</span>
+        <span :class="bem('__close-icon')">×</span>
       </slot>
     </div>
   </div>

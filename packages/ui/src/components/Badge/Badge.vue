@@ -3,7 +3,7 @@ import type { BadgeType } from './Badge.types'
 import { createNamespace } from '~/_utils'
 import { badgeProps } from './Badge.types'
 
-defineOptions({ name: 'ArtBadge' })
+defineOptions({ name: 'Badge' })
 
 const props = defineProps(badgeProps)
 

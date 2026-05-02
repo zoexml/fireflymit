@@ -1,5 +1,6 @@
 <!-- 卡片横幅组件 -->
 <script setup lang="ts">
+import { createNamespace } from '~/_utils'
 import { cardBannerProps } from './CardBanner.types'
 
 defineOptions({ name: 'CardBanner' })
@@ -11,6 +12,8 @@ const emit = defineEmits<{
   (e: 'cancel'): void
 }>()
 
+const [className, bem] = createNamespace('card-banner')
+
 const handleClick = () => {
   emit('click')
 }
@@ -21,23 +24,23 @@ const handleCancel = () => {
 </script>
 
 <template>
-  <div class="art-card-banner" :style="{ height }">
-    <div class="art-card-banner__inner">
-      <div v-if="image" class="art-card-banner__image">
+  <div :class="className" :style="{ height }">
+    <div :class="bem('__inner')">
+      <div v-if="image" :class="bem('__image')">
         <img :src="image" :alt="title">
       </div>
-      <div class="art-card-banner__text">
-        <p class="art-card-banner__title">
+      <div :class="bem('__text')">
+        <p :class="bem('__title')">
           {{ title }}
         </p>
-        <p class="art-card-banner__desc">
+        <p :class="bem('__desc')">
           {{ description }}
         </p>
       </div>
-      <div class="art-card-banner__actions">
+      <div :class="bem('__actions')">
         <div
           v-if="cancelButton?.show"
-          class="art-card-banner__cancel-btn"
+          :class="bem('__cancel-btn')"
           :style="{
             backgroundColor: cancelButton?.color,
             color: cancelButton?.textColor,
@@ -48,7 +51,7 @@ const handleCancel = () => {
         </div>
         <div
           v-if="button?.show"
-          class="art-card-banner__btn"
+          :class="bem('__btn')"
           :style="{ backgroundColor: button?.color, color: button?.textColor }"
           @click="handleClick"
         >

@@ -8,7 +8,7 @@ import { CardBanner } from './CardBanner'
 import { ContextMenu } from './ContextMenu'
 import { CountTo } from './CountTo'
 import { DragVerify } from './DragVerify'
-import { ArtForm } from './Form'
+import { ProForm } from './ProForm'
 import { SearchBar } from './SearchBar'
 import { SvgIcon } from './SvgIcon'
 import { TextScroll } from './TextScroll'
@@ -52,7 +52,7 @@ const components = [
   ContextMenu,
   CountTo,
   DragVerify,
-  ArtForm,
+  ProForm,
   SearchBar,
   TextScroll,
   SvgIcon,

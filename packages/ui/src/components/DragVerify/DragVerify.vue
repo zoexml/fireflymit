@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { createNamespace } from '~/_utils'
 import { dragVerifyProps } from './DragVerify.types'
 
 defineOptions({ name: 'DragVerify' })
 
 const props = defineProps(dragVerifyProps)
-
 const emit = defineEmits<{
   (e: 'handlerMove'): void
   (e: 'update:modelValue', value: boolean): void
   (e: 'passCallback'): void
 }>()
+
+const [className, bem] = createNamespace('drag-verify')
 
 interface StateType {
   isMoving: boolean
@@ -198,7 +200,7 @@ defineExpose({ reset })
 <template>
   <div
     ref="dragVerify"
-    class="art-drag-verify"
+    :class="className"
     :style="dragVerifyStyle"
     @mousemove="dragMoving"
     @mouseup="dragFinish"
@@ -208,12 +210,11 @@ defineExpose({ reset })
   >
     <div
       ref="progressBar"
-      class="art-drag-verify__progress-bar"
-      :class="{ goFirst2: isOk }"
+      :class="[bem('__progress-bar'), { goFirst2: isOk }]"
       :style="progressBarStyle"
     />
 
-    <div ref="messageRef" class="art-drag-verify__text" :style="textStyle">
+    <div ref="messageRef" :class="bem('__text')" :style="textStyle">
       <slot v-if="$slots.textBefore" name="textBefore" />
       {{ message }}
       <slot v-if="$slots.textAfter" name="textAfter" />
@@ -221,13 +222,12 @@ defineExpose({ reset })
 
     <div
       ref="handler"
-      class="art-drag-verify__handler"
-      :class="{ goFirst: isOk }"
+      :class="[bem('__handler'), { goFirst: isOk }]"
       :style="handlerStyle"
       @mousedown="dragStart"
       @touchstart.prevent="dragStart"
     >
-      <span class="art-drag-verify__handler-icon">{{ modelValue ? '✓' : '→' }}</span>
+      <span :class="bem('__handler-icon')">{{ modelValue ? '✓' : '→' }}</span>
     </div>
   </div>
 </template>

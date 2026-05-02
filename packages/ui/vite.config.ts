@@ -2,8 +2,6 @@ import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -22,7 +20,6 @@ export default defineConfig({
         '@vueuse/core',
       ],
       dts: 'src/types/auto-imports.d.ts',
-      //   resolvers: [ElementPlusResolver()],
       vueTemplate: true,
     }),
     dts({
@@ -35,19 +32,6 @@ export default defineConfig({
       include: ['src/**/*.{vue,ts,tsx}'],
       exclude: ['src/__tests__/*', 'src/**/*.{test,spec,stories,demo}.{vue,ts,tsx}'],
     }),
-    // Components({
-    //   // 不开起自动生成声明文件 dts: false
-    //   dts: false,
-    //   // 原因：Toast Confirm 这类组件的样式还是需要单独引入，样式全局引入了，关闭自动引入
-    //   resolvers: [ElementPlusResolver({ importStyle: false })],
-    // }),
-
-    // // 自定义复制插件（可以使用 vite-plugin-static-copy 插件代替）
-    // {
-    //   name: 'copy-global-dts',
-    //   closeBundle() {
-    //   },
-    // },
   ],
 
   build: {
@@ -72,8 +56,8 @@ export default defineConfig({
       cssFileName: 'style',
     },
     rollupOptions: {
-      // 排除依赖的库,css
-      external: ['vue', '@element-plus/icons-vue', /\.scss/], // 'element-plus','@vueuse/core'
+      // 排除依赖的库
+      external: ['vue', '@element-plus/icons-vue'],
       // 入口地址
       input: ['src/index.ts'],
       // 输出配置
