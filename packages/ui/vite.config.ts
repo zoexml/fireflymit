@@ -56,7 +56,7 @@ export default defineConfig({
     emptyOutDir: true, // 清空输出目录
     minify: false, // 压缩 方便查看打包后的代码（排查问题），禁用最小化混淆，默认为esbuild
     // css分离
-    // cssCodeSplit: true,
+    cssCodeSplit: true,
     // 库配置
     lib: {
       // 入口文件
