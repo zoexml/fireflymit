@@ -17,8 +17,6 @@
     "target": "ES2022",
     "noEmit": true,
     "jsx": "preserve",
-    // 路径别名（统一管理）
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
