@@ -55,11 +55,12 @@ fireflymit/
 │   │   │   │   ├── ContextMenu/
 │   │   │   │   ├── CountTo/
 │   │   │   │   ├── DragVerify/
-│   │   │   │   ├── Form/
+│   │   │   │   ├── ProForm/
 │   │   │   │   ├── SearchBar/
 │   │   │   │   ├── SvgIcon/
 │   │   │   │   └── TextScroll/
-│   │   │   └── _utils/           # 内部工具函数 (bem, install, with-install)
+│   │   │   ├── styles/            # 全局样式与变量
+│   │   │   └── _utils/            # 内部工具函数 (bem, install)
 │   │   └── ...
 │   ├── utils/                     # 工具函数库 (@fireflymit/utils)
 │   │   └── src/
@@ -94,6 +95,15 @@ fireflymit/
 ### @fireflymit/ui
 
 基于 Element Plus 封装的 Vue 3 业务组件库。
+
+#### 安装
+
+```bash
+pnpm add @fireflymit/ui
+pnpm add element-plus
+```
+
+#### 全局注册
 
 ```ts
 import ArtUI from '@fireflymit/ui'
@@ -157,16 +167,6 @@ pnpm dev --filter @fireflymit/ui
 pnpm build --filter @fireflymit/utils
 ```
 
-### 生成新组件
-
-```bash
-# 使用 plop 模板
-pnpm plop:component
-
-# 或使用自定义脚本
-pnpm generate:component
-```
-
 ### 依赖更新
 
 ```bash
@@ -185,7 +185,7 @@ pnpm build                    # 重新构建
 # 发布到 npm
 ```
 
-## 一键生成 API 文档
+## API 文档
 
 采用 TSDoc 规范编写代码注释，使用 `@microsoft/api-extractor` 和 `@microsoft/api-documenter` 自动生成文档。
 
