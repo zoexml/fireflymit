@@ -1,13 +1,13 @@
 import { withInstall } from '~/_utils'
 import _SearchBar from './SearchBar.vue'
 
-// 类型导出
-export type { SearchBarEmits, SearchBarProps, SearchFormItem } from './types'
-// 组件导出
+export type { SanitizeOutputOptions, SearchBarEmits, SearchBarProps, SearchFormItem } from './types'
+
 export const SearchBar = withInstall(_SearchBar)
+export default SearchBar
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ArtSearchBar: typeof SearchBar
+    SearchBar: typeof SearchBar
   }
 }

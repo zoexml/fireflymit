@@ -4,7 +4,10 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import type { SearchBarEmits, SearchBarProps, SearchFormItem } from './types'
-import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue'
+import {
+  ArrowDownBold,
+  ArrowUpBold,
+} from '@element-plus/icons-vue'
 import { useWindowSize } from '@vueuse/core'
 import {
   ElButton,
@@ -30,9 +33,9 @@ import {
   ElTimeSelect,
   ElTreeSelect,
 } from 'element-plus'
-import { computed, ref, toRefs, useTemplateRef } from 'vue'
+import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
 
-defineOptions({ name: 'ArtSearchBar' })
+defineOptions({ name: 'SearchBar' })
 
 const props = withDefaults(defineProps<SearchBarProps>(), {
   items: () => [],
@@ -47,28 +50,33 @@ const props = withDefaults(defineProps<SearchBarProps>(), {
   showReset: true,
   showSearch: true,
   disabledSearch: false,
+  sanitizeOutput: () => ({}),
+  expandText: '展开',
+  collapseText: '收起',
+  resetText: '重置',
+  searchText: '查询',
 })
 
 const emit = defineEmits<SearchBarEmits>()
 
 const componentMap = {
-  input: ElInput, // 输入框
-  number: ElInputNumber, // 数字输入框
-  select: ElSelect, // 选择器
-  switch: ElSwitch, // 开关
-  checkbox: ElCheckbox, // 复选框
-  checkboxgroup: ElCheckboxGroup, // 复选框组
-  radiogroup: ElRadioGroup, // 单选框组
-  date: ElDatePicker, // 日期选择器
-  daterange: ElDatePicker, // 日期范围选择器
-  datetime: ElDatePicker, // 日期时间选择器
-  datetimerange: ElDatePicker, // 日期时间范围选择器
-  rate: ElRate, // 评分
-  slider: ElSlider, // 滑块
-  cascader: ElCascader, // 级联选择器
-  timepicker: ElTimePicker, // 时间选择器
-  timeselect: ElTimeSelect, // 时间选择
-  treeselect: ElTreeSelect, // 树选择器
+  input: ElInput,
+  number: ElInputNumber,
+  select: ElSelect,
+  switch: ElSwitch,
+  checkbox: ElCheckbox,
+  checkboxgroup: ElCheckboxGroup,
+  radiogroup: ElRadioGroup,
+  date: ElDatePicker,
+  daterange: ElDatePicker,
+  datetime: ElDatePicker,
+  datetimerange: ElDatePicker,
+  rate: ElRate,
+  slider: ElSlider,
+  cascader: ElCascader,
+  timepicker: ElTimePicker,
+  timeselect: ElTimeSelect,
+  treeselect: ElTreeSelect,
 }
 
 const { width } = useWindowSize()
@@ -76,18 +84,56 @@ const isMobile = computed(() => width.value < 500)
 
 const formInstance = useTemplateRef<FormInstance>('formRef')
 const modelValue = defineModel<Record<string, any>>({ default: {} })
+const initialModelValue = ref<Record<string, any>>({})
+
+// Save form snapshot at initialization for reset restore
+const cloneModelValue = (value: Record<string, any> | undefined) => {
+  if (!value) return {}
+
+  const deepClone = (source: unknown): unknown => {
+    if (Array.isArray(source)) {
+      return source.map(item => deepClone(item))
+    }
+
+    if (source && typeof source === 'object') {
+      const rawSource = toRaw(source)
+      return Object.keys(rawSource).reduce<Record<string, unknown>>((accumulator, key) => {
+        accumulator[key] = deepClone((rawSource as Record<string, unknown>)[key])
+        return accumulator
+      }, {})
+    }
+
+    return source
+  }
+
+  return deepClone(toRaw(value)) as Record<string, any>
+}
+
+initialModelValue.value = cloneModelValue(modelValue.value)
 
 /**
  * 是否展开状态
  */
 const isExpanded = ref(props.defaultExpanded)
 
-const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots']
+const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots', 'render']
+
+// Sanitize output options
+const sanitizeOutputOptions = computed(() => ({
+  removeEmptyString: true,
+  removeEmptyArray: true,
+  removeEmptyObject: true,
+  removeEmptyRichText: true,
+  keepZero: true,
+  keepFalse: true,
+  ...props.sanitizeOutput,
+}))
+
 const getProps = (item: SearchFormItem) => {
   if (item.props) return item.props
-  const props = { ...item }
-  rootProps.forEach(key => delete (props as Record<string, any>)[key])
-  return props
+  const itemProps = { ...item }
+  rootProps.forEach(key => delete (itemProps as Record<string, any>)[key])
+  return itemProps
 }
 
 // 获取插槽
@@ -102,11 +148,106 @@ const getSlots = (item: SearchFormItem) => {
   return validSlots
 }
 
+/**
+ * 获取列宽 span 值（简易响应式降级）
+ */
+const getColSpan = (itemSpan: number | undefined): number => {
+  const finalSpan = itemSpan ?? props.span
+  return finalSpan
+}
+
+// 搜索表单清空输入时不保留空字符串
+const normalizeFieldValue = (value: unknown) => {
+  return value === '' ? undefined : value
+}
+
+const getFieldValue = (key: string) => modelValue.value[key]
+
+const setFieldValue = (key: string, value: unknown) => {
+  const normalizedValue = normalizeFieldValue(value)
+
+  if (normalizedValue === undefined) {
+    delete modelValue.value[key]
+    return
+  }
+
+  modelValue.value[key] = normalizedValue
+}
+
+const isRichTextEmpty = (value: string) => {
+  if (/<(?:img|video|audio|iframe|embed|object)\b/i.test(value)) {
+    return false
+  }
+
+  return (
+    value
+      .replace(/&nbsp;/gi, '')
+      .replace(/<br\s*\/?>/gi, '')
+      .replace(/<[^>]*>/g, '')
+      .trim() === ''
+  )
+}
+
+// 搜索时按配置清洗空值
+const sanitizeOutputValue = (value: unknown): unknown => {
+  const options = sanitizeOutputOptions.value
+
+  if (Array.isArray(value)) {
+    const sanitizedArray = value
+      .map(item => sanitizeOutputValue(item))
+      .filter(item => item !== undefined)
+    return sanitizedArray.length === 0 && options.removeEmptyArray ? undefined : sanitizedArray
+  }
+
+  if (value && typeof value === 'object') {
+    const rawValue = toRaw(value)
+    const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>(
+      (accumulator, [key, item]) => {
+        const sanitizedItem = sanitizeOutputValue(item)
+        if (sanitizedItem !== undefined) {
+          accumulator[key] = sanitizedItem
+        }
+        return accumulator
+      },
+      {},
+    )
+    return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject
+      ? undefined
+      : sanitizedObject
+  }
+
+  if (typeof value === 'string') {
+    if (options.removeEmptyString && value.trim() === '') {
+      return undefined
+    }
+    if (options.removeEmptyRichText && isRichTextEmpty(value)) {
+      return undefined
+    }
+    return value
+  }
+
+  if (value === 0) {
+    return options.keepZero ? value : undefined
+  }
+
+  if (value === false) {
+    return options.keepFalse ? value : undefined
+  }
+
+  return value ?? undefined
+}
+
+const getSanitizedOutput = () => {
+  return (sanitizeOutputValue(cloneModelValue(modelValue.value)) || {}) as Record<string, any>
+}
+
 // 组件
 const getComponent = (item: SearchFormItem) => {
+  // 优先使用 render 函数或组件渲染自定义组件
+  if (item.render) {
+    return item.render
+  }
   const { type } = item
-  if (type && typeof item.type !== 'string') return type
-  // type不传递、默认使用 input
   return componentMap[type as keyof typeof componentMap] || componentMap.input
 }
 
@@ -137,7 +278,7 @@ const shouldShowExpandToggle = computed(() => {
  * 展开/收起按钮文本
  */
 const expandToggleText = computed(() => {
-  return isExpanded.value ? '收起' : '展开'
+  return isExpanded.value ? props.collapseText : props.expandText
 })
 
 /**
@@ -165,11 +306,11 @@ const handleReset = () => {
   // 重置表单字段（UI 层）
   formInstance.value?.resetFields()
 
-  // 清空所有表单项值（包含隐藏项）
-  Object.assign(
-    modelValue.value,
-    Object.fromEntries(props.items.map(({ key }) => [key, undefined])),
-  )
+  // 恢复初始表单值，保留默认搜索条件
+  Object.keys(modelValue.value).forEach((key) => {
+    delete modelValue.value[key]
+  })
+  Object.assign(modelValue.value, cloneModelValue(initialModelValue.value))
 
   // 触发 reset 事件
   emit('reset')
@@ -179,13 +320,16 @@ const handleReset = () => {
  * 处理搜索事件
  */
 const handleSearch = () => {
-  emit('search')
+  // 对外只抛出清洗后的查询参数
+  emit('search', getSanitizedOutput())
 }
 
 defineExpose({
   ref: formInstance,
   validate: (...args: any[]) => formInstance.value?.validate(...args),
   reset: handleReset,
+  // 允许外部在手动组装请求前直接读取清洗后的参数
+  getOutput: getSanitizedOutput,
 })
 
 // 解构 props 以便在模板中直接使用
@@ -193,7 +337,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
 
 <template>
-  <section class="art-search-bar art-custom-card" :class="{ 'is-expanded': isExpanded }">
+  <section class="art-search-bar" :class="{ 'is-expanded': isExpanded }">
     <ElForm ref="formRef" :model="modelValue" :label-position="labelPosition" v-bind="{ ...$attrs }">
       <ElRow class="search-form-row" :gutter="gutter">
         <ElCol
@@ -202,19 +346,23 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
           :xs="24"
           :sm="12"
           :md="8"
-          :lg="item.span || span"
-          :xl="item.span || span"
+          :lg="getColSpan(item.span)"
+          :xl="getColSpan(item.span)"
         >
           <ElFormItem
-            :label="item.label"
             :prop="item.key"
             :label-width="item.label ? item.labelWidth || labelWidth : undefined"
           >
+            <template v-if="item.label" #label>
+              <component :is="item.label" v-if="typeof item.label !== 'string'" />
+              <span v-else>{{ item.label }}</span>
+            </template>
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
                 :is="getComponent(item)"
-                v-model="modelValue[item.key]"
+                :model-value="getFieldValue(item.key)"
                 v-bind="getProps(item)"
+                @update:model-value="setFieldValue(item.key, $event)"
               >
                 <!-- 下拉选择 -->
                 <template v-if="item.type === 'select' && getProps(item)?.options">
@@ -254,20 +402,17 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
         <ElCol :xs="24" :sm="24" :md="span" :lg="span" :xl="span" class="action-column">
           <div class="action-buttons-wrapper" :style="actionButtonsStyle">
             <div class="form-buttons">
-              <!-- v-ripple -->
               <ElButton v-if="showReset" class="reset-button" @click="handleReset">
-                重置
+                {{ resetText }}
               </ElButton>
-              <!-- v-ripple -->
               <ElButton
                 v-if="showSearch"
-
                 type="primary"
                 class="search-button"
                 :disabled="disabledSearch"
                 @click="handleSearch"
               >
-                查询
+                {{ searchText }}
               </ElButton>
             </div>
             <div v-if="shouldShowExpandToggle" class="filter-toggle" @click="toggleExpand">
@@ -289,8 +434,8 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 <style lang="scss" scoped>
 .art-search-bar {
   padding: 15px 20px 0;
-  background-color: var(--art-main-bg-color);
-  border-radius: calc(var(--custom-radius) / 2 + 2px);
+  background-color: var(--art-main-bg-color, #fff);
+  border-radius: calc(var(--custom-radius, 4px) / 2 + 2px);
 
   .search-form-row {
     display: flex;
@@ -319,12 +464,12 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
       align-items: center;
       margin-left: 10px;
       line-height: 32px;
-      color: var(--main-color);
+      color: var(--el-color-primary, #409eff);
       cursor: pointer;
       transition: color 0.2s ease;
 
       &:hover {
-        color: var(--ElColor-primary);
+        color: var(--el-color-primary-light-3, #66b1ff);
       }
 
       span {

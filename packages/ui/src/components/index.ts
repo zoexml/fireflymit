@@ -7,5 +7,6 @@ export * from './Badge'
 export * from './ContextMenu'
 export * from './CountTo'
 export * from './DragVerify'
+export * from './SearchBar'
 
 export default installer
