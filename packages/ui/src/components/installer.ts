@@ -6,6 +6,7 @@ import { Badge } from './Badge'
 import { ContextMenu } from './ContextMenu'
 import { CountTo } from './CountTo'
 import { DragVerify } from './DragVerify'
+import { ArtForm } from './Form'
 import { SearchBar } from './SearchBar'
 // import { Checkbox } from './checkbox'
 // import { Empty } from './empty'
@@ -47,6 +48,7 @@ const components = [
   ContextMenu,
   CountTo,
   DragVerify,
+  ArtForm,
   SearchBar,
   // SearchBar,
   // Breadcrumb,
