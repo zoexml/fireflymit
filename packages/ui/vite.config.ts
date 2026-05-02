@@ -91,7 +91,13 @@ export default defineConfig({
     },
     rollupOptions: {
       // 排除依赖的库
-      external: ['vue', '@element-plus/icons-vue', '@iconify/vue'],
+      external: [
+        'vue',
+        'element-plus',
+        '@element-plus/icons-vue',
+        '@iconify/vue',
+        '@vueuse/core',
+      ],
       // 入口地址
       input: ['src/index.ts'],
       // 输出配置
