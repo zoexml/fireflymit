@@ -1,6 +1,8 @@
 // src/index.ts
-// 样式不会自动注入，请在项目入口手动引入:
-// import '@fireflymit/ui/dist/es/style.css'
+// 全量样式请在项目入口手动引入:
+// import '@fireflymit/ui/dist/index.css'
+
+import './styles/index.scss'
 
 export { default } from './components'
 export * from './components'

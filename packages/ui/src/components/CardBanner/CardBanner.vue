@@ -5,7 +5,7 @@ import { cardBannerProps } from './CardBanner.types'
 
 defineOptions({ name: 'CardBanner' })
 
-const props = defineProps(cardBannerProps)
+defineProps(cardBannerProps)
 
 const emit = defineEmits<{
   (e: 'click'): void

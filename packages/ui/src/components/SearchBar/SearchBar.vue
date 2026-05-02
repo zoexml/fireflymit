@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<SearchBarProps>(), {
 
 const emit = defineEmits<SearchBarEmits>()
 
-const [className, bem] = createNamespace('search-bar')
+const [className] = createNamespace('search-bar')
 
 const componentMap = {
   input: ElInput,

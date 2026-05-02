@@ -27,6 +27,22 @@ const colors: Record<BadgeType, string> = {
   </div>
 </template>
 
-<style lang="scss">
-@use './Badge.scss' as *;
+<style lang="scss" scoped>
+.art-badge {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  line-height: 20px;
+
+  &--type {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  &--text {
+    line-height: inherit;
+  }
+}
 </style>

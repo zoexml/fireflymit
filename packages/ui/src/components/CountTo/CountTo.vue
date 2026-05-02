@@ -14,7 +14,7 @@ const emit = defineEmits<{
   reset: []
 }>()
 
-const [className, bem] = createNamespace('count-to')
+const [className] = createNamespace('count-to')
 
 const EPSILON = Number.EPSILON
 const MIN_DURATION = 100

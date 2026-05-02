@@ -1,244 +1,217 @@
 <script setup lang="ts">
+import type { ShallowRef } from 'vue'
+
 import { createNamespace } from '~/_utils'
 import { dragVerifyProps } from './DragVerify.types'
 
 defineOptions({ name: 'DragVerify' })
 
 const props = defineProps(dragVerifyProps)
+
 const emit = defineEmits<{
   (e: 'handlerMove'): void
+  (e: 'passFail'): void
   (e: 'update:modelValue', value: boolean): void
-  (e: 'passCallback'): void
+  (e: 'passCallback', seconds: number): void
 }>()
 
 const [className, bem] = createNamespace('drag-verify')
 
-interface StateType {
-  isMoving: boolean
-  x: number
-  isOk: boolean
-}
+const isMoving = ref(false)
+const x = ref(0)
+const isOk = ref(false)
+const startTime = ref(0)
+const endTime = ref(0)
 
-const state = reactive<StateType>({
-  isMoving: false,
-  x: 0,
-  isOk: false,
-})
-
-const { isOk } = toRefs(state)
-
-const dragVerify = ref<HTMLElement>()
-const messageRef = ref<HTMLElement>()
-const handler = ref<HTMLElement>()
-const progressBar = ref<HTMLElement>()
-
-let startX: number
-let startY: number
-let moveX: number
-let moveY: number
-
-const getNumericWidth = (): number => {
-  if (typeof props.width === 'string') {
-    return dragVerify.value?.offsetWidth || 260
-  }
-  return props.width as number
-}
-
-const getStyleWidth = (): string => {
-  if (typeof props.width === 'string') {
-    return props.width as string
-  }
-  return `${props.width}px`
-}
+const dragVerify = useTemplateRef('dragVerify') as ShallowRef<HTMLElement>
+const progressBar = useTemplateRef('progressBar') as ShallowRef<HTMLElement>
+const handler = useTemplateRef('handler') as ShallowRef<HTMLElement>
+const message = useTemplateRef('message') as ShallowRef<HTMLElement>
 
 const passVerify = () => {
+  endTime.value = Date.now()
   emit('update:modelValue', true)
-  state.isMoving = false
-  if (progressBar.value) progressBar.value.style.background = props.completedBg
-  if (messageRef.value) {
-    messageRef.value.style['-webkit-text-fill-color'] = 'unset'
-    messageRef.value.style.animation = 'slidetounlock2 2s cubic-bezier(0, 0.2, 1, 1) infinite'
-    messageRef.value.style.color = '#fff'
+  isMoving.value = false
+  if (message.value) {
+    message.value.style.setProperty('-webkit-text-fill-color', 'unset')
+    message.value.style.animation = 'slideToUnlock2 3s infinite'
   }
-  emit('passCallback')
+  dragVerify.value.style.setProperty('--textColor', '#fff')
+  const seconds = Math.round((endTime.value - startTime.value) / 1000 * 100) / 100
+  emit('passCallback', seconds)
 }
 
-const onTouchStart = (e: TouchEvent) => {
-  startX = e.targetTouches[0].pageX
-  startY = e.targetTouches[0].pageY
+const dragStart = (e: MouseEvent) => {
+  if (!props.modelValue) {
+    startTime.value = Date.now()
+    isMoving.value = true
+    x.value = e.pageX
+  }
+  emit('handlerMove')
 }
 
-const onTouchMove = (e: TouchEvent) => {
-  moveX = e.targetTouches[0].pageX
-  moveY = e.targetTouches[0].pageY
-
-  if (Math.abs(moveX - startX) > Math.abs(moveY - startY)) {
-    e.preventDefault()
+const dragMoving = (e: MouseEvent) => {
+  if (isMoving.value && !props.modelValue) {
+    const diffX = e.pageX - x.value
+    if (diffX > 0 && diffX <= Number(props.width) - props.height) {
+      handler.value.style.left = `${diffX}px`
+      progressBar.value.style.width = `${diffX + props.height / 2}px`
+    } else if (diffX > Number(props.width) - props.height) {
+      handler.value.style.left = `${Number(props.width) - props.height}px`
+      progressBar.value.style.width = `${Number(props.width) - props.height / 2}px`
+      passVerify()
+    }
   }
 }
 
-onMounted(() => {
-  dragVerify.value?.style.setProperty('--textColor', props.textColor)
+const dragFinish = (e: MouseEvent) => {
+  if (isMoving.value && !props.modelValue) {
+    const diffX = e.pageX - x.value
+    if (diffX < Number(props.width) - props.height) {
+      isOk.value = true
+      setTimeout(() => {
+        handler.value.style.left = '0'
+        progressBar.value.style.width = '0'
+        isOk.value = false
+      }, 500)
+      emit('passFail')
+    } else {
+      handler.value.style.left = `${Number(props.width) - props.height}px`
+      progressBar.value.style.width = `${Number(props.width) - props.height / 2}px`
+      passVerify()
+    }
+    isMoving.value = false
+  }
+}
 
-  nextTick(() => {
-    const numericWidth = getNumericWidth()
-    dragVerify.value?.style.setProperty('--width', `${Math.floor(numericWidth / 2)}px`)
-    dragVerify.value?.style.setProperty('--pwidth', `${-Math.floor(numericWidth / 2)}px`)
-  })
-
-  document.addEventListener('touchstart', onTouchStart)
-  document.addEventListener('touchmove', onTouchMove, { passive: false })
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('touchstart', onTouchStart)
-  document.removeEventListener('touchmove', onTouchMove)
-})
+const reset = () => {
+  isMoving.value = false
+  x.value = 0
+  isOk.value = false
+  handler.value.style.left = '0'
+  progressBar.value.style.width = '0'
+  emit('update:modelValue', false)
+  dragVerify.value.style.setProperty('--textColor', props.textColor)
+  if (message.value) {
+    message.value.style.setProperty('-webkit-text-fill-color', 'transparent')
+    message.value.style.animation = 'slideToUnlock 3s infinite'
+    message.value.style.color = props.background
+  }
+}
 
 const handlerStyle = computed(() => ({
-  left: '0',
   width: `${props.height}px`,
   height: `${props.height}px`,
   background: props.handlerBg,
 }))
 
+const messageTip = computed(() => (props.modelValue ? props.successText : props.text))
+
 const dragVerifyStyle = computed(() => ({
-  width: getStyleWidth(),
+  width: `${props.width}px`,
   height: `${props.height}px`,
   lineHeight: `${props.height}px`,
   background: props.background,
   borderRadius: props.circle ? `${props.height / 2}px` : props.radius,
+  border: props.border,
 }))
 
 const progressBarStyle = computed(() => ({
   background: props.progressBarBg,
   height: `${props.height}px`,
-  borderRadius: props.circle
-    ? `${props.height / 2}px 0 0 ${props.height / 2}px`
-    : props.radius,
+  borderRadius: props.circle ? `${props.height / 2}px 0 0 ${props.height / 2}px` : props.radius,
 }))
 
 const textStyle = computed(() => ({
+  height: `${props.height}px`,
+  width: `${props.width}px`,
   fontSize: props.textSize,
 }))
 
-const message = computed(() => {
-  return props.modelValue ? props.successText : props.text
-})
-
-const dragStart = (e: MouseEvent | TouchEvent) => {
-  if (!props.modelValue) {
-    state.isMoving = true
-    if (handler.value) handler.value.style.transition = 'none'
-    const pageX = 'pageX' in e ? e.pageX : (e as TouchEvent).touches[0].pageX
-    state.x = pageX - Number.parseInt(handler.value?.style.left.replace('px', '') || '0', 10)
-  }
-  emit('handlerMove')
-}
-
-const dragMoving = (e: MouseEvent | TouchEvent) => {
-  if (state.isMoving && !props.modelValue) {
-    const numericWidth = getNumericWidth()
-    const pageX = 'pageX' in e ? e.pageX : (e as TouchEvent).touches[0].pageX
-    const _x = pageX - state.x
-
-    if (_x > 0 && _x <= numericWidth - props.height) {
-      if (handler.value) handler.value.style.left = `${_x}px`
-      if (progressBar.value) progressBar.value.style.width = `${_x + props.height / 2}px`
-    } else if (_x > numericWidth - props.height) {
-      if (handler.value) handler.value.style.left = `${numericWidth - props.height}px`
-      if (progressBar.value) progressBar.value.style.width = `${numericWidth - props.height / 2}px`
-      passVerify()
-    }
-  }
-}
-
-const dragFinish = (e: MouseEvent | TouchEvent) => {
-  if (state.isMoving && !props.modelValue) {
-    const numericWidth = getNumericWidth()
-    const pageX = 'changedTouches' in e ? e.changedTouches[0].pageX : e.pageX
-    const _x = pageX - state.x
-
-    if (_x < numericWidth - props.height) {
-      state.isOk = true
-      if (handler.value) {
-        handler.value.style.left = '0'
-        handler.value.style.transition = 'all 0.2s'
-      }
-      if (progressBar.value) progressBar.value.style.width = '0'
-      state.isOk = false
-    } else {
-      if (handler.value) handler.value.style.transition = 'none'
-      if (handler.value) handler.value.style.left = `${numericWidth - props.height}px`
-      if (progressBar.value) progressBar.value.style.width = `${numericWidth - props.height / 2}px`
-      passVerify()
-    }
-    state.isMoving = false
-  }
-}
-
-const reset = () => {
-  if (handler.value) handler.value.style.left = '0'
-  if (progressBar.value) {
-    progressBar.value.style.width = '0'
-    progressBar.value.style.background = props.progressBarBg
-  }
-  if (messageRef.value) {
-    messageRef.value.style['-webkit-text-fill-color'] = 'transparent'
-    messageRef.value.style.animation = 'slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite'
-    messageRef.value.style.color = props.background
-  }
-  emit('update:modelValue', false)
-  state.isOk = false
-  state.isMoving = false
-  state.x = 0
-}
-
 defineExpose({ reset })
+
+onMounted(() => {
+  dragVerify.value.style.setProperty('--textColor', props.textColor)
+  dragVerify.value.style.setProperty('--width', `${Math.floor(Number(props.width) / 2)}px`)
+  dragVerify.value.style.setProperty('--pwidth', `${-Math.floor(Number(props.width) / 2)}px`)
+})
 </script>
 
 <template>
   <div
     ref="dragVerify"
-    :class="className"
+    :class="[className]"
+    class="relative select-none overflow-hidden"
     :style="dragVerifyStyle"
     @mousemove="dragMoving"
     @mouseup="dragFinish"
     @mouseleave="dragFinish"
-    @touchmove="dragMoving"
-    @touchend="dragFinish"
   >
     <div
       ref="progressBar"
       :class="[bem('__progress-bar'), { goFirst2: isOk }]"
       :style="progressBarStyle"
     />
-
-    <div ref="messageRef" :class="bem('__text')" :style="textStyle">
-      <slot v-if="$slots.textBefore" name="textBefore" />
-      {{ message }}
-      <slot v-if="$slots.textAfter" name="textAfter" />
+    <div
+      ref="message"
+      :class="[bem('__text')]"
+      class="absolute top-0 select-none"
+      :style="textStyle"
+    >
+      <div
+        class="flex items-center justify-center gap-1"
+        :style="{
+          color: props.modelValue ? '#fff' : props.textColor,
+        }"
+      >
+        <slot name="textBefore" />
+        {{ messageTip }}
+        <slot name="textAfter" />
+      </div>
     </div>
 
     <div
       ref="handler"
       :class="[bem('__handler'), { goFirst: isOk }]"
+      class="absolute left-0 top-0 flex cursor-move items-center justify-center"
       :style="handlerStyle"
       @mousedown="dragStart"
-      @touchstart.prevent="dragStart"
     >
-      <span :class="bem('__handler-icon')">{{ modelValue ? '✓' : '→' }}</span>
+      <SvgIcon
+        :icon="props.modelValue ? successIcon : handlerIcon"
+        :class="bem('__handler-icon')"
+      />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .art-drag-verify {
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-align: center;
-  border: 1px solid var(--default-border-dashed);
+  &__progress-bar {
+    position: absolute;
+    height: 0;
+    width: 0;
+  }
+
+  &__text {
+    position: absolute;
+    top: 0;
+    user-select: none;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(0, var(--textColor)),
+      color-stop(0.4, var(--textColor)),
+      color-stop(0.5, #fff),
+      color-stop(0.6, var(--textColor)),
+      color-stop(1, var(--textColor))
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-size-adjust: none;
+    animation: slideToUnlock 3s infinite;
+  }
 
   &__handler {
     position: absolute;
@@ -254,39 +227,6 @@ defineExpose({ reset })
     font-size: 14px;
     color: #999;
   }
-
-  &__progress-bar {
-    position: absolute;
-    width: 0;
-    height: 34px;
-  }
-
-  &__text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: transparent;
-    user-select: none;
-    background: linear-gradient(
-      to right,
-      var(--textColor) 0%,
-      var(--textColor) 40%,
-      #fff 50%,
-      var(--textColor) 60%,
-      var(--textColor) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: slidetounlock 2s cubic-bezier(0, 0.2, 1, 1) infinite;
-    -webkit-text-fill-color: transparent;
-    text-size-adjust: none;
-  }
-
-  &__text * {
-    -webkit-text-fill-color: var(--textColor);
-  }
 }
 
 .goFirst {
@@ -301,21 +241,18 @@ defineExpose({ reset })
 </style>
 
 <style lang="scss">
-@keyframes slidetounlock {
+@keyframes slideToUnlock {
   0% {
     background-position: var(--pwidth) 0;
   }
-
   100% {
     background-position: var(--width) 0;
   }
 }
-
-@keyframes slidetounlock2 {
+@keyframes slideToUnlock2 {
   0% {
     background-position: var(--pwidth) 0;
   }
-
   100% {
     background-position: var(--pwidth) 0;
   }

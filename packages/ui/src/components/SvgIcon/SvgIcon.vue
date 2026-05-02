@@ -8,7 +8,7 @@ defineOptions({ name: 'SvgIcon', inheritAttrs: false })
 
 defineProps<SvgIconProps>()
 
-const [className, bem] = createNamespace('svg-icon')
+const [className] = createNamespace('svg-icon')
 
 export interface SvgIconProps {
   /** Iconify icon name */

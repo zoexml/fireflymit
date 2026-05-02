@@ -1,9 +1,46 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+
+/**
+ * 合并 dist/es 下所有 CSS 文件为 dist/index.css
+ * 参照 Element Plus 的做法：全量样式输出到 dist/index.css
+ * 消费者使用: import '@fireflymit/ui/dist/index.css'
+ */
+function concatStylesPlugin() {
+  return {
+    name: 'concat-styles',
+    closeBundle() {
+      const esDir = path.resolve(import.meta.dirname, 'dist/es')
+      const distDir = path.resolve(import.meta.dirname, 'dist')
+      const cssFiles = fs.readdirSync(esDir).filter(f => f.endsWith('.css'))
+
+      // 确保变量和公共样式文件排在最前面
+      const priorityFiles = ['index.css', 'variables.css', 'config.css', 'mixins.css']
+      const sorted = cssFiles.sort((a, b) => {
+        const aPriority = priorityFiles.indexOf(a)
+        const bPriority = priorityFiles.indexOf(b)
+        if (aPriority !== -1 && bPriority !== -1) {
+          return aPriority - bPriority
+        }
+        if (aPriority !== -1) {
+          return -1
+        }
+        if (bPriority !== -1) {
+          return 1
+        }
+        return a.localeCompare(b)
+      })
+
+      const combined = sorted.map(f => fs.readFileSync(path.join(esDir, f), 'utf-8')).join('\n')
+      fs.writeFileSync(path.join(distDir, 'index.css'), combined)
+    },
+  }
+}
 
 export default defineConfig({
   resolve: {
@@ -14,6 +51,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    concatStylesPlugin(),
     AutoImport({
       imports: [
         'vue',
@@ -48,16 +86,12 @@ export default defineConfig({
       name: 'art-ui',
       // 输出格式
       formats: ['es', 'cjs'],
-      // 输出文件名
-      // fileName: (format) => {
-      //   return `${format === 'es' ? 'esm' : 'cjs'}/[name].${format === 'es' ? 'mjs' : 'js'}`
-      // },
       // CSS 输出文件名
       cssFileName: 'style',
     },
     rollupOptions: {
       // 排除依赖的库
-      external: ['vue', '@element-plus/icons-vue'],
+      external: ['vue', '@element-plus/icons-vue', '@iconify/vue'],
       // 入口地址
       input: ['src/index.ts'],
       // 输出配置
