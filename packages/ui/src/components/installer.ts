@@ -3,6 +3,8 @@
  */
 import type { App } from 'vue'
 import { Badge } from './Badge'
+import { Banner } from './Banner'
+import { CardBanner } from './CardBanner'
 import { ContextMenu } from './ContextMenu'
 import { CountTo } from './CountTo'
 import { DragVerify } from './DragVerify'
@@ -44,8 +46,8 @@ import { TextScroll } from './TextScroll'
 
 const components = [
   // ImageView,
-  // Banner,
-  // CardBanner,
+  Banner,
+  CardBanner,
   Badge,
   ContextMenu,
   CountTo,
