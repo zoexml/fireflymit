@@ -89,7 +89,7 @@ export default defineConfig({
       // CSS 输出文件名
       cssFileName: 'style',
     },
-    rollupOptions: {
+    rolldownOptions: {
       // 排除依赖的库
       external: [
         'vue',
