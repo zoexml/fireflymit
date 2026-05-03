@@ -5,7 +5,7 @@ import { generateSidebar } from 'vitepress-sidebar'
 export const nav = [
   { text: '工具', link: '/tools/Get Start/installation' },
   { text: '需求方案', link: '/demand-plan' },
-  { text: 'UI', link: '/ui/' },
+  { text: 'UI', link: 'https://zoexml.github.io/fireflymit/ui/', target: '_blank' },
   { text: '开发规范', link: '/standard/index' },
   {
     text: '相关链接',
