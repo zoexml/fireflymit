@@ -1,0 +1,1 @@
+import{_ as t,o as a,c as e}from"./chunks/framework.BgBpcM5f.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"standard/js-doc.md","filePath":"standard/js-doc.md"}'),s={name:"standard/js-doc.md"};function o(r,c,d,n,p,_){return a(),e("div")}const f=t(s,[["render",o]]);export{m as __pageData,f as default};
