@@ -45,6 +45,8 @@ jobs:
         run: pnpm install
       - name: Build VitePress
         run: pnpm build:docs
+      - name: Build UI
+        run: pnpm build:ui
       - name: Build Storybook
         run: pnpm build:storybook
       - name: Merge outputs
