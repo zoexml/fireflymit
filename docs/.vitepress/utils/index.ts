@@ -37,7 +37,6 @@ export const nav = [
       },
     ],
   },
-  { text: 'examples', link: '/examples/api-examples' },
 ]
 
 // 侧边栏
@@ -54,12 +53,6 @@ export const sidebar = generateSidebar([
     documentRootPath: 'docs/src',
     scanStartPath: 'demand-plan',
     resolvePath: '/demand-plan/',
-    useTitleFromFrontmatter: true,
-  },
-  {
-    documentRootPath: 'docs/src',
-    scanStartPath: 'examples',
-    resolvePath: '/examples/',
     useTitleFromFrontmatter: true,
   },
 ])
