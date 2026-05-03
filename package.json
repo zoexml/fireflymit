@@ -38,6 +38,7 @@
     "build:utils": "pnpm --dir packages/utils build",
     "build:commitlint": "pnpm -F @fireflymit/commitlint-config run build",
     "build:docs": "vitepress build docs",
+    "build:storybook": "storybook build -o .storybook/dist",
     "preview:docs": "vitepress preview docs",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

@@ -15,9 +15,9 @@ const config: StorybookConfig = {
   stories: [
     '../.storybook/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../packages/ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../packages/hooks/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../packages/utils/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../packages/utils/**/*.mdx',
+    // '../packages/hooks/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // '../packages/utils/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // '../packages/utils/**/*.mdx',
   ],
   addons: [
     getAbsolutePath('@storybook/addon-docs'),

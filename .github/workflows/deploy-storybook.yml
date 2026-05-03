@@ -1,25 +1,23 @@
-name: 📚 Deploy Docs
+name: 🎨 Deploy Storybook
 
 on:
   push:
     branches: [main]
     paths:
-      - 'docs/**' # 只有当docs目录下的文件被修改时才会触发
+      - 'packages/ui/**'
+      - '.storybook/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# 启用 Node.js 24 避免弃用警告
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-# Allow GITHUB_TOKEN to push to gh-pages branch
 permissions:
   contents: write
 
-# 只允许一个并发部署
 concurrency:
-  group: pages-docs
+  group: pages-storybook
   cancel-in-progress: false
 
 jobs:
@@ -41,11 +39,11 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
-      - name: Build with VitePress
-        run: pnpm build:docs
-      - name: Deploy to gh-pages
+      - name: Build Storybook
+        run: pnpm build:storybook
+      - name: Deploy Storybook to gh-pages/ui/
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          destination_dir: .
+          publish_dir: .storybook/dist
+          destination_dir: ui
