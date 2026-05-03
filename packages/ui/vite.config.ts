@@ -1,3 +1,4 @@
+import type { Plugin, Rollup } from 'vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
@@ -11,32 +12,39 @@ import dts from 'vite-plugin-dts'
  * 参照 Element Plus 的做法：全量样式输出到 dist/index.css
  * 消费者使用: import '@fireflymit/ui/dist/index.css'
  */
-function concatStylesPlugin() {
+function concatStylesPlugin(): Plugin {
+  const distDir = path.resolve(import.meta.dirname, 'dist')
+
   return {
     name: 'concat-styles',
-    closeBundle() {
-      const esDir = path.resolve(import.meta.dirname, 'dist/es')
-      const distDir = path.resolve(import.meta.dirname, 'dist')
-      const cssFiles = fs.readdirSync(esDir).filter(f => f.endsWith('.css'))
+    generateBundle(options, bundle) {
+      if (options.format !== 'es') return
 
-      // 确保变量和公共样式文件排在最前面
       const priorityFiles = ['index.css', 'variables.css', 'config.css', 'mixins.css']
-      const sorted = cssFiles.sort((a, b) => {
-        const aPriority = priorityFiles.indexOf(a)
-        const bPriority = priorityFiles.indexOf(b)
-        if (aPriority !== -1 && bPriority !== -1) {
-          return aPriority - bPriority
+      const cssChunks: { name: string, source: string }[] = []
+
+      for (const [fileName, chunk] of Object.entries(bundle) as [string, Rollup.OutputChunk | Rollup.OutputAsset][]) {
+        if (fileName.endsWith('.css') && 'source' in chunk) {
+          cssChunks.push({ name: fileName, source: chunk.source as string })
         }
-        if (aPriority !== -1) {
-          return -1
-        }
-        if (bPriority !== -1) {
-          return 1
-        }
-        return a.localeCompare(b)
+      }
+
+      cssChunks.sort((a, b) => {
+        // 匹配文件名（支持路径前缀如 styles/index.css）
+        const aBase = a.name.split('/').pop()!
+        const bBase = b.name.split('/').pop()!
+        const aPriority = priorityFiles.indexOf(aBase)
+        const bPriority = priorityFiles.indexOf(bBase)
+        if (aPriority !== -1 && bPriority !== -1) return aPriority - bPriority
+        if (aPriority !== -1) return -1
+        if (bPriority !== -1) return 1
+        return a.name.localeCompare(b.name)
       })
 
-      const combined = sorted.map(f => fs.readFileSync(path.join(esDir, f), 'utf-8')).join('\n')
+      const combined = cssChunks.map(c => c.source).join('\n')
+
+      // 写入 dist/index.css
+      if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true })
       fs.writeFileSync(path.join(distDir, 'index.css'), combined)
     },
   }
@@ -122,7 +130,6 @@ export default defineConfig({
           preserveModules: true,
           // 将 src 目录设置为模块的根目录，这样输出的文件就会直接从 src 的子目录开始，去掉 src 这一层。dist/es/components/Badge/Badge.vue  // 不再有 src 前缀
           preserveModulesRoot: 'src',
-          inlineDynamicImports: false, // 不内联动态 import
         },
         {
           exports: 'named',
@@ -131,7 +138,6 @@ export default defineConfig({
           preserveModules: true,
           preserveModulesRoot: 'src',
           dir: 'dist/lib',
-          inlineDynamicImports: false,
         },
       ],
     },
