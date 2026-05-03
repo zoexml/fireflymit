@@ -16,7 +16,7 @@ import {
   ElTreeSelect,
 } from 'element-plus'
 
-export const componentMap = {
+export const componentMap: Record<string, Component> = {
   input: ElInput,
   inputTag: ElInputNumber,
   number: ElInputNumber,

@@ -1,11 +1,13 @@
 import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
+    Unocss(),
     vue(),
     vueJsx(),
     AutoImport({

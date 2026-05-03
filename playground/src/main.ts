@@ -4,8 +4,9 @@ import { createApp } from 'vue'
 import ArtUI from '~/@fireflymit/ui'
 import App from './App.vue'
 import router from './router'
-// import '@fireflymit/ui/styles.css'
+import 'virtual:uno.css'
 import 'element-plus/dist/index.css'
+import '@fireflymit/ui/dist/index.css'
 
 const app = createApp(App)
 

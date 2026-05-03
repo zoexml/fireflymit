@@ -9,6 +9,7 @@ export default antfu({
     'curly': ['error', 'multi-line'], // 允许单行 if/else 无 {}
     'ts/explicit-function-return-type': 'off', // 允许隐式返回类型
     'unused-imports/no-unused-vars': 'off', // 允许未使用的变量
+    'style/max-statements-per-line': 'off', // 允许单行多条语句
   },
   typescript: true,
   lessOpinionated: true,
