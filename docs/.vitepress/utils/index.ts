@@ -11,32 +11,30 @@ export const nav = [
     text: '相关链接',
     items: [
       {
-        text: 'OpenAI',
+        text: 'Vue 3',
         items: [
-          // AI组的子链接
-          { text: 'chatGpt', link: 'https://chat.openai.com/' },
-          // 更多AI组链接...
+          { text: 'Vue 3 文档', link: 'https://cn.vuejs.org/' },
+          { text: 'Vue Router', link: 'https://router.vuejs.org/zh/' },
+          { text: 'VueUse', link: 'https://vueuse.org/' },
+          { text: 'Pinia', link: 'https://pinia.vuejs.org/zh/' },
         ],
       },
       {
-        text: 'Vue',
+        text: '工具链',
         items: [
-          // 其他组的子链接
-          { text: '其他组链接1', link: 'https://example.com/other-group-1' },
-          { text: '其他组链接2', link: 'https://example.com/other-group-2' },
-          // 更多其他组链接...
+          { text: 'Vite', link: 'https://vite.dev/' },
+          { text: 'VitePress', link: 'https://vitepress.dev/' },
+          { text: 'pnpm', link: 'https://pnpm.io/' },
+          { text: 'Turborepo', link: 'https://turbo.build/repo' },
         ],
       },
       {
-        text: 'React',
+        text: 'UI & 样式',
         items: [
-          // 其他组的子链接
-          { text: '其他组链接1', link: 'https://example.com/other-group-1' },
-          { text: '其他组链接2', link: 'https://example.com/other-group-2' },
-          // 更多其他组链接...
+          { text: 'Element Plus', link: 'https://element-plus.org/zh-CN/' },
+          { text: 'UnoCSS', link: 'https://unocss.dev/' },
         ],
       },
-      // 可以继续添加更多的分类和链接
     ],
   },
   { text: 'examples', link: '/examples/api-examples' },
