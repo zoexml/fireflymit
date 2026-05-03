@@ -49,7 +49,7 @@ export const sidebar = generateSidebar([
     scanStartPath: 'tools',
     resolvePath: '/tools/',
     useTitleFromFrontmatter: true,
-    manualSortFileNameByPriority: ['Get Start', 'hooks', 'utils', 'cli', 'plugins'],
+    manualSortFileNameByPriority: ['Get Start', 'cli', 'plugins'],
     collapsed: false,
   },
   {

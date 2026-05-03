@@ -7,22 +7,17 @@ import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [vue()],
-  test: {
-    globals: true,
-  },
   resolve: {
     alias: {
       '~': resolve(__dirname, 'src'),
-    //       // ui的单元测试
-    //       '@yhclt/ui': resolve(__dirname, 'packages/ui/src/index.ts'),
-    //       // utils的单元测试
-    //       '@yhclt/utils': resolve(__dirname, 'packages/utils/src/index.ts'),
     },
+  },
+  test: {
+    globals: true,
   },
 })
 
