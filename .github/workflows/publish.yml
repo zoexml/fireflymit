@@ -1,10 +1,19 @@
 name: Publish @fireflymit/ui
 
+# 触发条件：仅当 UI 组件库或 .changeset 目录变更时才触发
+# - packages/ui/**: 组件库源码变更
+# - .changeset/**: 版本发布相关变更
 on:
   push:
     branches: [main]
+    paths:
+      - 'packages/ui/**'
+      - '.changeset/**'
   pull_request:
     branches: [main]
+    paths:
+      - 'packages/ui/**'
+      - '.changeset/**'
 
   workflow_dispatch:
 
