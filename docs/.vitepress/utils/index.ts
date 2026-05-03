@@ -4,7 +4,7 @@ import { generateSidebar } from 'vitepress-sidebar'
 // 顶部导航栏
 export const nav = [
   { text: '工具', link: '/tools/Get Start/installation' },
-  { text: '需求方案', link: '/demand-plan' },
+  { text: '解决方案', link: '/solution' },
   { text: 'UI', link: 'https://zoexml.github.io/fireflymit/ui/' },
   { text: '开发规范', link: '/standard/index' },
   {
@@ -51,8 +51,8 @@ export const sidebar = generateSidebar([
   },
   {
     documentRootPath: 'docs/src',
-    scanStartPath: 'demand-plan',
-    resolvePath: '/demand-plan/',
+    scanStartPath: 'solution',
+    resolvePath: '/solution/',
     useTitleFromFrontmatter: true,
   },
 ])
