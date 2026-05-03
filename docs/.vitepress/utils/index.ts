@@ -5,7 +5,7 @@ import { generateSidebar } from 'vitepress-sidebar'
 export const nav = [
   { text: '工具', link: '/tools/Get Start/installation' },
   { text: '需求方案', link: '/demand-plan' },
-  { text: 'UI', link: '' },
+  { text: 'UI', link: '/ui/' },
   { text: '开发规范', link: '/standard/index' },
   {
     text: '相关链接',
@@ -49,7 +49,7 @@ export const sidebar = generateSidebar([
     scanStartPath: 'tools',
     resolvePath: '/tools/',
     useTitleFromFrontmatter: true,
-    manualSortFileNameByPriority: ['Get Start', 'hooks', 'utils', 'cli', 'plugins'],
+    manualSortFileNameByPriority: ['Get Start', 'cli', 'plugins'],
     collapsed: false,
   },
   {
@@ -62,6 +62,12 @@ export const sidebar = generateSidebar([
     documentRootPath: 'docs/src',
     scanStartPath: 'examples',
     resolvePath: '/examples/',
+    useTitleFromFrontmatter: true,
+  },
+  {
+    documentRootPath: 'docs/src',
+    scanStartPath: 'ui',
+    resolvePath: '/ui/',
     useTitleFromFrontmatter: true,
   },
 ])
