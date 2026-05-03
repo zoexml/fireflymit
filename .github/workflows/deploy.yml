@@ -50,7 +50,22 @@ jobs:
       - name: Build Storybook
         run: pnpm build:storybook
       - name: Merge outputs
-        run: cp -r .storybook/dist docs/.vitepress/dist/ui
+        run: |
+          mkdir -p docs/.vitepress/dist/ui
+          cp -r .storybook/dist/* docs/.vitepress/dist/ui/
+          cat > docs/.vitepress/dist/ui/404.html << 'HTML'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0;url=/fireflymit/ui/">
+            <script>
+              location.href = '/fireflymit/ui/';
+            </script>
+          </head>
+          <body><a href="/fireflymit/ui/">Go to Storybook</a></body>
+          </html>
+          HTML
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
