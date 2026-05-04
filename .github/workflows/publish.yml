@@ -1,8 +1,9 @@
 name: Publish @fireflymit/ui
 
-# 触发条件：仅当 UI 组件库或 .changeset 目录变更时才触发
-# - packages/ui/**: 组件库源码变更
+# 触发条件：
+# - packages/ui/**: UI 组件库源码变更
 # - .changeset/**: 版本发布相关变更
+# 实际发布仅在 UI 组件库版本号有提升时执行
 on:
   push:
     branches: [main]
@@ -43,26 +44,44 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Check if UI version changed
+        id: version-check
+        run: |
+          CURRENT=$(node -p "require('./packages/ui/package.json').version")
+          PREV=$(git show HEAD~1:packages/ui/package.json | jq -r '.version')
+          if [ "$CURRENT" != "$PREV" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Version bumped: $PREV -> $CURRENT"
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Version unchanged ($CURRENT), skipping release"
+          fi
+
       - name: Setup Node.js
+        if: steps.version-check.outputs.changed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - uses: pnpm/action-setup@v4
+        if: steps.version-check.outputs.changed == 'true'
         name: Install pnpm
         with:
           run_install: false
 
       - name: Install dependencies
+        if: steps.version-check.outputs.changed == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Configure Git
+        if: steps.version-check.outputs.changed == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Create Release Pull Request or Publish
+        if: steps.version-check.outputs.changed == 'true'
         id: changesets
         uses: changesets/action@v1
         with:
