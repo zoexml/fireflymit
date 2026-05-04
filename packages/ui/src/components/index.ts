@@ -3,6 +3,7 @@
 // global install
 import { installer } from './installer'
 
+export * from './Avatar'
 export * from './Badge'
 export * from './Banner'
 export * from './CardBanner'

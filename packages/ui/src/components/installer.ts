@@ -2,6 +2,7 @@
  * @Description: 组件安装器
  */
 import type { App } from 'vue'
+import { Avatar } from './Avatar'
 import { Badge } from './Badge'
 import { Banner } from './Banner'
 import { CardBanner } from './CardBanner'
@@ -46,6 +47,7 @@ import { TextScroll } from './TextScroll'
 
 const components = [
   // ImageView,
+  Avatar,
   Banner,
   CardBanner,
   Badge,

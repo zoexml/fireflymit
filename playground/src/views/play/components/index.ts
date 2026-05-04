@@ -1,6 +1,7 @@
 import { defineAsyncComponent } from 'vue'
 
 export const componentMap = {
+  Avatar: defineAsyncComponent(() => import('./avatar.vue')),
   Badge: defineAsyncComponent(() => import('./badge.vue')),
   CountTo: defineAsyncComponent(() => import('./count-to.vue')),
   DragVerify: defineAsyncComponent(() => import('./drag-verify.vue')),
@@ -13,6 +14,7 @@ export const componentMap = {
 }
 
 export const components = [
+  { label: 'Avatar', value: 'Avatar' },
   { label: 'Badge', value: 'Badge' },
   { label: 'CountTo', value: 'CountTo' },
   { label: 'DragVerify', value: 'DragVerify' },
