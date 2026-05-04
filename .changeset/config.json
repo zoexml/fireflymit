@@ -12,6 +12,7 @@
     "@fireflymit/prettier-config",
     "@fireflymit/commitlint-config",
     "@fireflymit/stylelint-config",
-    "@fireflymit/eslint-config"
+    "@fireflymit/eslint-config",
+    "@fireflymit/typescript-config"
   ]
 }

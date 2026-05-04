@@ -22,7 +22,5 @@
     "build": "unbuild",
     "publish": "pnpm publish"
   },
-  "devDependencies": {
-    "@fireflymit/typescript-config": "workspace:*"
-  }
+  "devDependencies": {}
 }
