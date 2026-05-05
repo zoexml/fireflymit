@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fireflymit/hooks": "workspace:*",
     "@fireflymit/typescript-config": "workspace:*",
     "@fireflymit/ui": "workspace:*",
     "@fireflymit/utils": "workspace:*",

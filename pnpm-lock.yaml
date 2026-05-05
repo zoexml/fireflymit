@@ -133,6 +133,12 @@ importers:
         specifier: ^1.25.0
         version: 1.33.1
 
+  packages/hooks:
+    dependencies:
+      vue:
+        specifier: ^3.0.0
+        version: 3.5.33(typescript@5.9.3)
+
   packages/lint-configs/commitlint-config:
     devDependencies:
       '@commitlint/cli':
@@ -197,6 +203,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@fireflymit/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.33(typescript@5.9.3))
@@ -233,6 +242,9 @@ importers:
 
   playground:
     dependencies:
+      '@fireflymit/hooks':
+        specifier: workspace:*
+        version: link:../packages/hooks
       '@fireflymit/typescript-config':
         specifier: workspace:*
         version: link:../packages/lint-configs/typescript-config

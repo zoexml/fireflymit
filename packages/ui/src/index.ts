@@ -8,3 +8,5 @@ export { default } from './components'
 export * from './components'
 // 获取版本号
 export { version } from './version'
+// re-export hooks & directives
+export * from '@fireflymit/hooks'

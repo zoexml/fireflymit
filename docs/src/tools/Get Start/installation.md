@@ -20,6 +20,26 @@ npm install @fireflymit/ui
 
 :::
 
+### @fireflymit/hooks
+
+指令和组合式函数，可独立使用，也包含在 `@fireflymit/ui` 中。
+
+::: code-group
+
+```bash [pnpm]
+pnpm add @fireflymit/hooks
+```
+
+```bash [yarn]
+yarn add @fireflymit/hooks
+```
+
+```bash [npm]
+npm install @fireflymit/hooks
+```
+
+:::
+
 ## 🤔 常见问题、反馈
 
 [反馈问题、新增需求](https://github.com/Joetoo/fireflymit/issues/new)

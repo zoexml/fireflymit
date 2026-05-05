@@ -1,0 +1,29 @@
+{
+  "name": "@fireflymit/hooks",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "@fireflymit hooks & directives library",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "clean": "rimraf .turbo node_modules dist",
+    "build": "unbuild",
+    "publish": "pnpm publish"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {}
+}

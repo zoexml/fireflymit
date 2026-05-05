@@ -33,7 +33,7 @@ const getOrderedChildren = <T>(
     (n): n is VNode => isVNode(n) && (n.type as any)?.name === childComponentName && !!n.component,
   )
   const uids = nodes.map(n => n.component!.uid)
-  return uids.map(uid => children[uid]).filter(p => !!p)
+  return uids.map(uid => children[uid]).filter((p): p is T => !!p)
 }
 
 export const useChildren = <T extends { uid: number }>(vm: ComponentInternalInstance, childComponentName: string) => {
