@@ -116,7 +116,7 @@ export default defineConfig({
         //   format: 'iife',
         //   entryFileNames: 'yh.min.js',
         //   dir: 'dist',
-        //   name: 'ArtUI',
+        //   name: 'FireflyUI',
         //   globals: {
         //     'vue': 'Vue',
         //     '@vueuse/core': 'VueUse',

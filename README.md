@@ -49,33 +49,13 @@ fireflymit/
 │   ├── ui/                        # Vue 3 UI 组件库 (@fireflymit/ui)
 │   │   ├── src/
 │   │   │   ├── components/        # 组件
-│   │   │   │   ├── Badge/
-│   │   │   │   ├── Banner/
-│   │   │   │   ├── CardBanner/
-│   │   │   │   ├── ContextMenu/
-│   │   │   │   ├── CountTo/
-│   │   │   │   ├── DragVerify/
-│   │   │   │   ├── ProForm/
-│   │   │   │   ├── SearchBar/
-│   │   │   │   ├── SvgIcon/
-│   │   │   │   └── TextScroll/
 │   │   │   ├── styles/            # 全局样式与变量
 │   │   │   └── _utils/            # 内部工具函数 (bem, install)
 │   │   └── ...
 │   ├── utils/                     # 工具函数库 (@fireflymit/utils)
-│   │   └── src/
-│   │       ├── array/             # 数组工具
-│   │       ├── date/              # 日期处理
-│   │       ├── dom/               # DOM 操作
-│   │       ├── string/            # 字符串处理
-│   │       └── tools/             # 通用工具
 │   ├── hooks/                     # Vue 组合式函数 (@fireflymit/hooks)
-│   │   └── src/
-│   │       ├── useChildren.ts
-│   │       ├── useCompRef.ts
-│   │       └── useLockScroll.ts
 │   ├── shared/                    # 共享代码 (@fireflymit/shared)
-│   ├── lint-configs/              # 统一 lint 配置
+│   ├── lint-configs/               # 统一 lint 配置
 │   │   ├── eslint-config/
 │   │   ├── prettier-config/
 │   │   ├── stylelint-config/
@@ -109,10 +89,10 @@ pnpm add element-plus
 #### 全局注册
 
 ```ts
-import ArtUI from '@fireflymit/ui'
+import FireflyUI from '@fireflymit/ui'
 import 'element-plus/dist/index.css'
 
-app.use(ArtUI)
+app.use(FireflyUI)
 ```
 
 ### @fireflymit/utils
@@ -196,15 +176,6 @@ pnpm changeset                # 创建变更描述
 pnpm changeset:version        # 生成版本号和 changelog
 pnpm build                    # 重新构建
 # 发布到 npm
-```
-
-## API 文档
-
-采用 TSDoc 规范编写代码注释，使用 `@microsoft/api-extractor` 和 `@microsoft/api-documenter` 自动生成文档。
-
-```bash
-pnpm api       # 提取文档模型
-pnpm md        # 生成 Markdown 文档
 ```
 
 ## 项目打包格式说明

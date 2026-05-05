@@ -15,13 +15,13 @@ pnpm add @fireflymit/ui element-plus
 一次性注册所有组件：
 
 ```ts
-import ArtUI from '@fireflymit/ui'
+import FireflyUI from '@fireflymit/ui'
 import { createApp } from 'vue'
 import 'element-plus/dist/index.css'
 import '@fireflymit/ui/dist/index.css'
 
 const app = createApp(App)
-app.use(ArtUI)
+app.use(FireflyUI)
 ```
 
 注册后在模板中直接使用：
@@ -29,7 +29,7 @@ app.use(ArtUI)
 ```vue
 <template>
   <Badge type="success" text="在线" />
-  <Banner title="欢迎" subtitle="ArtUI 组件库" />
+  <Banner title="欢迎" subtitle="FireflyUI 组件库" />
 </template>
 ```
 
