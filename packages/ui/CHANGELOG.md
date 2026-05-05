@@ -1,5 +1,15 @@
 # @fireflymit/ui
 
+## 0.0.5
+
+### Patch Changes
+
+- - 新增 @fireflymit/hooks 包，包含 composables 和 10 个 Vue 自定义指令
+  - 指令列表：vCopy、vLongpress、vClickOutside、vDebounce、vThrottle、vEmoji、vInput、vRipple、vLazyLoad
+  - 迁移 composables（useChildren、useCompRef、useLockScroll）至 hooks 包
+  - @fireflymit/ui 重新导出 hooks 全部内容，用户无需单独安装
+  - 新增指令文档页面及 Playground 演示
+
 ## 0.0.4
 
 ### Patch Changes

@@ -36,8 +36,8 @@
     },
     // 发包
     "publish": {
-      // 任务开始运行前需要完成的任务列表
-      "dependsOn": ["build"] // 发包前先打包
+      // 发包前先打包，并确保上游依赖已发布
+      "dependsOn": ["build", "^publish"]
     }
   }
 }

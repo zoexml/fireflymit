@@ -105,6 +105,7 @@ export default defineConfig({
         '@element-plus/icons-vue',
         '@iconify/vue',
         '@vueuse/core',
+        '@fireflymit/hooks',
       ],
       // 入口地址
       input: ['src/index.ts'],
