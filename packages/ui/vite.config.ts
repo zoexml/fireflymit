@@ -106,6 +106,7 @@ export default defineConfig({
         '@iconify/vue',
         '@vueuse/core',
         '@fireflymit/hooks',
+        '@fireflymit/utils',
       ],
       // 入口地址
       input: ['src/index.ts'],

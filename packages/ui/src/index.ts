@@ -10,3 +10,5 @@ export * from './components'
 export { version } from './version'
 // re-export hooks & directives
 export * from '@fireflymit/hooks'
+// re-export utils
+export * from '@fireflymit/utils'

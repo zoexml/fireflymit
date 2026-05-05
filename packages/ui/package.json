@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@fireflymit/hooks": "workspace:*",
+    "@fireflymit/utils": "workspace:*",
     "@iconify/vue": "^5.0.0"
   },
   "devDependencies": {

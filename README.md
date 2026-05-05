@@ -120,9 +120,11 @@ app.use(ArtUI)
 [![npm version](https://img.shields.io/npm/v/@fireflymit/utils)](https://www.npmjs.com/package/@fireflymit/utils)
 [![npm downloads](https://img.shields.io/npm/dm/@fireflymit/utils)](https://www.npmjs.com/package/@fireflymit/utils)
 
-轻量级工具函数库，支持 Tree Shaking。
+轻量级工具函数库，支持 Tree Shaking。已 re-export 到 `@fireflymit/ui`，安装 UI 包即可直接使用。
 
 ```ts
+// 或直接从 UI 包导入
+import { copyToClipboard, randomString } from '@fireflymit/ui'
 import { /* array, date, dom, string, tools */ } from '@fireflymit/utils'
 ```
 
@@ -131,10 +133,12 @@ import { /* array, date, dom, string, tools */ } from '@fireflymit/utils'
 [![npm version](https://img.shields.io/npm/v/@fireflymit/hooks)](https://www.npmjs.com/package/@fireflymit/hooks)
 [![npm downloads](https://img.shields.io/npm/dm/@fireflymit/hooks)](https://www.npmjs.com/package/@fireflymit/hooks)
 
-Vue 3 组合式函数库。
+Vue 3 组合式函数库。已 re-export 到 `@fireflymit/ui`，安装 UI 包即可直接使用。
 
 ```ts
 import { useLockScroll } from '@fireflymit/hooks'
+// 或直接从 UI 包导入
+import { useLockScroll, vCopy } from '@fireflymit/ui'
 ```
 
 ### @fireflymit/typescript-config
