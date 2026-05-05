@@ -206,6 +206,9 @@ importers:
       '@fireflymit/hooks':
         specifier: workspace:*
         version: link:../hooks
+      '@fireflymit/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.33(typescript@5.9.3))

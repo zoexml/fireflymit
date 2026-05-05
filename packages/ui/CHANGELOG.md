@@ -1,5 +1,11 @@
 # @fireflymit/ui
 
+## 0.0.6
+
+### Patch Changes
+
+- re-export @fireflymit/utils from @fireflymit/ui, so consumers only need to install one package
+
 ## 0.0.5
 
 ### Patch Changes
