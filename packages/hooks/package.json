@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf .turbo node_modules dist",
     "build": "unbuild",
-    "publish": "pnpm publish"
+    "release": "pnpm publish"
   },
   "peerDependencies": {
     "vue": "^3.0.0"

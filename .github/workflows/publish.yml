@@ -1,19 +1,17 @@
-name: Publish @fireflymit/ui
+name: Publish
 
-# 触发条件：
-# - packages/ui/**: UI 组件库源码变更
-# - .changeset/**: 版本发布相关变更
-# 实际发布仅在 UI 组件库版本号有提升时执行
 on:
   push:
     branches: [main]
     paths:
       - 'packages/ui/**'
+      - 'packages/hooks/**'
       - '.changeset/**'
   pull_request:
     branches: [main]
     paths:
       - 'packages/ui/**'
+      - 'packages/hooks/**'
       - '.changeset/**'
 
   workflow_dispatch:
@@ -44,18 +42,25 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Check if UI version changed
+      - name: Check if versions changed
         id: version-check
         run: |
-          CURRENT=$(node -p "require('./packages/ui/package.json').version")
-          PREV=$(git show HEAD~1:packages/ui/package.json | jq -r '.version')
-          if [ "$CURRENT" != "$PREV" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Version bumped: $PREV -> $CURRENT"
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "Version unchanged ($CURRENT), skipping release"
+          CHANGED=false
+          UI_CURRENT=$(node -p "require('./packages/ui/package.json').version")
+          UI_PREV=$(git show HEAD~1:packages/ui/package.json | jq -r '.version')
+          if [ "$UI_CURRENT" != "$UI_PREV" ]; then
+            CHANGED=true
+            echo "UI: $UI_PREV -> $UI_CURRENT"
           fi
+
+          HOOKS_CURRENT=$(node -p "require('./packages/hooks/package.json').version")
+          HOOKS_PREV=$(git show HEAD~1:packages/hooks/package.json | jq -r '.version')
+          if [ "$HOOKS_CURRENT" != "$HOOKS_PREV" ]; then
+            CHANGED=true
+            echo "hooks: $HOOKS_PREV -> $HOOKS_CURRENT"
+          fi
+
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         if: steps.version-check.outputs.changed == 'true'
@@ -74,21 +79,12 @@ jobs:
         if: steps.version-check.outputs.changed == 'true'
         run: pnpm install --frozen-lockfile
 
-      - name: Configure Git
-        if: steps.version-check.outputs.changed == 'true'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-
       - name: Create Release Pull Request or Publish
         if: steps.version-check.outputs.changed == 'true'
         id: changesets
         uses: changesets/action@v1
         with:
-          # 版本 PR 合并后执行的发布命令
           publish: pnpm release
-          # 每次 push 到 main 时自动创建/更新版本 PR
           version: pnpm ci:version
           commit: 'chore: version packages'
           title: 'chore: version packages'

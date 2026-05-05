@@ -34,10 +34,9 @@
       "dependsOn": ["test"],
       "outputs": ["coverage/**"]
     },
-    // 发包
-    "publish": {
-      // 发包前先打包，并确保上游依赖已发布
-      "dependsOn": ["build", "^publish"]
+    // 发包（使用 release 避免与 pnpm publish 生命周期冲突）
+    "release": {
+      "dependsOn": ["build", "^release"]
     }
   }
 }

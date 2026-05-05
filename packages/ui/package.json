@@ -36,7 +36,7 @@
     "test:coverage": "vitest --coverage",
     "test:bench": "vitest bench",
     "build": "pnpm run clean && vite build",
-    "publish": "pnpm publish"
+    "release": "pnpm publish"
   },
   "publishConfig": {
     "access": "public",
