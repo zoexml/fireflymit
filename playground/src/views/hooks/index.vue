@@ -1,16 +1,5 @@
 <script setup lang="ts">
-import {
-  useLockScroll,
-  vClickOutside,
-  vCopy,
-  vDebounce,
-  vEmoji,
-  vInput,
-  vLazyLoad,
-  vLongpress,
-  vRipple,
-  vThrottle,
-} from '@fireflymit/ui'
+import { useLockScroll, vClickOutside, vCopy, vDebounce, vEmoji, vInput, vLazyLoad, vLongpress, vRipple, vThrottle } from '@fireflymit/ui'
 import { ElMessage } from 'element-plus'
 
 const message = (text: string) => ElMessage.success(text)
@@ -65,12 +54,7 @@ useLockScroll(locked)
         <p class="mb-3 text-sm text-gray-500">
           点击按钮将文本写入剪贴板
         </p>
-        <el-input
-          v-model="copyText"
-          :maxlength="20"
-          show-word-limit
-          class="mb-3"
-        />
+        <el-input v-model="copyText" :maxlength="20" show-word-limit class="mb-3" />
         <el-button v-copy="copyText" type="primary">
           点击复制
         </el-button>
@@ -99,10 +83,7 @@ useLockScroll(locked)
         <p class="mb-3 text-sm text-gray-500">
           防抖点击：快速多次点击只会触发最后一次 (1000ms)
         </p>
-        <el-button
-          v-debounce="{ callback: onDebounce, time: 1000 }"
-          type="primary"
-        >
+        <el-button v-debounce="{ callback: onDebounce, time: 1000 }" type="primary">
           防抖按钮 ({{ debounceCount }})
         </el-button>
       </el-card>
@@ -112,10 +93,7 @@ useLockScroll(locked)
         <p class="mb-3 text-sm text-gray-500">
           节流点击：间隔 1000ms 内只触发一次
         </p>
-        <el-button
-          v-throttle="{ callback: onThrottle, time: 1000 }"
-          type="primary"
-        >
+        <el-button v-throttle="{ callback: onThrottle, time: 1000 }" type="primary">
           节流按钮 ({{ throttleCount }})
         </el-button>
       </el-card>
@@ -130,8 +108,7 @@ useLockScroll(locked)
             {{ showPanel ? '收起' : '展开面板' }}
           </el-button>
           <div
-            v-if="showPanel"
-            v-click-outside="() => (showPanel = false)"
+            v-if="showPanel" v-click-outside="() => (showPanel = false)"
             class="absolute left-0 top-full z-10 mt-2 w-56 border rounded-lg bg-white p-4 shadow-lg dark:bg-gray-800"
           >
             <p class="text-sm text-gray-500">
@@ -146,11 +123,7 @@ useLockScroll(locked)
         <p class="mb-3 text-sm text-gray-500">
           禁止输入 Emoji 表情和特殊字符
         </p>
-        <input
-          v-emoji
-          placeholder="试试输入 emoji 😀"
-          class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
-        >
+        <input v-emoji placeholder="试试输入 emoji 😀" class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400">
       </el-card>
 
       <!-- vInput -->
@@ -162,36 +135,28 @@ useLockScroll(locked)
           <div class="flex items-center gap-2">
             <span class="w-16 text-xs text-gray-400">整数</span>
             <input
-              v-model="inputNumber"
-              v-input:number
-              placeholder="只能输入整数"
+              v-model="inputNumber" v-input:number placeholder="只能输入整数"
               class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
             >
           </div>
           <div class="flex items-center gap-2">
             <span class="w-16 text-xs text-gray-400">小数</span>
             <input
-              v-model="inputDecimal"
-              v-input:decimal
-              placeholder="允许输入小数"
+              v-model="inputDecimal" v-input:decimal placeholder="允许输入小数"
               class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
             >
           </div>
           <div class="flex items-center gap-2">
             <span class="w-16 text-xs text-gray-400">两位小数</span>
             <input
-              v-model="inputDecimal2"
-              v-input:decimal_2
-              placeholder="保留两位小数"
+              v-model="inputDecimal2" v-input:decimal_2 placeholder="保留两位小数"
               class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
             >
           </div>
           <div class="flex items-center gap-2">
             <span class="w-16 text-xs text-gray-400">自定义</span>
             <input
-              v-model="inputCustomize"
-              v-input:customize="/[^\d]/"
-              placeholder="只允许数字"
+              v-model="inputCustomize" v-input:customize="/[^\d]/" placeholder="只允许数字"
               class="w-full border rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
             >
           </div>
@@ -214,11 +179,7 @@ useLockScroll(locked)
             </el-radio-button>
           </el-radio-group>
         </div>
-        <el-button
-          v-ripple="rippleColor"
-          type="primary"
-          class="h-12 w-full rounded-lg text-lg"
-        >
+        <el-button v-ripple="rippleColor" type="primary" class="h-12 w-full rounded-lg text-lg">
           点击看波纹
         </el-button>
       </el-card>
@@ -236,11 +197,10 @@ useLockScroll(locked)
           <img
             v-lazy-load="{
               src: 'https://picsum.photos/400/200',
-              callback: (el) => ElMessage.info('图片已加载'),
+              callback: () => ElMessage.info('图片已加载'),
             }"
             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23e5e7eb' width='400' height='200'/%3E%3Ctext fill='%239ca3af' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3ELoading...%3C/text%3E%3C/svg%3E"
-            alt="lazy load demo"
-            class="h-[200px] w-[400px] rounded object-cover"
+            alt="lazy load demo" class="h-[200px] w-[400px] rounded object-cover"
           >
           <div class="h-40" />
         </div>
@@ -251,10 +211,7 @@ useLockScroll(locked)
         <p class="mb-3 text-sm text-gray-500">
           锁定 / 解锁页面滚动
         </p>
-        <el-button
-          :type="locked ? 'danger' : 'default'"
-          @click="locked = !locked"
-        >
+        <el-button :type="locked ? 'danger' : 'default'" @click="locked = !locked">
           {{ locked ? '解锁滚动' : '锁定滚动' }}
         </el-button>
       </el-card>
