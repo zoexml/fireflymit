@@ -94,6 +94,9 @@ fireflymit/
 
 ### @fireflymit/ui
 
+[![npm version](https://img.shields.io/npm/v/@fireflymit/ui)](https://www.npmjs.com/package/@fireflymit/ui)
+[![npm downloads](https://img.shields.io/npm/dm/@fireflymit/ui)](https://www.npmjs.com/package/@fireflymit/ui)
+
 基于 Element Plus 封装的 Vue 3 业务组件库。
 
 #### 安装
@@ -114,6 +117,9 @@ app.use(ArtUI)
 
 ### @fireflymit/utils
 
+[![npm version](https://img.shields.io/npm/v/@fireflymit/utils)](https://www.npmjs.com/package/@fireflymit/utils)
+[![npm downloads](https://img.shields.io/npm/dm/@fireflymit/utils)](https://www.npmjs.com/package/@fireflymit/utils)
+
 轻量级工具函数库，支持 Tree Shaking。
 
 ```ts
@@ -121,6 +127,9 @@ import { /* array, date, dom, string, tools */ } from '@fireflymit/utils'
 ```
 
 ### @fireflymit/hooks
+
+[![npm version](https://img.shields.io/npm/v/@fireflymit/hooks)](https://www.npmjs.com/package/@fireflymit/hooks)
+[![npm downloads](https://img.shields.io/npm/dm/@fireflymit/hooks)](https://www.npmjs.com/package/@fireflymit/hooks)
 
 Vue 3 组合式函数库。
 
