@@ -1,54 +1,14 @@
 ---
-title: 指令
+title: directives
 ---
 
 # Directives
 
 `@fireflymit/ui` 内置了一系列 Vue 3 自定义指令，可直接在模板中使用。
 
-## 安装
-
-指令已包含在 `@fireflymit/ui` 中，无需额外安装。也可以单独安装 `@fireflymit/hooks`：
-
-::: code-group
-
-```bash [pnpm]
-pnpm add @fireflymit/ui
-# 或仅安装 hooks
-pnpm add @fireflymit/hooks
-```
-
-```bash [npm]
-npm install @fireflymit/ui
-# 或仅安装 hooks
-npm install @fireflymit/hooks
-```
-
+::: tip 安装与使用
+指令已包含在 `@fireflymit/ui` 中，详见 [Installation](/tools/Get%20Start/installation)。
 :::
-
-## 全局注册
-
-```ts
-import FireflyUI from '@fireflymit/ui'
-import { createApp } from 'vue'
-import App from './App.vue'
-import '@fireflymit/ui/dist/index.css'
-
-const app = createApp(App)
-app.use(FireflyUI)
-app.mount('#app')
-```
-
-## 按需引入
-
-```vue
-<script setup>
-import { vCopy, vLongpress, vRipple } from '@fireflymit/ui'
-// 或从 @fireflymit/hooks 导入
-</script>
-```
-
----
 
 ## v-copy
 
@@ -66,8 +26,6 @@ import { vCopy, vLongpress, vRipple } from '@fireflymit/ui'
   </el-button>
 </template>
 ```
-
----
 
 ## v-longpress
 
@@ -90,8 +48,6 @@ import { vCopy, vLongpress, vRipple } from '@fireflymit/ui'
 </template>
 ```
 
----
-
 ## v-debounce
 
 防抖点击，快速多次点击仅触发最后一次。
@@ -106,8 +62,6 @@ import { vCopy, vLongpress, vRipple } from '@fireflymit/ui'
 </template>
 ```
 
----
-
 ## v-throttle
 
 节流点击，指定间隔内仅触发一次。
@@ -121,8 +75,6 @@ import { vCopy, vLongpress, vRipple } from '@fireflymit/ui'
   </button>
 </template>
 ```
-
----
 
 ## v-click-outside
 
@@ -149,8 +101,6 @@ const showPanel = ref(false)
 </template>
 ```
 
----
-
 ## v-emoji
 
 禁止输入 Emoji 表情和特殊字符。适用于原生 `<input>` 和 `<textarea>`。
@@ -163,8 +113,6 @@ const showPanel = ref(false)
   <textarea v-emoji placeholder="过滤特殊字符" />
 </template>
 ```
-
----
 
 ## v-input
 
@@ -188,8 +136,6 @@ const showPanel = ref(false)
   <input v-input:customize="/[^\d]/" placeholder="仅数字">
 </template>
 ```
-
----
 
 ## v-ripple
 
@@ -217,8 +163,6 @@ const showPanel = ref(false)
 </template>
 ```
 
----
-
 ## v-lazy-load
 
 图片懒加载，元素进入可视区域时自动加载。支持 IntersectionObserver（优先）和 scroll 两种策略。
@@ -235,27 +179,5 @@ const showPanel = ref(false)
     src="data:image/svg+xml,..."
     alt="懒加载图片"
   >
-</template>
-```
-
----
-
-## useLockScroll (Composable)
-
-锁定 / 解锁页面滚动。
-
-```vue
-<script setup>
-import { useLockScroll } from '@fireflymit/ui'
-import { ref } from 'vue'
-
-const locked = ref(false)
-useLockScroll(locked)
-</script>
-
-<template>
-  <button @click="locked = !locked">
-    {{ locked ? '解锁' : '锁定' }}滚动
-  </button>
 </template>
 ```

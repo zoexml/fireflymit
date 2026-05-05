@@ -8,35 +8,41 @@ titleTemplate: 物料库
 hero:
   name: 'fireflymit'
   text: '前端物料库'
-  tagline: 🎉包括UI组件、hooks、工具函数等
+  tagline: Vue 3 组件 + 指令 + Hooks + 工具函数
   image:
     src: /logo.png
     alt: fireflymit
   actions:
     - theme: brand
       text: 快速开始
-      link: /tools/Get Start/installation
+      link: /tools/start/installation
     - theme: alt
-      text: API Examples
-      link: /examples/api-examples.html
+      text: 指令
+      link: /tools/hooks/directives
+    - theme: alt
+      text: Hooks
+      link: /tools/hooks/hooks
 
 features:
-  - icon: 🪐
-    title: UI组件库、hooks、工具函数等
-    details: 基于vite打包和TypeScript开发
+  - icon: 🧩
+    title: UI 组件
+    details: 基于 Element Plus 封装的 Vue 3 组件库，支持全局注册和按需引入。
+    link: https://zoexml.github.io/fireflymit/ui/
+  - icon: ⚡
+    title: 自定义指令
+    details: 内置 9 个实用指令 — v-copy、v-ripple、v-lazy-load、v-input 等。
+    link: /tools/hooks/directives
+  - icon: 🪝
+    title: Hooks
+    details: Vue 3 组合式函数 — useLockScroll、useChildren、useCompRef。
+    link: /tools/hooks/
+  - icon: 🔧
+    title: 工具函数
+    details: 轻量级工具函数库 — 数组、日期、DOM、字符串处理，支持 Tree Shaking。
   - icon: 📦
-    title: 持续开发中
-    details: 让前端开发更简单
+    title: 一站安装
+    details: 只需安装 @fireflymit/ui，即可使用所有组件、指令、Hooks 和工具函数。
   - icon: 🛠️
-    title: 按需引入
-    details: 直接支持按需引入无需配置任何插件。
-  - title: Sku Components
-    icon: 🍧
-    details: Implementation front-end specifications are optional and disabled
-  - title: High Quality
-    icon: 🍽️
-    details: 20+ High quality components, 98%+ Unit test coverage, Support Tree Shaking
-  - title: Actual Combat
-    icon: 🍔
-    details: 验证工作流是否生效
+    title: TypeScript 支持
+    details: 完整的类型声明，基于 Vite + Rolldown 构建，ESM + CJS 双格式输出。
 ---

@@ -2,7 +2,9 @@
 
 ## 📦 安装
 
-### @fireflymit/ui
+### @fireflymit/ui（推荐）
+
+组件 + 指令 + 工具函数一站式安装，`@fireflymit/ui` 已包含 `@fireflymit/hooks` 和 `@fireflymit/utils` 的全部导出。
 
 ::: code-group
 
@@ -20,9 +22,15 @@ npm install @fireflymit/ui
 
 :::
 
-### @fireflymit/hooks
+配合 Element Plus 使用：
 
-指令和组合式函数，可独立使用，也包含在 `@fireflymit/ui` 中。
+```bash
+pnpm add element-plus
+```
+
+### @fireflymit/hooks（按需）
+
+指令和组合式函数，可独立使用。如果已安装 `@fireflymit/ui`，无需重复安装。
 
 ::: code-group
 
@@ -38,6 +46,55 @@ yarn add @fireflymit/hooks
 npm install @fireflymit/hooks
 ```
 
+:::
+
+### @fireflymit/utils（按需）
+
+工具函数库。如果已安装 `@fireflymit/ui`，无需重复安装。
+
+::: code-group
+
+```bash [pnpm]
+pnpm add @fireflymit/utils
+```
+
+```bash [yarn]
+yarn add @fireflymit/utils
+```
+
+```bash [npm]
+npm install @fireflymit/utils
+```
+
+:::
+
+## 🔧 使用方式
+
+### 全局注册
+
+```ts
+import FireflyUI from '@fireflymit/ui'
+import { createApp } from 'vue'
+import App from './App.vue'
+import '@fireflymit/ui/dist/index.css'
+
+const app = createApp(App)
+app.use(FireflyUI)
+app.mount('#app')
+```
+
+全局注册后，所有组件和指令可直接在模板中使用。
+
+### 按需引入
+
+```vue
+<script setup>
+import { Avatar, Badge, copyToClipboard, randomString, useChildren, useLockScroll, vCopy, vLongpress, vRipple } from '@fireflymit/ui'
+</script>
+```
+
+::: tip 包间关系
+`@fireflymit/ui` 已 re-export `@fireflymit/hooks` 和 `@fireflymit/utils` 的全部导出。如果已安装 UI 包，可直接从 `@fireflymit/ui` 导入所有内容。
 :::
 
 ## 🚀 发布流程
