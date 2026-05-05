@@ -54,7 +54,7 @@ useLockScroll(locked)
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl p-6 space-y-6">
+  <div class="mx-auto max-w-5xl p-6 pb-16 space-y-6">
     <h1 class="text-2xl font-bold">
       Directives & Hooks
     </h1>
