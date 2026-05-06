@@ -55,7 +55,7 @@
     "rename-pkg": "bash ./scripts/rename-package.sh",
     "plop:component": "plop component",
     "generate:component": "node scripts/generate-component.mjs",
-    "publish": "turbo run publish",
+    "publish": "turbo run release",
     "ncu": "ncu -i"
   },
   "dependencies": {
