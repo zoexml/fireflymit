@@ -1,5 +1,12 @@
 # @fireflymit/ui
 
+## 0.0.8
+
+### Patch Changes
+
+- 修复 publish 流程：`workspace:*` 依赖未替换、`utils` 脚本名不一致、CI 路径缺失
+- 全量将 `ArtUI` 重命名为 `FireflyUI`
+
 ## 0.0.6
 
 ### Patch Changes

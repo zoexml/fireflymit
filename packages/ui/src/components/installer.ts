@@ -1,83 +1,19 @@
 /*
  * @Description: 组件安装器
  */
-import type { App } from 'vue'
-import { Avatar } from './Avatar'
-import { Badge } from './Badge'
-import { Banner } from './Banner'
-import { CardBanner } from './CardBanner'
-import { ContextMenu } from './ContextMenu'
-import { CountTo } from './CountTo'
-import { DragVerify } from './DragVerify'
-import { ProForm } from './ProForm'
-import { SearchBar } from './SearchBar'
-import { SvgIcon } from './SvgIcon'
-import { TextScroll } from './TextScroll'
-// import { Checkbox } from './checkbox'
-// import { Empty } from './empty'
-// import { SearchBar } from './SearchBar'
-// import { TextEllipsis } from './text-ellipsis'
-// import { Checkbox } from './checkbox'
-// import { Empty } from './empty'
-// import { TextEllipsis } from './text-ellipsis'
-// import { Dialog } from './Dialog'
-// import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
-// import { Button } from './button'
-// import { ImageView } from './image-view'
-// import { InputNumber } from './input-number'
-// import { Message, showLoadingMessage, showMessage } from './message'
-// import { Sku } from './sku'
-// import { Step, StepItem } from './step'
-// import { Tab, TabPanel } from './tab'
-// import { Carousel, CarouselItem } from './carousel'
-// import { Checkbox } from './checkbox'
-// import { Confirm, showConfirm } from './confirm'
-// import { Dialog } from './Dialog'
-// import { Breadcrumb, BreadcrumbItem } from './breadcrumb'
-// import { Button } from './button'
-// import { ImageView } from './image-view'
-// import { InputNumber } from './input-number'
-// import { Message, showLoadingMessage, showMessage } from './message'
-// import { Sku } from './sku'
-// import { Step, StepItem } from './step'
-// import { Tab, TabPanel } from './tab'
-// import { Carousel, CarouselItem } from './carousel'
-// import { Checkbox } from './checkbox'
-// import { Confirm, showConfirm } from './confirm'
+import type { App, Component } from 'vue'
 
-const components = [
-  // ImageView,
-  Avatar,
-  Banner,
-  CardBanner,
-  Badge,
-  ContextMenu,
-  CountTo,
-  DragVerify,
-  ProForm,
-  SearchBar,
-  TextScroll,
-  SvgIcon,
-  // SearchBar,
-  // Breadcrumb,
-  // BreadcrumbItem,
-  // Button,
-  // Dialog,
-  // Carousel,
-  // CarouselItem,
-  // Checkbox,
-  // Confirm,
-  // Empty,
-  // TextEllipsis,
-  // InputNumber,
-  // Step,
-  // StepItem,
-  // Tab,
-  // TabPanel,
-  // Sku,
-  // Message
-]
+const componentModules = import.meta.glob('./*/index.ts', {
+  eager: true,
+}) as Record<string, { default: Component }>
+
+const components = Object.values(componentModules)
+  .map(module => module.default)
+  .filter((component): component is Component & { name: string } => Boolean(component.name))
 
 export function installer(app: App) {
-  components.forEach(component => app.component(component.name as string, component))
+  // const componentNames = components.map(component => component.name)
+  // console.info('[@fireflymit/ui] registering components:', componentNames)
+
+  components.forEach(component => app.component(component.name, component))
 }

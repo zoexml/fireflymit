@@ -10,6 +10,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { name: 'Play', path: '/', label: '组件测试' },
+  { name: 'Directives', path: '/directives', label: '指令' },
   { name: 'Hooks', path: '/hooks', label: 'Hooks' },
 ]
 
@@ -25,14 +26,14 @@ const handleMenuSelect = (name: string) => {
 </script>
 
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header class="flex items-center p-0">
+  <div class="app-shell">
+    <el-container class="app-container">
+      <el-header class="app-header flex items-center p-0">
         <el-menu
           :default-active="activeMenu"
           mode="horizontal"
           :ellipsis="false"
-          class="w-full border-0"
+          class="app-menu w-full border-0"
           @select="handleMenuSelect"
         >
           <el-menu-item
@@ -45,52 +46,86 @@ const handleMenuSelect = (name: string) => {
           </el-menu-item>
         </el-menu>
       </el-header>
-      <el-container>
-        <el-main>
+      <main class="app-main">
+        <div class="app-view">
           <router-view v-slot="{ Component }">
             <keep-alive>
-              <component :is="Component" />
+              <component :is="Component" class="route-page" />
             </keep-alive>
           </router-view>
-        </el-main>
-      </el-container>
+        </div>
+      </main>
     </el-container>
   </div>
 </template>
 
-<style>
+<style lang="scss">
 html,
 body,
 #app {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
-}
-.common-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.el-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.el-header {
-  flex-shrink: 0;
-}
-.el-main {
   flex: 1;
-  padding: 0;
-  overflow: hidden;
+
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .app-header {
+    flex-shrink: 0;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #fff;
+
+    .app-menu {
+      min-width: 0;
+    }
+  }
+
+  .app-main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+
+    .app-view {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+      overflow: hidden;
+
+      .route-page {
+        flex: 1;
+        min-height: 0;
+        min-width: 0;
+        overflow: hidden;
+      }
+    }
+  }
 }
 </style>
 
-<style scoped>
-.el-menu--horizontal .el-menu-item {
-  font-size: 1.125rem;
-  font-weight: 600;
+<style lang="scss" scoped>
+.el-menu--horizontal {
+  .el-menu-item {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
     "dev": "vite",
     "clean": "rimraf .turbo node_modules dist",
     "test": "vitest",
-    "build": "tsc && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

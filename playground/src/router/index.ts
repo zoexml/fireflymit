@@ -14,6 +14,12 @@ export const routes: RouteRecordRaw[] = [
     meta: { title: 'Hooks' },
     component: () => import('@/views/hooks/index.vue'),
   },
+  {
+    path: '/directives',
+    name: 'Directives',
+    meta: { title: 'Directives' },
+    component: () => import('@/views/directives/index.vue'),
+  },
 ]
 
 const router = createRouter({

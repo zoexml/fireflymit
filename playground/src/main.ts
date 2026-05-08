@@ -1,7 +1,7 @@
+// 引入@fireflymit/ui
+import FireflyUI from '@fireflymit/ui'
 import ElementPlus from 'element-plus'
 import { createApp } from 'vue'
-// 引入@fireflymit/ui
-import FireflyUI from '~/@fireflymit/ui'
 import App from './App.vue'
 import router from './router'
 import 'virtual:uno.css'
@@ -9,8 +9,6 @@ import 'element-plus/dist/index.css'
 import '@fireflymit/ui/dist/index.css'
 
 const app = createApp(App)
-
-// plugins.forEach(plugin => app.use(plugin)) // 将组件注册成了全局组件 ，可以直接使用了
 
 app.use(ElementPlus)
 app.use(FireflyUI)

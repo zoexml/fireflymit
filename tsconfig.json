@@ -3,7 +3,13 @@
   "compilerOptions": {
     "paths": {
       "@ffm/*": ["./packages/*"],
-      "@ffm/ui/*": ["./packages/ui/src/*"]
+      "@ffm/ui/*": ["./packages/ui/src/*"],
+      "@fireflymit/ui": ["./packages/ui/src/index.ts"],
+      "@fireflymit/ui/*": ["./packages/ui/src/*"],
+      "@fireflymit/hooks": ["./packages/hooks/src/index.ts"],
+      "@fireflymit/hooks/*": ["./packages/hooks/src/*"],
+      "@fireflymit/utils": ["./packages/utils/src/index.ts"],
+      "@fireflymit/utils/*": ["./packages/utils/src/*"]
     }
   }
 }

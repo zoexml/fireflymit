@@ -5,6 +5,15 @@ import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 
+const root = import.meta.dirname
+const resolveRoot = (path: string) => resolve(root, path)
+
+const workspacePackages = ['hooks', 'utils', 'ui'] as const
+const workspaceAliases = workspacePackages.map(packageName => ({
+  find: new RegExp(`^@fireflymit/${packageName}$`),
+  replacement: resolveRoot(`../packages/${packageName}/src/index.ts`),
+}))
+
 export default defineConfig({
   plugins: [
     Unocss(),
@@ -12,19 +21,15 @@ export default defineConfig({
     vueJsx(),
     AutoImport({
       imports: ['vue'],
-      // 生成自动导入声明文件
       dts: './src/types/auto-import.d.ts',
-      // resolvers: [ElementPlusResolver()],
     }),
   ],
   resolve: {
-    alias: {
-      '@': resolve(import.meta.dirname, './src'),
-      // 使用本地UI库，ui组件修改实时变化，提高调试效率。
-      '@fireflymit/hooks': resolve(import.meta.dirname, '../packages/hooks/src/index.ts'),
-      '~/@fireflymit/ui': resolve(import.meta.dirname, '../packages/ui/src/index.ts'),
-      '~': resolve(import.meta.dirname, '../packages/ui/src'),
-    },
+    alias: [
+      { find: '@', replacement: resolveRoot('./src') },
+      { find: '~', replacement: resolveRoot('../packages/ui/src') },
+      ...workspaceAliases,
+    ],
   },
   server: {
     port: 4444,
@@ -33,42 +38,3 @@ export default defineConfig({
     include: ['vue', 'element-plus'],
   },
 })
-
-//
-//
-// import Components from 'unplugin-vue-components/vite'
-// // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
-// // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [
-//     vue(),
-//
-
-//     Components({
-//     // 不开起自动生成声明文件 dts: false
-//       dts: false,
-//       // 原因：Toast Confirm 这类组件的样式还是需要单独引入，样式全局引入了，关闭自动引入
-//       // resolvers: [ElementPlusResolver({ importStyle: false })],
-//     }),
-//   ],
-// })
-
-// // import Components from 'unplugin-vue-components/vite'
-// // import DefineOptions from 'unplugin-vue-define-options/vite';
-// export default defineConfig({
-//   plugins: [
-
-//     // AutoImport({
-//     //   resolvers: [ElementPlusResolver({
-//     //     importStyle: 'sass',
-//     //   })],
-//     // }),
-
-//     // Components({
-//     //   resolvers: [ElementPlusResolver({
-//     //     importStyle: 'sass',
-//     //   })],
-//     // })
-//   ],
-// })
