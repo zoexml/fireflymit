@@ -6,6 +6,8 @@
       "@ffm/ui/*": ["./packages/ui/src/*"],
       "@fireflymit/ui": ["./packages/ui/src/index.ts"],
       "@fireflymit/ui/*": ["./packages/ui/src/*"],
+      "@fireflymit/uno-preset": ["./packages/uno-preset/src/index.ts"],
+      "@fireflymit/uno-preset/*": ["./packages/uno-preset/src/*"],
       "@fireflymit/hooks": ["./packages/hooks/src/index.ts"],
       "@fireflymit/hooks/*": ["./packages/hooks/src/*"],
       "@fireflymit/utils": ["./packages/utils/src/index.ts"],

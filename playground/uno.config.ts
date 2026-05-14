@@ -1,13 +1,15 @@
+import { presetFireflymit } from '@fireflymit/uno-preset'
 import {
   defineConfig,
-  presetUno,
+  presetWind3,
   transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
   preflights: [],
   presets: [
-    presetUno(),
+    presetWind3(),
+    presetFireflymit(),
   ],
   transformers: [
     transformerVariantGroup(),

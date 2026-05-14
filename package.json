@@ -72,6 +72,7 @@
     "@fireflymit/stylelint-config": "workspace:^",
     "@fireflymit/typescript-config": "workspace:^",
     "@fireflymit/ui": "workspace:^",
+    "@fireflymit/uno-preset": "workspace:^",
     "@fireflymit/utils": "workspace:^",
     "@storybook/addon-docs": "^10.3.6",
     "@storybook/vue3-vite": "^10.3.6",
