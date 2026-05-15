@@ -40,6 +40,17 @@ const config: StorybookConfig = {
       ...config.resolve.alias,
       '~': uiSrc,
     }
+    config.build = {
+      ...config.build,
+      chunkSizeWarningLimit: 1200,
+      rolldownOptions: {
+        ...config.build?.rolldownOptions,
+        checks: {
+          ...config.build?.rolldownOptions?.checks,
+          pluginTimings: false,
+        },
+      },
+    }
     return config
   },
 }
