@@ -1,6 +1,7 @@
 # Changesets
 
 ### @see https://mp.weixin.qq.com/s/Ep-hrLzyP9s1Gtx8QFEzhA
+
 采用 changesets 管理 monorepo 多包项目
 
 - pnpm add -Dw @changesets/cli
@@ -25,46 +26,35 @@
   // 不需要变动 version 的包
   "ignore": []
 }
-
 ```
 
 ## 如何发版
 
-### 本地手动发版
-
-1. **记录变更** — 执行 `pnpm changeset`，交互式选择要发布的包，选择版本变更级别（major/minor/patch），填写变更说明
-2. **生成版本** — 执行 `pnpm changeset version`，changeset 会自动更新版本号并生成 CHANGELOG
-3. **构建** — 执行 `pnpm build`，确保产物是最新的
-4. **提交代码** — 将版本变更和 CHANGELOG 提交到 git
-5. **发布到 npm** — 执行 `pnpm changeset publish`
-
-```bash
-pnpm changeset           # 记录变更
-pnpm changeset version   # 生成版本号和 CHANGELOG
-pnpm build               # 构建
-git add -A && git commit -m "chore: version packages"
-pnpm changeset publish   # 发布到 npm
-```
-
 ### CI 自动发版（推荐）
 
-项目已配置 GitHub Actions 自动发版流程（`.github/workflows/publish.yml`）：
+项目配置了 GitHub Actions 自动发版流程（`.github/workflows/publish.yml`）：
 
-1. 向 `main` 分支推送代码，且包含 changeset 文件
-2. GitHub Actions 自动创建或更新版本 PR（`chore: version packages`）
-3. 合并版本 PR 后，自动执行 `pnpm release` 构建并发布到 npm
-
-**只需做的：**
+1. 创建 changeset，记录需要发布的包、版本级别和变更说明
+2. 推送到 `main` 后，GitHub Actions 自动创建或更新版本 PR
+3. 合并版本 PR 后，GitHub Actions 自动执行 `pnpm release`
+4. `pnpm release` 先通过 Turbo 构建可发布包，再通过 Changesets 发布 npm 上还不存在的新版本
 
 ```bash
-pnpm changeset           # 记录变更
-git commit -m "chore: add changeset"
-git push                 # 推送到 main，自动触发版本 PR
-# 然后在 GitHub 上合并版本 PR 即可
+pnpm changeset:add       # 记录变更
+git add . && git commit -m "chore: add changeset"
+git push                 # 推送后等待版本 PR
 ```
 
 **所需 GitHub Secrets：**
 
-| Secret | 说明 |
-|--------|------|
-| `FFM_TOKEN` | GitHub Personal Access Token（repo 权限）+ npm 访问 Token |
+| Secret      | 说明                                              |
+| ----------- | ------------------------------------------------- |
+| `NPM_TOKEN` | npm automation token，用于发布 `@fireflymit/*` 包 |
+
+### 本地手动发版
+
+```bash
+pnpm changeset:add       # 记录变更
+pnpm changeset:version   # 生成版本号和 CHANGELOG
+pnpm release             # Turbo 构建可发布包 + Changesets 发布
+```

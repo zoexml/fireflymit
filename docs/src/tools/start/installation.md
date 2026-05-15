@@ -99,48 +99,43 @@ import { Avatar, Badge, copyToClipboard, randomString, useChildren, useLockScrol
 
 ## 🚀 发布流程
 
-本项目使用 [Changesets](https://github.com/changesets/changesets) 管理版本，Turbo 编排发布顺序。
+本项目使用 [Changesets](https://github.com/changesets/changesets) 管理版本与发包，Turbo 负责编排构建顺序。
 
 ### 1. 创建变更记录
 
 ```bash
-npx changeset
+pnpm changeset:add
 ```
 
 根据提示选择需要升级的包和版本类型（major / minor / patch），填写变更说明。
 
-### 2. 构建版本号
+### 2. 提交变更记录
 
 ```bash
-npx changeset version
+git add . && git commit -m "chore: add changeset"
+git push
 ```
 
-此命令会消耗 changeset 文件，更新 `package.json` 版本号并写入 `CHANGELOG.md`。
+推送到 `main` 后，GitHub Actions 会自动创建或更新 `chore: version packages` 版本 PR。
 
-### 3. 提交版本变更
+### 3. 合并版本 PR
 
-```bash
-git add . && git commit -m "chore: bump versions"
-```
+合并版本 PR 后，GitHub Actions 会执行
+`pnpm release`：先通过 Turbo 构建可发布包，再通过 Changesets 发布 npm 上还不存在的新版本。
 
-### 4. 发布
-
-```bash
-# Turbo 自动按拓扑顺序发布（hooks → ui）
-turbo run release
-```
-
-::: tip 发布顺序
-`turbo.json` 中配置了 `"dependsOn": ["build", "^release"]`，会先构建，再确保上游依赖发布后才发布当前包。
-:::
+::: tip 发布顺序 `turbo.json` 中配置了
+`"build": { "dependsOn": ["^build"] }`，会先构建上游依赖包，再构建依赖它们的包。`pnpm build:packages` 会构建
+`@fireflymit/hooks`、`@fireflymit/utils`、`@fireflymit/uno-preset` 和 `@fireflymit/ui`。实际发布由 `changeset publish`
+判断哪些包需要发布。:::
 
 ### 手动发布
 
-也可进入单个包目录直接发布：
+如果需要本地发版，可按同一条链路执行：
 
 ```bash
-cd packages/hooks && pnpm publish --otp=<验证码>
-cd packages/ui && pnpm publish --otp=<验证码>
+pnpm changeset:add
+pnpm changeset:version
+pnpm release
 ```
 
 ## 🤔 常见问题、反馈

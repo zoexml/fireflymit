@@ -210,8 +210,5 @@ pnpm run sync-art-design-pro
 
 - [Turborepo 官方文档](https://turborepo.com/docs)
 - [pnpm workspace 指南](https://pnpm.io/zh/workspaces)
-- [Vue 3 Composition API 指南](https://vuejs.org/guide/reusability/composables.html)
 - [组件库 template 参考](https://github.com/huangmingfu/vue3-turbo-component-lib-template)
 - [pnpm-monorepo + Turborepo 业务组件库按需引入](https://juejin.cn/post/7572480736362119174)
-- [基于 TSDoc 规范生成文档](https://juejin.cn/post/7275943600780787753)
-- [个人工具函数库 — 摇树优化 — 一键生成文档站点](https://juejin.cn/post/7245584147456426045)
