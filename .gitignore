@@ -43,5 +43,8 @@ yarn-error.log*
 *storybook.log
 docs/.vitepress/cache/
 
+# pnpm local store
+.pnpm-store
+
 # Auto-imports
 packages/ui/src/types/auto-imports.d.ts
