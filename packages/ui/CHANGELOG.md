@@ -1,5 +1,11 @@
 # @fireflymit/ui
 
+## 0.1.1
+
+### Patch Changes
+
+- Add ProTable with JSX column rendering, optional pagination, height-fill layouts, and playground examples.
+
 ## 0.1.0
 
 ### Minor Changes
