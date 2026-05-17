@@ -2,6 +2,7 @@
   "name": "@fireflymit/eslint-config",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
   "description": "ESLint config for fireflymit",
   "exports": {
     ".": {
@@ -12,7 +13,9 @@
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsc --watch",
     "build": "unbuild",

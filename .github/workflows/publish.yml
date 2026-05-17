@@ -2,6 +2,7 @@ name: 📦 Publish Packages
 
 on:
   push:
+    branches: [main]
     tags:
       - 'v*'
   workflow_dispatch:
@@ -12,6 +13,7 @@ env:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 concurrency:
   group: publish-${{ github.ref }}
@@ -51,4 +53,5 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN || secrets.FFM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.FFM_TOKEN }}

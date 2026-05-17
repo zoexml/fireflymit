@@ -2,6 +2,7 @@
   "name": "@fireflymit/shared",
   "type": "module",
   "version": "1.0.0",
+  "private": true,
   "exports": {
     ".": {
       "types": "./dist/es/index.d.ts",
@@ -12,7 +13,9 @@
   "main": "./dist/umd/gdushared.umd.js",
   "module": "./dist/es/index.mjs",
   "types": "./dist/es/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist .turbo",
     "dev": "vite build --watch",
