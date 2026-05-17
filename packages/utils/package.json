@@ -3,6 +3,10 @@
   "type": "module",
   "version": "0.0.2",
   "description": "@fireflymit utils library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoexml/fireflymit"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

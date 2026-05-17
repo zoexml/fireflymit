@@ -3,6 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "description": "@fireflymit reusable UnoCSS preset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoexml/fireflymit"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

@@ -4,6 +4,10 @@
   "description": "UI Components built with Vue3 - Element Plus",
   "author": "joet桀",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoexml/fireflymit"
+  },
   "keywords": [
     "ui",
     "vue",
