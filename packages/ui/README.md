@@ -33,7 +33,51 @@ app.use(FireflyUI)
 </template>
 ```
 
-### 按需引入
+### 自动按需引入
+
+配合 `unplugin-auto-import` 和 `unplugin-vue-components` 使用，模板里写到组件时会自动导入对应组件：
+
+```ts
+import { FireflyMitResolver } from '@fireflymit/ui/resolver'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [FireflyMitResolver()],
+    }),
+    Components({
+      resolvers: [FireflyMitResolver()],
+    }),
+  ],
+})
+```
+
+默认会自动引入 `@fireflymit/ui/dist/index.css`。如果你已经在项目入口手动引入了组件库样式，可以关闭样式副作用：
+
+```ts
+FireflyMitResolver({ importStyle: false })
+```
+
+需要组件名前缀时可以这样配置：
+
+```ts
+FireflyMitResolver({ prefix: 'F' })
+```
+
+然后在模板中使用：
+
+```vue
+<template>
+  <FBadge type="success" text="在线" />
+</template>
+```
+
+### 手动按需引入
 
 只引入需要的组件，减小打包体积：
 

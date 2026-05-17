@@ -48,3 +48,4 @@ docs/.vitepress/cache/
 
 # Auto-imports
 packages/ui/src/types/auto-imports.d.ts
+playground/src/types/components.d.ts

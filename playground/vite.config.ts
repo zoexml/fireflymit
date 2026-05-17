@@ -1,8 +1,11 @@
 import { resolve } from 'node:path'
+import { FireflyMitResolver } from '@fireflymit/ui/resolver'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 
 const root = import.meta.dirname
@@ -21,13 +24,25 @@ export default defineConfig({
     vueJsx(),
     AutoImport({
       imports: ['vue'],
+      resolvers: [
+        ElementPlusResolver(),
+        FireflyMitResolver({ prefix: 'F', importStyle: false }),
+      ],
       dts: './src/types/auto-import.d.ts',
+    }),
+    Components({
+      resolvers: [
+        ElementPlusResolver(),
+        FireflyMitResolver({ prefix: 'F', importStyle: false }),
+      ],
+      dts: './src/types/components.d.ts',
     }),
   ],
   resolve: {
     alias: [
       { find: '@', replacement: resolveRoot('./src') },
       { find: '~', replacement: resolveRoot('../packages/ui/src') },
+      { find: /^@fireflymit\/ui\/resolver$/, replacement: resolveRoot('../packages/ui/src/resolver.ts') },
       ...workspaceAliases,
     ],
   },

@@ -74,8 +74,8 @@ const handleCancel = () => {
   &__inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1rem;
+    align-items: center;
     text-align: center;
   }
 
@@ -109,8 +109,8 @@ const handleCancel = () => {
 
   &__actions {
     display: flex;
-    align-items: center;
     gap: 0.75rem;
+    align-items: center;
   }
 
   &__btn,

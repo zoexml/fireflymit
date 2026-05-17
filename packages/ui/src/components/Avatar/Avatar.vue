@@ -10,7 +10,7 @@ const props = defineProps(avatarProps)
 const [className, bem] = createNamespace('avatar')
 
 /** 头像圆角 */
-const borderRadius = computed(() => props.shape === 'circle' ? '50%' : '6px')
+const borderRadius = computed(() => (props.shape === 'circle' ? '50%' : '6px'))
 
 /** 字体大小 */
 const fontSize = computed(() => props.size * 0.4)
@@ -70,7 +70,7 @@ const getColor = () => `hsl(${Math.random() * 360}, 65%, 55%)`
     width: 100%;
     height: 100%;
     font-weight: 600;
-    color: #fff;
+    color: var(--el-color-white, #fff);
     text-transform: uppercase;
     user-select: none;
   }

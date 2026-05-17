@@ -193,27 +193,20 @@ const sanitizeOutputValue = (value: unknown): unknown => {
   const options = sanitizeOutputOptions.value
 
   if (Array.isArray(value)) {
-    const sanitizedArray = value
-      .map(item => sanitizeOutputValue(item))
-      .filter(item => item !== undefined)
+    const sanitizedArray = value.map(item => sanitizeOutputValue(item)).filter(item => item !== undefined)
     return sanitizedArray.length === 0 && options.removeEmptyArray ? undefined : sanitizedArray
   }
 
   if (value && typeof value === 'object') {
     const rawValue = toRaw(value)
-    const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>(
-      (accumulator, [key, item]) => {
-        const sanitizedItem = sanitizeOutputValue(item)
-        if (sanitizedItem !== undefined) {
-          accumulator[key] = sanitizedItem
-        }
-        return accumulator
-      },
-      {},
-    )
-    return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject
-      ? undefined
-      : sanitizedObject
+    const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>((accumulator, [key, item]) => {
+      const sanitizedItem = sanitizeOutputValue(item)
+      if (sanitizedItem !== undefined) {
+        accumulator[key] = sanitizedItem
+      }
+      return accumulator
+    }, {})
+    return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject ? undefined : sanitizedObject
   }
 
   if (typeof value === 'string') {
@@ -339,10 +332,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
           :lg="getColSpan(item.span)"
           :xl="getColSpan(item.span)"
         >
-          <ElFormItem
-            :prop="item.key"
-            :label-width="item.label ? item.labelWidth || labelWidth : undefined"
-          >
+          <ElFormItem :prop="item.key" :label-width="item.label ? item.labelWidth || labelWidth : undefined">
             <template v-if="item.label" #label>
               <component :is="item.label" v-if="typeof item.label !== 'string'" />
               <span v-else>{{ item.label }}</span>
@@ -356,29 +346,17 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
               >
                 <!-- 下拉选择 -->
                 <template v-if="item.type === 'select' && getProps(item)?.options">
-                  <ElOption
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
+                  <ElOption v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
                 <!-- 复选框组 -->
                 <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
-                  <ElCheckbox
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
+                  <ElCheckbox v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
                 <!-- 单选框组 -->
                 <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
-                  <ElRadio
-                    v-for="option in getProps(item).options"
-                    v-bind="option"
-                    :key="option.value"
-                  />
+                  <ElRadio v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
                 <!-- 动态插槽支持 -->
@@ -415,7 +393,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 <style lang="scss" scoped>
 .art-form {
   padding: 1rem 1rem 0;
-  background-color: var(--art-main-bg-color, #fff);
+  background-color: var(--art-main-bg-color, #f7f8fa);
   border-radius: calc(var(--custom-radius, 4px) / 2 + 2px);
 
   &__row {
@@ -424,8 +402,8 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
   }
 
   &__action {
-    max-width: 100%;
     flex: 1;
+    max-width: 100%;
   }
 
   &__action-buttons {

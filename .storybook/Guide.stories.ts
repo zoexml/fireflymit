@@ -31,26 +31,61 @@ export const Guide: Story = {
         <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">pnpm add @fireflymit/utils</pre>
 
         <h2 style="font-size: 24px; font-weight: 600; margin: 32px 0 16px;">使用</h2>
-        <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">注册</h3>
-        <p style="margin: 16px 0;">在 <code style="background: #f6f8fa; padding: 2px 6px; border-radius: 4px;">main.ts</code> 中注册：</p>
+        <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">全局注册</h3>
+        <p style="margin: 16px 0;">在 <code style="background: #f6f8fa; padding: 2px 6px; border-radius: 4px;">main.ts</code> 中注册组件库并引入样式：</p>
         <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">import { createApp } from 'vue'
-import ElementPlus from 'element-plus'
+import FireflyUI from '@fireflymit/ui'
 import 'element-plus/dist/index.css'
 import '@fireflymit/ui/dist/index.css'
 import App from './App.vue'
 
 const app = createApp(App)
-app.use(ElementPlus)
+app.use(FireflyUI)
 app.mount('#app')</pre>
 
-        <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">引入组件</h3>
+        <p style="margin: 16px 0;">注册后可直接在模板中使用组件：</p>
+        <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">&lt;template&gt;
+  &lt;Badge type="primary" text="primary" /&gt;
+  &lt;DragVerify width="100%" text="拖动以验证" success-text="验证通过" /&gt;
+&lt;/template&gt;</pre>
+
+        <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">自动按需引入</h3>
+        <p style="margin: 16px 0;">配合 <code style="background: #f6f8fa; padding: 2px 6px; border-radius: 4px;">unplugin-auto-import</code> 和 <code style="background: #f6f8fa; padding: 2px 6px; border-radius: 4px;">unplugin-vue-components</code> 使用：</p>
+        <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">import { FireflyMitResolver } from '@fireflymit/ui/resolver'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [FireflyMitResolver()],
+    }),
+    Components({
+      resolvers: [FireflyMitResolver()],
+    }),
+  ],
+})</pre>
+
+        <p style="margin: 16px 0;">如果需要组件名前缀，可以配置 <code style="background: #f6f8fa; padding: 2px 6px; border-radius: 4px;">prefix</code>：</p>
+        <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">FireflyMitResolver({ prefix: 'F' })</pre>
+
+        <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">&lt;template&gt;
+  &lt;FBadge type="success" text="在线" /&gt;
+  &lt;FDragVerify width="100%" text="拖动以验证" success-text="验证通过" /&gt;
+&lt;/template&gt;</pre>
+
+        <h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">手动按需引入</h3>
         <pre style="background: #f6f8fa; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 14px;">&lt;script setup lang="ts"&gt;
-import { Badge, CountTo, SvgIcon } from '@fireflymit/ui'
+import { Badge, CountTo, DragVerify, SvgIcon } from '@fireflymit/ui'
 &lt;/script&gt;
 
 &lt;template&gt;
   &lt;Badge type="primary" text="primary" /&gt;
   &lt;CountTo :target="1000" :duration="2000" /&gt;
+  &lt;DragVerify width="100%" text="拖动以验证" success-text="验证通过" /&gt;
   &lt;SvgIcon icon="ri:home-line" /&gt;
 &lt;/template&gt;</pre>
 

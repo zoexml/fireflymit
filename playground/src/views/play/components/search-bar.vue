@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { SearchBar } from '@fireflymit/ui'
 import { ElMessage } from 'element-plus'
 import { computed, h, ref } from 'vue'
 
@@ -306,7 +305,7 @@ const resetSbDynamicItems = () => {
     <h3 class="mb-3 text-base font-medium">
       基础示例（默认收起）
     </h3>
-    <SearchBar
+    <FSearchBar
       v-model="searchBasicData" :items="searchFormItemsBasic" @reset="handleBasicReset"
       @search="handleBasicSearch"
     />
@@ -317,7 +316,7 @@ const resetSbDynamicItems = () => {
     <h3 class="mb-3 mt-5 text-base font-medium">
       完整示例（默认展开）
     </h3>
-    <SearchBar
+    <FSearchBar
       ref="searchBarAdvancedRef" v-model="searchAdvancedData" :items="searchFormItemsAdvanced" :rules="rulesAdvanced"
       :default-expanded="true" :label-width="sbLabelWidthAdvanced" :label-position="sbLabelPositionAdvanced" :span="sbSpanAdvanced"
       :gutter="sbGutterAdvanced" @reset="handleAdvancedReset" @search="handleAdvancedSearch"
@@ -325,7 +324,7 @@ const resetSbDynamicItems = () => {
       <template #slots>
         <el-input v-model="searchAdvancedData.slots" placeholder="我是插槽渲染出来的组件" />
       </template>
-    </SearchBar>
+    </FSearchBar>
     <div class="mt-4 rounded-lg bg-gray-50 p-4">
       <pre class="max-h-40 overflow-auto text-xs">{{ searchAdvancedResult || '无' }}</pre>
     </div>

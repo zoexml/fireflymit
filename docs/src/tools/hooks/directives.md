@@ -152,7 +152,7 @@ const showPanel = ref(false)
   </button>
 
   <!-- 自定义颜色 -->
-  <div v-ripple="'rgba(255,255,255,0.3)'" class="bg-blue-500 rounded-lg p-4">
+  <div v-ripple="'rgba(255,255,255,0.3)'" class="rounded-lg bg-blue-500 p-4">
     自定义波纹
   </div>
 

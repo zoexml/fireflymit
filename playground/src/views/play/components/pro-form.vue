@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ProForm } from '@fireflymit/ui'
 import { computed, ref } from 'vue'
 
 const formRef = ref()
@@ -168,7 +167,7 @@ const resetForm = () => formRef.value?.reset()
     <h3 class="mb-3 text-base font-medium">
       基础表单
     </h3>
-    <ProForm
+    <FProForm
       ref="formRef" v-model="formData" :items="formItems" :rules="formRules" :label-width="labelWidth" :label-position="labelPosition"
       :span="span" :gutter="gutter" @reset="handleFormReset" @submit="handleFormSubmit"
     />

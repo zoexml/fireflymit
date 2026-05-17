@@ -3,9 +3,9 @@
 
 // .z-button{}
 @mixin b($block) {
-  $B: $namespace + '-' + $block;
+  $block-name: $namespace + '-' + $block;
 
-  .#{$B} {
+  .#{$block-name} {
     @content;
   }
 }

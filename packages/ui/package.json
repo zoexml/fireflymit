@@ -11,13 +11,32 @@
     "vue3",
     "components"
   ],
+  "sideEffects": [
+    "*.css",
+    "dist/**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/es/index.d.ts",
       "import": "./dist/es/index.mjs",
       "require": "./dist/lib/index.js"
     },
+    "./resolver": {
+      "types": "./dist/es/resolver.d.ts",
+      "import": "./dist/es/resolver.mjs",
+      "require": "./dist/lib/resolver.js"
+    },
     "./dist/index.css": "./dist/index.css",
+    "./es/components/*": {
+      "types": "./dist/es/components/*/index.d.ts",
+      "import": "./dist/es/components/*/index.mjs",
+      "require": "./dist/lib/components/*/index.js"
+    },
+    "./lib/components/*": {
+      "types": "./dist/lib/components/*/index.d.ts",
+      "import": "./dist/es/components/*/index.mjs",
+      "require": "./dist/lib/components/*/index.js"
+    },
     "./lib/*": "./dist/lib/*",
     "./es/*": "./dist/es/*"
   },

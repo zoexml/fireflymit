@@ -92,12 +92,13 @@ export default defineConfig({
       // 入口文件
       entry: 'src/index.ts',
       name: 'art-ui',
-      // 输出格式
-      formats: ['es', 'cjs'],
       // CSS 输出文件名
       cssFileName: 'style',
     },
     rolldownOptions: {
+      checks: {
+        pluginTimings: false,
+      },
       // 排除依赖的库
       external: [
         'vue',
@@ -109,7 +110,7 @@ export default defineConfig({
         '@fireflymit/utils',
       ],
       // 入口地址
-      input: ['src/index.ts'],
+      input: ['src/index.ts', 'src/resolver.ts'],
       // 输出配置
       output: [
         // {

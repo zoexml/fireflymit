@@ -1,13 +1,7 @@
 <!-- 文字滚动 -->
 <script setup lang="ts">
 import type { TextScrollTheme } from './TextScroll.types'
-import {
-  useDebounceFn,
-  useElementHover,
-  useElementSize,
-  useRafFn,
-  useTimeoutFn,
-} from '@vueuse/core'
+import { useDebounceFn, useElementHover, useElementSize, useRafFn, useTimeoutFn } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { createNamespace } from '~/_utils'
 import { textScrollProps } from './TextScroll.types'
@@ -198,11 +192,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    :class="[className]"
-    :style="containerStyle"
-  >
+  <div ref="containerRef" :class="[className]" :style="containerStyle">
     <div :class="[bem('__side'), bem('__side--left')]" :style="{ backgroundColor: bgColor }">
       <slot name="icon">
         <span :class="bem('__icon')">📢</span>
@@ -245,80 +235,80 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .art-text-scroll {
   position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
   box-sizing: border-box;
-  border: 1px solid;
-  font-size: 14px;
-  border-radius: 8px;
-}
-
-.art-text-scroll__side {
-  position: absolute;
-  top: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 100%;
-  z-index: 10;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  overflow: hidden;
+  font-size: 14px;
+  border: 1px solid;
+  border-radius: 8px;
 
-  &--left {
-    left: 0;
-  }
-
-  &--right {
-    right: 0;
-  }
-}
-
-.art-text-scroll__icon {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.art-text-scroll__close-icon {
-  font-size: 18px;
-  line-height: 1;
-  color: var(--el-text-color-regular, #606266);
-}
-
-.art-text-scroll__content {
-  flex: 1;
-  white-space: nowrap;
-  display: inline-block;
-  padding: 0 36px;
-  transition: opacity 0.6s;
-  opacity: 0;
-
-  &--ready {
-    opacity: 1;
-  }
-
-  &--vertical {
+  &__side {
+    position: absolute;
+    top: 0;
+    z-index: 10;
     display: flex;
-    flex-direction: column;
-  }
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
 
-  :deep(a) {
-    color: var(--el-color-danger, #f56c6c);
+    &--left {
+      left: 0;
+    }
 
-    &:hover {
-      text-decoration: underline;
-      color: var(--el-color-danger, #f56c6c);
-      opacity: 0.8;
+    &--right {
+      right: 0;
     }
   }
-}
 
-.art-text-scroll__text {
-  display: inline-block;
-}
+  &__icon {
+    font-size: 18px;
+    line-height: 1;
+  }
 
-.art-text-scroll__clone {
-  display: inline-block;
+  &__close-icon {
+    font-size: 18px;
+    line-height: 1;
+    color: var(--el-text-color-regular, #606266);
+  }
+
+  &__content {
+    display: inline-block;
+    flex: 1;
+    padding: 0 36px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.6s;
+
+    &--ready {
+      opacity: 1;
+    }
+
+    &--vertical {
+      display: flex;
+      flex-direction: column;
+    }
+
+    :deep(a) {
+      color: var(--el-color-danger, #f56c6c);
+
+      &:hover {
+        color: var(--el-color-danger, #f56c6c);
+        text-decoration: underline;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__text {
+    display: inline-block;
+  }
+
+  &__clone {
+    display: inline-block;
+  }
 }
 </style>

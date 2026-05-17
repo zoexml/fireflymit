@@ -10,11 +10,11 @@ const props = defineProps(badgeProps)
 const [className, bem] = createNamespace('badge')
 
 const colors: Record<BadgeType, string> = {
-  primary: '#1453FF',
-  success: '#0dc986',
-  warning: '#ff9900',
-  info: '#a1a0a8',
-  error: '#FF0003',
+  primary: 'var(--el-color-primary, #1453FF)',
+  success: 'var(--el-color-success, #0dc986)',
+  warning: 'var(--el-color-warning, #ff9900)',
+  info: 'var(--el-color-info, #a1a0a8)',
+  error: 'var(--el-color-danger, #FF0003)',
 }
 </script>
 

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ContextMenu } from '@fireflymit/ui'
 import { ElMessage } from 'element-plus'
 import { nextTick, ref } from 'vue'
 
-const menuRef = ref<InstanceType<typeof ContextMenu>>()
+const menuRef = ref()
 const lastAction = ref('')
 
 const menuItems = ref([
@@ -55,6 +54,6 @@ const showMenu = (e: MouseEvent) => {
     <p class="mt-4 text-sm text-gray-500">
       最后操作: {{ lastAction || '无' }}
     </p>
-    <ContextMenu ref="menuRef" :menu-items="menuItems" :menu-width="180" :submenu-width="140" :border-radius="10" @select="handleSelect" />
+    <FContextMenu ref="menuRef" :menu-items="menuItems" :menu-width="180" :submenu-width="140" :border-radius="10" @select="handleSelect" />
   </div>
 </template>

@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { SvgIcon } from '@fireflymit/ui'
-</script>
-
 <template>
   <div class="max-w-3xl w-full space-y-6">
     <div>
@@ -9,14 +5,14 @@ import { SvgIcon } from '@fireflymit/ui'
         Remix Icon
       </h3>
       <div class="flex flex-wrap items-center gap-6">
-        <SvgIcon icon="ri:github-fill" class="text-2xl" />
-        <SvgIcon icon="ri:copilot-line" class="text-2xl text-blue-500" />
-        <SvgIcon icon="ri:edge-line" class="text-2xl text-gray-600" />
-        <SvgIcon icon="ri:planet-line" class="text-2xl text-yellow-500" />
-        <SvgIcon icon="ri:windows-line" class="text-2xl text-cyan-500" />
-        <SvgIcon icon="ri:thumb-up-line" class="text-2xl text-red-500" />
-        <SvgIcon icon="ri:gift-2-line" class="text-2xl text-green-500" />
-        <SvgIcon icon="ri:apple-line" class="text-2xl text-gray-500" />
+        <FSvgIcon icon="ri:github-fill" class="text-2xl" />
+        <FSvgIcon icon="ri:copilot-line" class="text-2xl text-blue-500" />
+        <FSvgIcon icon="ri:edge-line" class="text-2xl text-gray-600" />
+        <FSvgIcon icon="ri:planet-line" class="text-2xl text-yellow-500" />
+        <FSvgIcon icon="ri:windows-line" class="text-2xl text-cyan-500" />
+        <FSvgIcon icon="ri:thumb-up-line" class="text-2xl text-red-500" />
+        <FSvgIcon icon="ri:gift-2-line" class="text-2xl text-green-500" />
+        <FSvgIcon icon="ri:apple-line" class="text-2xl text-gray-500" />
       </div>
     </div>
 
@@ -25,13 +21,13 @@ import { SvgIcon } from '@fireflymit/ui'
         Spinners
       </h3>
       <div class="flex flex-wrap items-center gap-6">
-        <SvgIcon icon="svg-spinners:3-dots-fade" class="text-2xl text-red-400" />
-        <SvgIcon icon="svg-spinners:3-dots-bounce" class="text-2xl text-blue-400" />
-        <SvgIcon icon="svg-spinners:3-dots-move" class="text-2xl text-orange-400" />
-        <SvgIcon icon="svg-spinners:3-dots-rotate" class="text-2xl text-purple-400" />
-        <SvgIcon icon="svg-spinners:clock" class="text-2xl text-yellow-500" />
-        <SvgIcon icon="svg-spinners:tadpole" class="text-2xl text-orange-500" />
-        <SvgIcon icon="svg-spinners:blocks-wave" class="text-2xl text-blue-500" />
+        <FSvgIcon icon="svg-spinners:3-dots-fade" class="text-2xl text-red-400" />
+        <FSvgIcon icon="svg-spinners:3-dots-bounce" class="text-2xl text-blue-400" />
+        <FSvgIcon icon="svg-spinners:3-dots-move" class="text-2xl text-orange-400" />
+        <FSvgIcon icon="svg-spinners:3-dots-rotate" class="text-2xl text-purple-400" />
+        <FSvgIcon icon="svg-spinners:clock" class="text-2xl text-yellow-500" />
+        <FSvgIcon icon="svg-spinners:tadpole" class="text-2xl text-orange-500" />
+        <FSvgIcon icon="svg-spinners:blocks-wave" class="text-2xl text-blue-500" />
       </div>
     </div>
 
@@ -40,14 +36,14 @@ import { SvgIcon } from '@fireflymit/ui'
         Material Line Icons
       </h3>
       <div class="flex flex-wrap items-center gap-6">
-        <SvgIcon icon="line-md:phone-call-twotone-loop" class="text-2xl text-blue-500" />
-        <SvgIcon icon="line-md:switch-off" class="text-2xl text-green-500" />
-        <SvgIcon icon="line-md:sun-rising-filled-loop" class="text-2xl text-yellow-400" />
-        <SvgIcon icon="line-md:volume-high-filled" class="text-2xl text-purple-500" />
-        <SvgIcon icon="line-md:github-twotone" class="text-2xl text-gray-700" />
-        <SvgIcon icon="line-md:telegram" class="text-2xl text-sky-500" />
-        <SvgIcon icon="line-md:reddit-loop" class="text-2xl text-orange-400" />
-        <SvgIcon icon="line-md:coffee-half-empty-filled-loop" class="text-2xl text-emerald-500" />
+        <FSvgIcon icon="line-md:phone-call-twotone-loop" class="text-2xl text-blue-500" />
+        <FSvgIcon icon="line-md:switch-off" class="text-2xl text-green-500" />
+        <FSvgIcon icon="line-md:sun-rising-filled-loop" class="text-2xl text-yellow-400" />
+        <FSvgIcon icon="line-md:volume-high-filled" class="text-2xl text-purple-500" />
+        <FSvgIcon icon="line-md:github-twotone" class="text-2xl text-gray-700" />
+        <FSvgIcon icon="line-md:telegram" class="text-2xl text-sky-500" />
+        <FSvgIcon icon="line-md:reddit-loop" class="text-2xl text-orange-400" />
+        <FSvgIcon icon="line-md:coffee-half-empty-filled-loop" class="text-2xl text-emerald-500" />
       </div>
     </div>
 

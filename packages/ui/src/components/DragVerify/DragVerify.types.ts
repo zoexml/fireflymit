@@ -1,8 +1,9 @@
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { DragVerifyWidth } from './DragVerify.utils'
 
 export const dragVerifyProps = {
   modelValue: { type: Boolean, default: false },
-  width: { type: Number, default: 250 },
+  width: { type: [Number, String] as PropType<DragVerifyWidth>, default: 250 },
   height: { type: Number, default: 40 },
   text: { type: String, default: '请按住滑块拖动' },
   successText: { type: String, default: '验证通过' },

@@ -1,80 +1,199 @@
-// _variables.scss - Design tokens for @fireflymit/ui
-// 与 art-design-pro 保持一致
+:root,
+[data-firefly-theme='light'] {
+  color-scheme: light;
 
-:root {
-  // Base Colors
-  --art-color: #ffffff;
-  --theme-color: #409eff;
-  --main-color: #409eff;
+  --ffm-color-primary: #409eff;
+  --ffm-color-secondary: #7c8db5;
+  --ffm-color-success: #67c23a;
+  --ffm-color-warning: #e6a23c;
+  --ffm-color-danger: #f56c6c;
+  --ffm-color-info: #909399;
+  --ffm-color-white: #fff;
+  --ffm-color-black: #000;
+  --ffm-color-bg: #fff;
+  --ffm-color-bg-page: #f7f8fa;
+  --ffm-color-surface: #fff;
+  --ffm-color-surface-muted: #fafbfc;
+  --ffm-color-border: #dcdfe6;
+  --ffm-color-border-light: #ebeef5;
+  --ffm-color-border-dashed: #dfe3ee;
+  --ffm-color-text: #303133;
+  --ffm-color-text-secondary: #606266;
+  --ffm-color-text-tertiary: #909399;
+  --ffm-color-text-placeholder: #a8abb2;
+  --ffm-color-text-disabled: #c0c4cc;
+  --ffm-color-hover: #f5f7fa;
+  --ffm-color-active: #ecf5ff;
 
-  // Theme Colors (OKLCH format)
-  --art-primary: oklch(0.7 0.23 260);
-  --art-secondary: oklch(0.72 0.19 231.6);
-  --art-error: oklch(0.73 0.15 25.3);
-  --art-info: oklch(0.58 0.03 254.1);
-  --art-success: oklch(0.78 0.17 166.1);
-  --art-warning: oklch(0.78 0.14 75.5);
-  --art-danger: oklch(0.68 0.22 25.3);
-
-  // Gray Scale - Light Mode
-  --art-gray-100: #f9fafb;
-  --art-gray-200: #f2f4f5;
-  --art-gray-300: #e6eaeb;
-  --art-gray-400: #dbdfe1;
-  --art-gray-500: #949eb7;
-  --art-gray-600: #7987a1;
-  --art-gray-700: #4d5875;
-  --art-gray-800: #383853;
-  --art-gray-900: #323251;
-
-  // Border Colors
-  --art-card-border: rgba(0, 0, 0, 0.08);
-  --default-border: #e2e8ee;
-  --default-border-dashed: #dbdfe9;
-
-  // Background Colors
-  --default-bg-color: #fafbfc;
-  --default-box-color: #ffffff;
-  --art-main-bg-color: #f7f8fa;
-
-  // Hover/Active Colors
-  --art-hover-color: #edeff0;
-  --art-active-color: #f2f4f5;
-  --art-el-active-color: #f2f4f5;
-
-  // Component Sizes
-  --custom-radius: 12px;
-  --el-component-custom-height: 32px;
-
-  // Element Plus Theme Colors
-  --ElColor-primary: #409eff;
+  /* Element Plus derived colors - auto-calculated from base colors */
+  --el-color-primary-light-3: color-mix(in srgb, var(--ffm-color-primary) 70%, white);
+  --el-color-primary-light-5: color-mix(in srgb, var(--ffm-color-primary) 50%, white);
+  --el-color-primary-light-7: color-mix(in srgb, var(--ffm-color-primary) 30%, white);
+  --el-color-primary-light-8: color-mix(in srgb, var(--ffm-color-primary) 20%, white);
+  --el-color-primary-light-9: color-mix(in srgb, var(--ffm-color-primary) 10%, white);
+  --el-color-primary-dark-2: color-mix(in srgb, var(--ffm-color-primary) 80%, black);
+  --el-color-success-light-3: color-mix(in srgb, var(--ffm-color-success) 70%, white);
+  --el-color-success-light-5: color-mix(in srgb, var(--ffm-color-success) 50%, white);
+  --el-color-success-light-7: color-mix(in srgb, var(--ffm-color-success) 30%, white);
+  --el-color-success-light-8: color-mix(in srgb, var(--ffm-color-success) 20%, white);
+  --el-color-success-light-9: color-mix(in srgb, var(--ffm-color-success) 10%, white);
+  --el-color-success-dark-2: color-mix(in srgb, var(--ffm-color-success) 80%, black);
+  --el-color-warning-light-3: color-mix(in srgb, var(--ffm-color-warning) 70%, white);
+  --el-color-warning-light-5: color-mix(in srgb, var(--ffm-color-warning) 50%, white);
+  --el-color-warning-light-7: color-mix(in srgb, var(--ffm-color-warning) 30%, white);
+  --el-color-warning-light-8: color-mix(in srgb, var(--ffm-color-warning) 20%, white);
+  --el-color-warning-light-9: color-mix(in srgb, var(--ffm-color-warning) 10%, white);
+  --el-color-warning-dark-2: color-mix(in srgb, var(--ffm-color-warning) 80%, black);
+  --el-color-danger-light-3: color-mix(in srgb, var(--ffm-color-danger) 70%, white);
+  --el-color-danger-light-5: color-mix(in srgb, var(--ffm-color-danger) 50%, white);
+  --el-color-danger-light-7: color-mix(in srgb, var(--ffm-color-danger) 30%, white);
+  --el-color-danger-light-8: color-mix(in srgb, var(--ffm-color-danger) 20%, white);
+  --el-color-danger-light-9: color-mix(in srgb, var(--ffm-color-danger) 10%, white);
+  --el-color-danger-dark-2: color-mix(in srgb, var(--ffm-color-danger) 80%, black);
+  --el-color-info-light-3: color-mix(in srgb, var(--ffm-color-info) 70%, white);
+  --el-color-info-light-5: color-mix(in srgb, var(--ffm-color-info) 50%, white);
+  --el-color-info-light-7: color-mix(in srgb, var(--ffm-color-info) 30%, white);
+  --el-color-info-light-8: color-mix(in srgb, var(--ffm-color-info) 20%, white);
+  --el-color-info-light-9: color-mix(in srgb, var(--ffm-color-info) 10%, white);
+  --el-color-info-dark-2: color-mix(in srgb, var(--ffm-color-info) 80%, black);
+  --ffm-space-0: 0px;
+  --ffm-space-1: 4px;
+  --ffm-space-2: 8px;
+  --ffm-space-3: 12px;
+  --ffm-space-4: 16px;
+  --ffm-space-5: 20px;
+  --ffm-space-6: 24px;
+  --ffm-space-8: 32px;
+  --ffm-space-10: 40px;
+  --ffm-space-12: 48px;
+  --ffm-space-16: 64px;
+  --ffm-space-20: 80px;
+  --ffm-space-24: 96px;
+  --ffm-space-32: 128px;
+  --ffm-font-family-sans: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --ffm-font-family-mono: 'SFMono-Regular', 'SF Mono', consolas, 'Liberation Mono', menlo, monospace;
+  --ffm-font-size-xs: 12px;
+  --ffm-font-size-sm: 13px;
+  --ffm-font-size-base: 14px;
+  --ffm-font-size-lg: 16px;
+  --ffm-font-size-xl: 18px;
+  --ffm-font-size-2xl: 20px;
+  --ffm-font-size-3xl: 24px;
+  --ffm-font-size-4xl: 30px;
+  --ffm-font-weight-normal: 400;
+  --ffm-font-weight-medium: 500;
+  --ffm-font-weight-semibold: 600;
+  --ffm-line-height-tight: 1.2;
+  --ffm-line-height-base: 1.5;
+  --ffm-line-height-relaxed: 1.75;
+  --ffm-radius-none: 0px;
+  --ffm-radius-sm: 4px;
+  --ffm-radius-md: 6px;
+  --ffm-radius-lg: 8px;
+  --ffm-radius-xl: 10px;
+  --ffm-radius-full: 9999px;
+  --ffm-shadow-sm: 0 1px 2px rgb(15 23 42 / 8%);
+  --ffm-shadow-md: 0 6px 16px rgb(15 23 42 / 12%);
+  --ffm-shadow-lg: 0 16px 40px rgb(15 23 42 / 16%);
+  --ffm-shadow-ring: 0 0 0 3px rgb(64 158 255 / 18%);
+  --ffm-z-index-base: 0;
+  --ffm-z-index-dropdown: 1000;
+  --ffm-z-index-sticky: 1100;
+  --ffm-z-index-fixed: 1200;
+  --ffm-z-index-drawer: 1300;
+  --ffm-z-index-modal: 1400;
+  --ffm-z-index-popover: 1500;
+  --ffm-z-index-tooltip: 1600;
+  --ffm-control-height-sm: 28px;
+  --ffm-control-height-md: 32px;
+  --ffm-control-height-lg: 40px;
+  --ffm-control-padding-x-sm: 10px;
+  --ffm-control-padding-x-md: 12px;
+  --ffm-control-padding-x-lg: 16px;
+  --ffm-control-font-size-sm: 12px;
+  --ffm-control-font-size-md: 14px;
+  --ffm-control-font-size-lg: 16px;
+  --ffm-control-radius-sm: 4px;
+  --ffm-control-radius-md: 6px;
+  --ffm-control-radius-lg: 8px;
+  --ffm-control-height: var(--ffm-control-height-md);
+  --ffm-control-font-size: var(--ffm-control-font-size-md);
+  --ffm-control-padding-x: var(--ffm-control-padding-x-md);
+  --ffm-control-radius: var(--ffm-control-radius-md);
+  --el-color-primary: var(--ffm-color-primary);
+  --el-color-success: var(--ffm-color-success);
+  --el-color-warning: var(--ffm-color-warning);
+  --el-color-danger: var(--ffm-color-danger);
+  --el-color-info: var(--ffm-color-info);
+  --el-color-white: var(--ffm-color-white);
+  --el-color-black: var(--ffm-color-black);
+  --el-bg-color: var(--ffm-color-bg);
+  --el-bg-color-page: var(--ffm-color-bg-page);
+  --el-fill-color-blank: var(--ffm-color-surface);
+  --el-fill-color-light: var(--ffm-color-surface-muted);
+  --el-border-color: var(--ffm-color-border);
+  --el-border-color-light: var(--ffm-color-border-light);
+  --el-border-color-darker: var(--ffm-color-border-dashed);
+  --el-text-color-primary: var(--ffm-color-text);
+  --el-text-color-regular: var(--ffm-color-text-secondary);
+  --el-text-color-secondary: var(--ffm-color-text-tertiary);
+  --el-text-color-placeholder: var(--ffm-color-text-placeholder);
+  --el-text-color-disabled: var(--ffm-color-text-disabled);
+  --el-font-family: var(--ffm-font-family-sans);
+  --el-font-size-base: var(--ffm-font-size-base);
+  --el-border-radius-base: var(--ffm-radius-md);
+  --el-border-radius-small: var(--ffm-radius-sm);
+  --el-border-radius-round: var(--ffm-radius-full);
+  --el-component-custom-height: var(--ffm-control-height-md);
+  --custom-radius: var(--ffm-control-radius-md);
+  --art-color: var(--ffm-color-bg);
+  --art-card-border: var(--ffm-color-border);
+  --default-border: var(--ffm-color-border);
+  --default-border-dashed: var(--ffm-color-border-dashed);
+  --default-bg-color: var(--ffm-color-bg-page);
+  --default-box-color: var(--ffm-color-surface);
+  --art-main-bg-color: var(--ffm-color-bg-page);
+  --art-hover-color: var(--ffm-color-hover);
+  --art-active-color: var(--ffm-color-active);
+  --art-el-active-color: var(--ffm-color-active);
 }
 
-// Dark mode support
-.dark {
-  --art-color: #000000;
-  --art-gray-100: #110f0f;
-  --art-gray-200: #17171c;
-  --art-gray-300: #393946;
-  --art-gray-400: #505062;
-  --art-gray-500: #73738c;
-  --art-gray-600: #8f8fa3;
-  --art-gray-700: #ababba;
-  --art-gray-800: #c7c7d1;
-  --art-gray-900: #e3e3e8;
-  --art-card-border: rgba(255, 255, 255, 0.08);
-  --default-border: rgba(255, 255, 255, 0.1);
-  --default-border-dashed: #363843;
-  --default-bg-color: #070707;
-  --default-box-color: #161618;
-  --art-hover-color: #252530;
-  --art-active-color: #202226;
-  --art-el-active-color: #2e2e38;
+.dark,
+[data-firefly-theme='dark'] {
+  color-scheme: dark;
+
+  --ffm-color-primary: #79bbff;
+  --ffm-color-secondary: #9aa6cc;
+  --ffm-color-success: #95d475;
+  --ffm-color-warning: #eebe77;
+  --ffm-color-danger: #fab6b6;
+  --ffm-color-info: #b1b3b8;
+  --ffm-color-white: #fff;
+  --ffm-color-black: #000;
+  --ffm-color-bg: #141414;
+  --ffm-color-bg-page: #0f1115;
+  --ffm-color-surface: #1d1e22;
+  --ffm-color-surface-muted: #23242a;
+  --ffm-color-border: #303133;
+  --ffm-color-border-light: #3a3d44;
+  --ffm-color-border-dashed: #454954;
+  --ffm-color-text: #e5eaf3;
+  --ffm-color-text-secondary: #c0c4cc;
+  --ffm-color-text-tertiary: #909399;
+  --ffm-color-text-placeholder: #8d9095;
+  --ffm-color-text-disabled: #6c6e72;
+  --ffm-color-hover: #26272d;
+  --ffm-color-active: #1f2d3d;
+  --ffm-shadow-ring: 0 0 0 3px rgb(121 187 255 / 25%);
 }
 
-// SCSS Variables (for internal use in .scss files)
-$color-primary: #1453ff;
-$color-success: #0dc986;
-$font-size-base: 14px;
-$border-radius-base: 4px;
-$padding-base: 8px;
+@each $size in (sm, lg) {
+  [data-firefly-size='#{$size}'] {
+    --ffm-control-height: var(--ffm-control-height-#{$size});
+    --ffm-control-font-size: var(--ffm-control-font-size-#{$size});
+    --ffm-control-padding-x: var(--ffm-control-padding-x-#{$size});
+    --ffm-control-radius: var(--ffm-control-radius-#{$size});
+    --el-component-custom-height: var(--ffm-control-height-#{$size});
+    --custom-radius: var(--ffm-control-radius-#{$size});
+  }
+}

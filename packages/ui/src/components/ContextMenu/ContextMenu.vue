@@ -90,14 +90,8 @@ const calculatePosition = (e: MouseEvent) => {
   }
 
   // Clamp to viewport
-  x = Math.max(
-    props.boundaryDistance,
-    Math.min(x, screenWidth - props.menuWidth - props.boundaryDistance),
-  )
-  y = Math.max(
-    props.boundaryDistance,
-    Math.min(y, screenHeight - menuHeight - props.boundaryDistance),
-  )
+  x = Math.max(props.boundaryDistance, Math.min(x, screenWidth - props.menuWidth - props.boundaryDistance))
+  y = Math.max(props.boundaryDistance, Math.min(y, screenHeight - menuHeight - props.boundaryDistance))
 
   return { x, y }
 }
@@ -181,7 +175,7 @@ const handleMenuClick = (item: MenuItemType) => {
 
 // Transition hooks
 const onBeforeEnter = (el: Element) => {
-  ;(el as HTMLElement).style.transformOrigin = 'top left'
+  (el as HTMLElement).style.transformOrigin = 'top left'
 }
 
 const onAfterLeave = () => {
@@ -211,11 +205,7 @@ defineExpose({
 <template>
   <div :class="bem('__wrapper')">
     <Transition name="context-menu" @before-enter="onBeforeEnter" @after-leave="onAfterLeave">
-      <div
-        v-show="visible"
-        :style="menuStyle"
-        :class="className"
-      >
+      <div v-show="visible" :style="menuStyle" :class="className">
         <ul :class="bem('__list')" :style="menuListStyle">
           <template v-for="item in menuItems" :key="item.key">
             <!-- Menu item without children -->
@@ -232,11 +222,7 @@ defineExpose({
             </li>
 
             <!-- Submenu with children -->
-            <li
-              v-else
-              :class="[bem('__item'), bem('__submenu')]"
-              :style="menuItemStyle"
-            >
+            <li v-else :class="[bem('__item'), bem('__submenu')]" :style="menuItemStyle">
               <div :class="bem('__submenu-title')">
                 <slot name="icon" :item="item">
                   <span v-if="item.icon" :class="bem('__icon')" />
@@ -244,14 +230,15 @@ defineExpose({
                 <span :class="bem('__label')">{{ item.label }}</span>
                 <span :class="bem('__arrow')" />
               </div>
-              <ul
-                :class="bem('__submenu-list')"
-                :style="submenuListStyle"
-              >
+              <ul :class="bem('__submenu-list')" :style="submenuListStyle">
                 <li
                   v-for="child in item.children"
                   :key="child.key"
-                  :class="[bem('__item'), bem('__submenu-item'), { 'is-disabled': child.disabled, 'has-line': child.showLine }]"
+                  :class="[
+                    bem('__item'),
+                    bem('__submenu-item'),
+                    { 'is-disabled': child.disabled, 'has-line': child.showLine },
+                  ]"
                   :style="menuItemStyle"
                   @click="handleMenuClick(child)"
                 >
@@ -272,139 +259,141 @@ defineExpose({
 <style lang="scss" scoped>
 .art-context-menu__wrapper {
   --context-menu-border-radius: v-bind('`${props.borderRadius}px`');
-}
 
-.art-context-menu {
-  background: var(--el-bg-color, #fff);
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  border-radius: var(--context-menu-border-radius);
-}
-
-.art-context-menu__list {
-  margin: 0;
-  list-style: none;
-}
-
-.art-context-menu__item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 4px;
-  font-size: 12px;
-  transition: background-color 0.15s;
-
-  &:hover {
-    background-color: var(--el-fill-color-light, #f5f7fa);
+  .art-context-menu {
+    background: var(--el-bg-color, #fff);
+    border-radius: var(--context-menu-border-radius);
+    box-shadow: var(--ffm-shadow-md, 0 2px 12px 0 rgb(0 0 0 / 10%));
   }
 
-  &.has-line {
-    margin-bottom: 10px;
-
-    &::after {
-      position: absolute;
-      right: 0;
-      bottom: -5px;
-      left: 0;
-      height: 1px;
-      content: '';
-      background-color: var(--el-border-color-light, #e4e7ed);
-    }
+  .art-context-menu__list {
+    margin: 0;
+    list-style: none;
   }
 
-  &.is-disabled {
-    color: var(--el-text-color-disabled, #c0c4cc);
-    cursor: not-allowed;
+  .art-context-menu__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 4px;
+    transition: background-color 0.15s;
 
     &:hover {
-      background-color: transparent !important;
+      background-color: var(--el-fill-color-light, #f5f7fa);
     }
 
-    .art-context-menu__icon,
-    .art-context-menu__label {
-      color: var(--el-text-color-disabled, #c0c4cc) !important;
+    &.has-line {
+      margin-bottom: 10px;
+
+      &::after {
+        position: absolute;
+        right: 0;
+        bottom: -5px;
+        left: 0;
+        height: 1px;
+        content: '';
+        background-color: var(--el-border-color-light, #e4e7ed);
+      }
+    }
+
+    &.is-disabled {
+      color: var(--el-text-color-disabled, #c0c4cc);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+
+      .art-context-menu__icon,
+      .art-context-menu__label {
+        color: var(--el-text-color-disabled, #c0c4cc) !important;
+      }
     }
   }
-}
 
-.art-context-menu__icon {
-  margin-right: 8px;
-  flex-shrink: 0;
-  font-size: 16px;
-  color: var(--el-text-color-regular, #606266);
-}
-
-.art-context-menu__label {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--el-text-color-regular, #606266);
-}
-
-// Submenu
-.art-context-menu__submenu {
-  &:hover .art-context-menu__submenu-list {
-    display: block;
+  .art-context-menu__icon {
+    flex-shrink: 0;
+    margin-right: 8px;
+    font-size: 16px;
+    color: var(--el-text-color-regular, #606266);
   }
 
-  &:hover .art-context-menu__arrow {
-    transform: rotate(90deg);
+  .art-context-menu__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--el-text-color-regular, #606266);
+    white-space: nowrap;
   }
-}
 
-.art-context-menu__submenu-title {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
+  .art-context-menu__submenu {
+    &:hover {
+      .art-context-menu__submenu-list {
+        display: block;
+      }
 
-.art-context-menu__arrow {
-  margin-left: auto;
-  margin-right: 0;
-  font-size: 14px;
-  color: var(--el-text-color-secondary, #909399);
-  transition: transform 0.15s;
-
-  &::after {
-    content: '▸';
+      .art-context-menu__arrow {
+        transform: rotate(90deg);
+      }
+    }
   }
-}
 
-.art-context-menu__submenu-list {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  z-index: 2001;
-  display: none;
-  width: max-content;
-  min-width: max-content;
-  list-style: none;
-  background: var(--el-bg-color, #fff);
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  border-radius: var(--context-menu-border-radius);
-}
+  .art-context-menu__submenu-title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
 
-.art-context-menu__submenu-item {
-  margin: 0 6px;
-}
+  .art-context-menu__arrow {
+    margin-right: 0;
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--el-text-color-secondary, #909399);
+    transition: transform 0.15s;
 
-// Transition animation
-.context-menu-enter-active,
-.context-menu-leave-active {
-  transition: all v-bind('`${props.animationDuration}ms`') ease-out;
-}
+    &::after {
+      content: '▸';
+    }
+  }
 
-.context-menu-enter-from,
-.context-menu-leave-to {
-  opacity: 0;
-  transform: scale(0.9);
-}
+  .art-context-menu__submenu-list {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: calc(var(--ffm-z-index-dropdown, 1000) + 1);
+    display: none;
+    width: max-content;
+    min-width: max-content;
+    list-style: none;
+    background: var(--el-bg-color, #fff);
+    border-radius: var(--context-menu-border-radius);
+    box-shadow: var(--ffm-shadow-md, 0 2px 12px 0 rgb(0 0 0 / 10%));
+  }
 
-.context-menu-enter-to,
-.context-menu-leave-from {
-  opacity: 1;
-  transform: scale(1);
+  .art-context-menu__submenu-item {
+    margin: 0 6px;
+  }
+
+  .context-menu {
+    &-enter-active,
+    &-leave-active {
+      transition: all v-bind('`${props.animationDuration}ms`') ease-out;
+    }
+
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    &-enter-to,
+    &-leave-from {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 </style>

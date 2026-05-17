@@ -16,8 +16,8 @@ const emit = defineEmits<{
 const [className, bem] = createNamespace('banner')
 
 // 计算按钮样式属性
-const buttonColor = computed(() => props.buttonConfig?.color ?? '#fff')
-const buttonTextColor = computed(() => props.buttonConfig?.textColor ?? '#333')
+const buttonColor = computed(() => props.buttonConfig?.color ?? 'var(--el-color-white, #fff)')
+const buttonTextColor = computed(() => props.buttonConfig?.textColor ?? 'var(--el-text-color-primary)')
 const buttonRadius = computed(() => props.buttonConfig?.radius ?? '6px')
 
 // 流星数据
@@ -44,11 +44,7 @@ function generateMeteors(count: number): BannerMeteor[] {
 </script>
 
 <template>
-  <div
-    :class="[className, { 'has-decoration': decoration }, boxStyle]"
-    :style="{ height }"
-    @click="emit('click')"
-  >
+  <div :class="[className, { 'has-decoration': decoration }, boxStyle]" :style="{ height }" @click="emit('click')">
     <!-- 流星效果 -->
     <div v-if="meteorConfig?.enabled && dark" :class="bem('__meteors')">
       <span
@@ -75,9 +71,7 @@ function generateMeteors(count: number): BannerMeteor[] {
       <!-- subtitle slot -->
       <slot name="subtitle">
         <p v-if="subtitle" :class="bem('__subtitle')" :style="{ color: subtitleColor }">
-          {{
-            subtitle
-          }}
+          {{ subtitle }}
         </p>
       </slot>
 
@@ -121,7 +115,7 @@ function generateMeteors(count: number): BannerMeteor[] {
   justify-content: center;
   padding: 0 2rem;
   overflow: hidden;
-  color: white;
+  color: var(--el-color-white, #fff);
   border-radius: calc(var(--custom-radius, 4px) + 2px);
 
   &__content {

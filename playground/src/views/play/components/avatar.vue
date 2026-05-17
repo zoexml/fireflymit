@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Avatar } from '@fireflymit/ui'
-
 const users = ['Alice', 'Bob', 'Charlie', 'David']
 
 const chineseNames = ['张三', '李四', '王五', '赵六']
@@ -20,7 +18,7 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         默认（随机背景色）
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar v-for="name in users" :key="name" :name="name" />
+        <FAvatar v-for="name in users" :key="name" :name="name" />
       </div>
     </div>
 
@@ -30,7 +28,7 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         中文名称
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar v-for="name in chineseNames" :key="name" :name="name" />
+        <FAvatar v-for="name in chineseNames" :key="name" :name="name" />
       </div>
     </div>
 
@@ -40,7 +38,7 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         尺寸
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar
+        <FAvatar
           v-for="size in sizes"
           :key="size"
           name="User"
@@ -56,7 +54,7 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         形状
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar
+        <FAvatar
           v-for="shape in shapes"
           :key="shape"
           :name="shape"
@@ -72,7 +70,7 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         指定颜色
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar
+        <FAvatar
           v-for="(color, i) in customColors"
           :key="color"
           :name="chineseNames[i]"
@@ -87,17 +85,17 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         图片头像
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar
+        <FAvatar
           src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
           name="GitHub"
           :size="48"
         />
-        <Avatar
+        <FAvatar
           src="https://avatars.githubusercontent.com/u/102540407?s=200&v=4"
           name="Vue"
           :size="48"
         />
-        <Avatar name="管理员" :size="48" background-color="#7c3aed" />
+        <FAvatar name="管理员" :size="48" background-color="#7c3aed" />
       </div>
     </div>
 
@@ -107,20 +105,20 @@ const customColors = ['#f56565', '#4299e1', '#48bb78', '#ed8936']
         组合（不同形状+尺寸+图片）
       </h3>
       <div class="flex flex-wrap items-center gap-3">
-        <Avatar
+        <FAvatar
           src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
           name="圆形图片"
           :size="64"
           shape="circle"
         />
-        <Avatar
+        <FAvatar
           src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
           name="方形图片"
           :size="64"
           shape="square"
         />
-        <Avatar name="张" :size="40" shape="circle" background-color="#f56565" />
-        <Avatar name="李" :size="40" shape="square" background-color="#ed8936" />
+        <FAvatar name="张" :size="40" shape="circle" background-color="#f56565" />
+        <FAvatar name="李" :size="40" shape="square" background-color="#ed8936" />
       </div>
     </div>
   </div>

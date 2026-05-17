@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CountTo } from '@fireflymit/ui'
 import { ref } from 'vue'
 
 const demoBox = 'p-5 mb-4 text-2xl font-semibold text-center bg-gray-50 rounded-lg tabular-nums border border-gray-200'
@@ -43,7 +42,7 @@ const triggerEasing = () => {
         基础用法
       </h3>
       <div :class="demoBox">
-        <CountTo :target="1000" :duration="2000" />
+        <FCountTo :target="1000" :duration="2000" />
       </div>
     </div>
 
@@ -52,7 +51,7 @@ const triggerEasing = () => {
         带前缀后缀
       </h3>
       <div :class="demoBox">
-        <CountTo :target="20000" :duration="2500" prefix="¥" suffix="元" :decimals="2" />
+        <FCountTo :target="20000" :duration="2500" prefix="¥" suffix="元" :decimals="2" />
       </div>
     </div>
 
@@ -61,7 +60,7 @@ const triggerEasing = () => {
         千分位分隔符
       </h3>
       <div :class="demoBox">
-        <CountTo :target="2023.45" :duration="3000" :decimals="2" separator="," />
+        <FCountTo :target="2023.45" :duration="3000" :decimals="2" separator="," />
       </div>
     </div>
 
@@ -75,7 +74,7 @@ const triggerEasing = () => {
             {{ easing.name }}
           </div>
           <div :class="demoBox">
-            <CountTo :target="easingTarget" :duration="3000" :easing="easing.type" />
+            <FCountTo :target="easingTarget" :duration="3000" :easing="easing.type" />
           </div>
         </div>
       </div>
@@ -91,7 +90,7 @@ const triggerEasing = () => {
         控制按钮
       </h3>
       <div :class="demoBox">
-        <CountTo ref="countToRef" :target="controlTarget" :duration="2000" />
+        <FCountTo ref="countToRef" :target="controlTarget" :duration="2000" />
       </div>
       <div class="flex justify-center gap-3">
         <el-button size="small" @click="startCount">
