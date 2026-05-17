@@ -1,5 +1,31 @@
 # @fireflymit/ui
 
+## 0.1.0
+
+### Minor Changes
+
+- 新增 `FireflyMitResolver` 自动按需引入能力，增强 `DragVerify` 响应式宽度支持，并重构 UI 主题变量体系。
+
+### Features
+
+- 新增 `FireflyMitResolver`，支持在 `unplugin-vue-components` 和 `unplugin-auto-import` 中自动按需引入组件。
+- `FireflyMitResolver` 支持自定义组件前缀、关闭样式副作用、覆盖包名，默认自动引入 `@fireflymit/ui/dist/index.css`。
+- `DragVerify` 的 `width` 支持 CSS 长度字符串，例如 `100%`、`320px`、`20rem`，可用于响应式布局。
+- `DragVerify` 新增 Storybook 文档示例，覆盖默认宽度、响应式宽度、固定宽度和实例 `reset()` 重置场景。
+
+### Improvements
+
+- 重构主题变量体系，新增 `--ffm-*` 设计 token，并映射 Element Plus 常用颜色、字号、圆角、阴影和控件尺寸变量。
+- 增加 `[data-firefly-theme='light']`、`[data-firefly-theme='dark']` 和 `.dark` 的主题变量支持。
+- 增加 `[data-firefly-size='sm']`、`[data-firefly-size='lg']` 控件尺寸变量支持。
+- 优化 `ContextMenu`、`ProForm`、`SearchBar`、`TextScroll` 等组件样式结构，使其更依赖统一主题变量。
+- 更新 playground 示例和 UI README，补充全量引入、自动按需引入、手动按需引入和组件列表说明。
+
+### Tests
+
+- 新增 Resolver 单元测试，覆盖默认解析、组件前缀、关闭样式副作用和未知组件场景。
+- 新增 `DragVerify` 尺寸计算测试，覆盖百分比宽度、像素宽度和响应式拖拽距离计算。
+
 ## 0.0.8
 
 ### Patch Changes
