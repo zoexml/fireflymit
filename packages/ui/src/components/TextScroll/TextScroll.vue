@@ -20,7 +20,6 @@ const handleClose = () => {
 }
 
 const containerRef = ref<HTMLElement>()
-const contentRef = ref<HTMLElement>()
 const textRef = ref<HTMLElement>()
 const isReady = ref(false)
 
@@ -200,7 +199,6 @@ onBeforeUnmount(() => {
     </div>
 
     <div
-      ref="contentRef"
       :class="[bem('__content'), contentClass, { [bem('__content--ready')]: isReady }]"
       :style="contentStyle"
       @click="handleContentClick"

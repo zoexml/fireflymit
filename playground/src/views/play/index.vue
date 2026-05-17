@@ -54,11 +54,14 @@ const activeComponent = ref(components[0].value)
       :deep(.el-scrollbar__wrap) {
         overscroll-behavior: contain;
       }
-    }
 
-    .content-scroll {
-      padding: 0 4px 64px;
-      box-sizing: border-box;
+      :deep(.content-scroll) {
+        display: flex;
+        min-height: 0;
+        height: 100%;
+        padding: 0 4px 4px;
+        box-sizing: border-box;
+      }
     }
   }
 }

@@ -37,6 +37,7 @@ const components = [
   'CountTo',
   'DragVerify',
   'ProForm',
+  'ProTable',
   'SearchBar',
   'SvgIcon',
   'TextScroll',

@@ -10,6 +10,11 @@ describe('firefly mit resolver', () => {
       from: '@fireflymit/ui/es/components/Badge',
       sideEffects: '@fireflymit/ui/dist/index.css',
     })
+    expect(resolver('ProTable')).toEqual({
+      name: 'default',
+      from: '@fireflymit/ui/es/components/ProTable',
+      sideEffects: '@fireflymit/ui/dist/index.css',
+    })
   })
 
   it('supports custom component prefix', () => {
