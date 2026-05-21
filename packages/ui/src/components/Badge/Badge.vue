@@ -29,7 +29,7 @@ const colors: Record<BadgeType, string> = {
 
 <style lang="scss" scoped>
 .art-badge {
-  display: flex;
+  display: inline-flex;
   gap: 6px;
   align-items: center;
   font-size: 14px;

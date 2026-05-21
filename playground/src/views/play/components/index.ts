@@ -1,17 +1,27 @@
-import { defineAsyncComponent } from 'vue'
+import Avatar from './avatar.vue'
+import Badge from './badge.vue'
+import Banner from './banner.vue'
+import ContextMenu from './context-menu.vue'
+import CountTo from './count-to.vue'
+import DragVerify from './drag-verify.vue'
+import ProForm from './pro-form.vue'
+import ProTable from './pro-table.vue'
+import SearchBar from './search-bar.vue'
+import SvgIcon from './svg-icon.vue'
+import TextScroll from './text-scroll.vue'
 
 export const componentMap = {
-  Avatar: defineAsyncComponent(() => import('./avatar.vue')),
-  Badge: defineAsyncComponent(() => import('./badge.vue')),
-  Banner: defineAsyncComponent(() => import('./banner.vue')),
-  ContextMenu: defineAsyncComponent(() => import('./context-menu.vue')),
-  CountTo: defineAsyncComponent(() => import('./count-to.vue')),
-  DragVerify: defineAsyncComponent(() => import('./drag-verify.vue')),
-  ProForm: defineAsyncComponent(() => import('./pro-form.vue')),
-  ProTable: defineAsyncComponent(() => import('./pro-table.vue')),
-  SearchBar: defineAsyncComponent(() => import('./search-bar.vue')),
-  SvgIcon: defineAsyncComponent(() => import('./svg-icon.vue')),
-  TextScroll: defineAsyncComponent(() => import('./text-scroll.vue')),
+  Avatar,
+  Badge,
+  Banner,
+  ContextMenu,
+  CountTo,
+  DragVerify,
+  ProForm,
+  ProTable,
+  SearchBar,
+  SvgIcon,
+  TextScroll,
 }
 
 export const components = [

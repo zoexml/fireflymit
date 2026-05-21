@@ -1,4 +1,11 @@
-import type { ProTableColumn, ProTablePagination, ProTablePaginationConfig, ProTablePaginationState } from './ProTable.types'
+import type {
+  ProTableColumn,
+  ProTableColumnsState,
+  ProTableColumnsStateMap,
+  ProTablePagination,
+  ProTablePaginationConfig,
+  ProTablePaginationState,
+} from './ProTable.types'
 
 const DEFAULT_PAGE_SIZES = [20, 50, 100, 200]
 const DEFAULT_PAGE_SIZE = 20
@@ -64,10 +71,16 @@ export const resolveColumnKey = (column: ProTableColumn, index: number): string 
   return column.key ?? column.prop ?? `column-${index}`
 }
 
+export const resolveColumnStateKey = (column: ProTableColumn, index: number): string => {
+  return String(resolveColumnKey(column, index))
+}
+
 export const getColumnProps = (column: ProTableColumn) => {
   const {
     key,
     hidden,
+    hideInSetting,
+    disableInSetting,
     render,
     headerRender,
     formatter,
@@ -75,4 +88,50 @@ export const getColumnProps = (column: ProTableColumn) => {
   } = column
 
   return columnProps
+}
+
+const isBrowser = () => typeof window !== 'undefined'
+
+export const getColumnsStateStorage = (
+  persistenceType: ProTableColumnsState['persistenceType'] = 'localStorage',
+): Storage | undefined => {
+  if (!isBrowser()) return undefined
+
+  return persistenceType === 'sessionStorage'
+    ? window.sessionStorage
+    : window.localStorage
+}
+
+export const loadColumnsState = (
+  columnsState: ProTableColumnsState | undefined,
+): ProTableColumnsStateMap => {
+  const defaultValue = columnsState?.defaultValue ?? {}
+  const persistenceKey = columnsState?.persistenceKey
+
+  if (!persistenceKey) return { ...defaultValue }
+
+  const storage = getColumnsStateStorage(columnsState.persistenceType)
+  const storedValue = storage?.getItem(persistenceKey)
+
+  if (!storedValue) return { ...defaultValue }
+
+  try {
+    return {
+      ...defaultValue,
+      ...JSON.parse(storedValue),
+    }
+  } catch {
+    return { ...defaultValue }
+  }
+}
+
+export const saveColumnsState = (
+  columnsState: ProTableColumnsState | undefined,
+  value: ProTableColumnsStateMap,
+) => {
+  const persistenceKey = columnsState?.persistenceKey
+  if (!persistenceKey) return
+
+  const storage = getColumnsStateStorage(columnsState.persistenceType)
+  storage?.setItem(persistenceKey, JSON.stringify(value))
 }

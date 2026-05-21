@@ -1,6 +1,11 @@
 <script setup lang="tsx">
-import type { ProTableColumn, ProTablePaginationConfig } from '@fireflymit/ui'
-import { Badge } from '@fireflymit/ui'
+import type {
+  ProTableColumn,
+  ProTableColumnsStateMap,
+  ProTablePaginationConfig,
+  ProTableToolbarOptions,
+} from '@fireflymit/ui'
+import { Badge, ProTable } from '@fireflymit/ui'
 import { ElButton } from 'element-plus'
 import { computed, shallowRef } from 'vue'
 
@@ -12,6 +17,8 @@ interface UserRow {
   score: number
   city: string
 }
+
+type ToolbarTool = 'reload' | 'density' | 'setting'
 
 const tableRows: UserRow[] = Array.from({ length: 28 }, (_, index) => {
   const id = index + 1
@@ -30,8 +37,13 @@ const tableRows: UserRow[] = Array.from({ length: 28 }, (_, index) => {
 const selectedRow = shallowRef<UserRow | null>(null)
 const paginationEnabled = shallowRef(true)
 const fullHeight = shallowRef(true)
+const toolbarVisible = shallowRef(true)
+const toolbarTools = shallowRef<ToolbarTool[]>(['reload', 'density', 'setting'])
 const currentPage = shallowRef(1)
 const pageSize = shallowRef(20)
+const columnsState = shallowRef<ProTableColumnsStateMap>({
+  city: { show: true },
+})
 
 const paginationOptions = [
   { label: '分页', value: true },
@@ -43,6 +55,12 @@ const heightOptions = [
   { label: '自适应高度', value: false },
 ]
 
+const toolbarToolOptions: Array<{ label: string, value: ToolbarTool }> = [
+  { label: '刷新', value: 'reload' },
+  { label: '密度', value: 'density' },
+  { label: '列设置', value: 'setting' },
+]
+
 const pagination = computed<ProTablePaginationConfig>(() => {
   if (!paginationEnabled.value) return false
 
@@ -50,10 +68,29 @@ const pagination = computed<ProTablePaginationConfig>(() => {
     currentPage: currentPage.value,
     pageSize: pageSize.value,
     pageSizes: [20, 50, 100, 500],
+    size: 'small',
   }
 })
 
 const tableHeight = computed(() => (fullHeight.value ? '100%' : undefined))
+const toolbarButtonText = computed(() => (toolbarVisible.value ? '隐藏工具栏' : '显示工具栏'))
+const toolbarOptions = computed<ProTableToolbarOptions | false>(() => {
+  if (!toolbarVisible.value) return false
+
+  return {
+    reload: toolbarTools.value.includes('reload'),
+    density: toolbarTools.value.includes('density'),
+    setting: toolbarTools.value.includes('setting'),
+  }
+})
+
+const handleColumnsStateChange = (value: ProTableColumnsStateMap) => {
+  columnsState.value = value
+}
+
+const toggleToolbar = () => {
+  toolbarVisible.value = !toolbarVisible.value
+}
 
 const columns: ProTableColumn<UserRow>[] = [
   { type: 'index', label: '#', width: 64, align: 'center' },
@@ -98,6 +135,16 @@ const columns: ProTableColumn<UserRow>[] = [
             {{ item.label }}
           </el-radio-button>
         </el-radio-group>
+
+        <ElButton size="small" @click="toggleToolbar">
+          {{ toolbarButtonText }}
+        </ElButton>
+
+        <el-checkbox-group v-model="toolbarTools" size="small">
+          <el-checkbox-button v-for="item in toolbarToolOptions" :key="item.value" :value="item.value">
+            {{ item.label }}
+          </el-checkbox-button>
+        </el-checkbox-group>
       </div>
 
       <div class="pro-table-demo__toolbar-right">
@@ -110,14 +157,23 @@ const columns: ProTableColumn<UserRow>[] = [
     </div>
 
     <section class="pro-table-demo__section">
-      <FProTable
+      <ProTable
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
         stripe border
+        :header-title="toolbarVisible ? '用户列表' : ''"
         :columns="columns"
         :data="tableRows"
         :height="tableHeight"
+        :options="toolbarOptions"
+        :columns-state="toolbarVisible
+          ? {
+            value: columnsState,
+            persistenceKey: 'playground-pro-table-columns',
+          }
+          : undefined"
         :pagination="pagination"
+        @columns-state-change="handleColumnsStateChange"
       />
     </section>
   </div>

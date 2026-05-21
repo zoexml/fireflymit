@@ -1,5 +1,7 @@
 import type { ExtractPropTypes, PropType, VNodeChild } from 'vue'
 
+export type ProTableSize = 'large' | 'default' | 'small'
+
 export interface ProTableRenderScope<T = any> {
   row: T
   column: ProTableColumn<T>
@@ -18,10 +20,39 @@ export interface ProTableColumn<T = any> {
   fixed?: true | 'left' | 'right'
   sortable?: boolean | 'custom'
   hidden?: boolean
+  hideInSetting?: boolean
+  disableInSetting?: boolean
   render?: (scope: ProTableRenderScope<T>) => VNodeChild
   headerRender?: (scope: { column: ProTableColumn<T>, $index: number }) => VNodeChild
   formatter?: (row: T, column: ProTableColumn<T>, value: unknown, index: number) => VNodeChild
   [key: string]: unknown
+}
+
+export interface ProTableColumnState {
+  show?: boolean
+  fixed?: true | 'left' | 'right'
+  order?: number
+  disabled?: boolean
+}
+
+export type ProTableColumnsStateMap = Record<string, ProTableColumnState>
+
+export interface ProTableColumnsState {
+  value?: ProTableColumnsStateMap
+  defaultValue?: ProTableColumnsStateMap
+  persistenceKey?: string
+  persistenceType?: 'localStorage' | 'sessionStorage'
+}
+
+export interface ProTableToolbarOptions {
+  reload?: boolean | (() => void)
+  density?: boolean
+  setting?: boolean
+}
+
+export interface ProTableToolbarRenderScope<T = any> {
+  columns: ProTableColumn<T>[]
+  visibleColumns: ProTableColumn<T>[]
 }
 
 export interface ProTablePagination {
@@ -76,6 +107,22 @@ export const proTableProps = {
     type: Object as PropType<Record<string, any>>,
     default: () => ({}),
   },
+  headerTitle: {
+    type: String,
+    default: '',
+  },
+  toolBarRender: {
+    type: Function as PropType<(scope: ProTableToolbarRenderScope) => VNodeChild>,
+    default: undefined,
+  },
+  options: {
+    type: [Boolean, Object] as PropType<boolean | ProTableToolbarOptions>,
+    default: undefined,
+  },
+  columnsState: {
+    type: Object as PropType<ProTableColumnsState>,
+    default: undefined,
+  },
   pagination: {
     type: [Boolean, Object] as PropType<ProTablePaginationConfig>,
     default: false,
@@ -90,4 +137,6 @@ export interface ProTableEmits {
   'paginationChange': [payload: ProTablePaginationChange]
   'update:currentPage': [currentPage: number]
   'update:pageSize': [pageSize: number]
+  'columnsStateChange': [columnsState: ProTableColumnsStateMap]
+  'reload': []
 }
