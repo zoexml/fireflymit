@@ -16,6 +16,11 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    // 类型检查任务
+    "check-types": {
+      "dependsOn": ["^check-types"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.json", "src/**/*.{ts,tsx,vue}"]
+    },
     // 清理任务
     "clean": {},
     // 开发任务

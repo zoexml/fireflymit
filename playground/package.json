@@ -7,6 +7,7 @@
     "dev": "vite",
     "clean": "rimraf .turbo node_modules dist",
     "test": "vitest",
+    "check-types": "vue-tsc --noEmit --project tsconfig.json",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },

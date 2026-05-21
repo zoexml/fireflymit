@@ -20,6 +20,7 @@
     "dev": "tsc --watch",
     "build": "unbuild",
     "build:out": "unbuild --out",
+    "check-types": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

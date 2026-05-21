@@ -167,16 +167,19 @@ const showPanel = ref(false)
 
 图片懒加载，元素进入可视区域时自动加载。支持 IntersectionObserver（优先）和 scroll 两种策略。
 
-- **绑定值**: `{ src: string, callback?: (el: HTMLImageElement) => void }` — 图片地址 + 加载完成回调
+- **绑定值**:
+  - `string` — 图片地址
+  - `{ src: string, loading?: string, error?: string, callback?: (el: HTMLImageElement) => void }` — 图片地址、加载占位、失败占位和加载完成回调
 
 ```vue
 <template>
   <img
     v-lazy-load="{
       src: 'https://example.com/image.jpg',
+      loading: '/images/loading.svg',
+      error: '/images/error.svg',
       callback: (el) => console.log('已加载:', el.src),
     }"
-    src="data:image/svg+xml,..."
     alt="懒加载图片"
   >
 </template>

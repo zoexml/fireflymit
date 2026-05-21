@@ -102,15 +102,6 @@
     "vite-plugin-dts": "^4.5.4",
     "vitepress": "1.6.3"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js",
-      "esbuild",
-      "simple-git-hooks",
-      "vue-demi"
-    ]
-  },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
     "commit-msg": "npx --no-install commitlint --edit $1"

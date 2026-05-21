@@ -51,6 +51,9 @@ const inputCustomize = ref('')
 
 const rippleColor = ref('rgba(59, 130, 246, 0.3)')
 const showPanel = ref(false)
+
+const lazyLoadingSrc = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'200\'/%3E%3Ctext fill=\'%239ca3af\' x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\'%3ELoading...%3C/text%3E%3C/svg%3E'
+const lazyErrorSrc = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\'%3E%3Crect fill=\'%23fee2e2\' width=\'400\' height=\'200\'/%3E%3Ctext fill=\'%23dc2626\' x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\'%3ELoad failed%3C/text%3E%3C/svg%3E'
 </script>
 
 <template>
@@ -218,9 +221,10 @@ const showPanel = ref(false)
               <img
                 v-lazy-load="{
                   src: 'https://picsum.photos/400/200',
+                  loading: lazyLoadingSrc,
+                  error: lazyErrorSrc,
                   callback: () => ElMessage.info('图片已加载'),
                 }"
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23e5e7eb' width='400' height='200'/%3E%3Ctext fill='%239ca3af' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3ELoading...%3C/text%3E%3C/svg%3E"
                 alt="lazy load demo"
                 class="h-[200px] w-[400px] rounded object-cover"
               >

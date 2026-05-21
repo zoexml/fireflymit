@@ -3,3 +3,9 @@ packages:
   - packages/** # ui库、工具库, cli等相关库
   - docs # 组件库文档
   - playground # 演示
+
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  esbuild: true
+  simple-git-hooks: true
