@@ -53,7 +53,7 @@
   ],
   "scripts": {
     "clean": "rimraf .turbo dist",
-    "test": "vitest",
+    "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:bench": "vitest bench",
@@ -66,8 +66,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
-    "@vueuse/core": "^13.9.0",
-    "element-plus": "^2.11.4",
+    "@vueuse/core": "^14.1.0",
+    "element-plus": "^2.11.9",
     "vue": "^3.5.21"
   },
   "dependencies": {

@@ -8,7 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@fireflymit/shared",
     "@fireflymit/prettier-config",
     "@fireflymit/commitlint-config",
     "@fireflymit/stylelint-config",

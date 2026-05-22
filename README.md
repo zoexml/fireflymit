@@ -43,8 +43,6 @@ pnpm test:coverage          # 生成覆盖率报告
 
 ```
 fireflymit/
-├── apps/
-│   └── art-design-pro/            # 第三方参考项目
 ├── packages/
 │   ├── ui/                        # Vue 3 UI 组件库 (@fireflymit/ui)
 │   │   ├── src/
@@ -54,14 +52,13 @@ fireflymit/
 │   │   └── ...
 │   ├── utils/                     # 工具函数库 (@fireflymit/utils)
 │   ├── hooks/                     # Vue 组合式函数 (@fireflymit/hooks)
-│   ├── shared/                    # 共享代码 (@fireflymit/shared)
+│   ├── uno-preset/                # UnoCSS 预设 (@fireflymit/uno-preset)
 │   ├── lint-configs/               # 统一 lint 配置
 │   │   ├── eslint-config/
 │   │   ├── prettier-config/
 │   │   ├── stylelint-config/
 │   │   ├── typescript-config/
 │   │   └── commitlint-config/
-│   └── docker-dev-environment/    # Docker 开发环境
 ├── playground/                    # 开发测试环境 (Vue 3 应用)
 ├── docs/                          # VitePress 文档
 ├── scripts/                       # 构建脚本
