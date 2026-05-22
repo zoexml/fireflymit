@@ -45,6 +45,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm check-types
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build packages
+        run: pnpm build:packages
+
       - name: Create release PR or publish
         uses: changesets/action@v1
         with:

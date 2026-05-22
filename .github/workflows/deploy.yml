@@ -36,7 +36,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm check-types
+      - name: Test
+        run: pnpm test
       - name: Build VitePress
         run: pnpm build:docs
       - name: Build UI
