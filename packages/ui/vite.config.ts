@@ -80,6 +80,14 @@ export default defineConfig({
     }),
   ],
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: [path.resolve(import.meta.dirname, '../../node_modules')],
+      },
+    },
+  },
+
   build: {
     target: 'esnext', // 目标版本: 编译目标为 ES Modules（支持现代浏览器）
     outDir: 'dist', // 输出目录
@@ -103,7 +111,6 @@ export default defineConfig({
       external: [
         'vue',
         'element-plus',
-        '@element-plus/icons-vue',
         '@iconify/vue',
         '@vueuse/core',
         '@fireflymit/hooks',

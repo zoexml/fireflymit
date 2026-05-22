@@ -1,7 +1,3 @@
-import { defineBuildConfig } from 'unbuild'
+import { sharedUnbuildConfig } from '../../build.config.shared'
 
-export default defineBuildConfig({
-  clean: true,
-  declaration: true,
-  entries: ['src/index'],
-})
+export default sharedUnbuildConfig
