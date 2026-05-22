@@ -15,6 +15,21 @@ describe('firefly mit resolver', () => {
       from: '@fireflymit/ui/es/components/ProTable',
       sideEffects: '@fireflymit/ui/dist/index.css',
     })
+    expect(resolver('DialogForm')).toEqual({
+      name: 'default',
+      from: '@fireflymit/ui/es/components/DialogForm',
+      sideEffects: '@fireflymit/ui/dist/index.css',
+    })
+    expect(resolver('DrawerForm')).toEqual({
+      name: 'default',
+      from: '@fireflymit/ui/es/components/DrawerForm',
+      sideEffects: '@fireflymit/ui/dist/index.css',
+    })
+    expect(resolver('Upload')).toEqual({
+      name: 'default',
+      from: '@fireflymit/ui/es/components/Upload',
+      sideEffects: '@fireflymit/ui/dist/index.css',
+    })
   })
 
   it('supports custom component prefix', () => {

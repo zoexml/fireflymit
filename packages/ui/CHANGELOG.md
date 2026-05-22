@@ -1,5 +1,11 @@
 # @fireflymit/ui
 
+## 0.1.2
+
+### Patch Changes
+
+- Add DialogForm, DrawerForm, and Upload components with resolver and playground examples.
+
 ## 0.1.1
 
 ### Patch Changes

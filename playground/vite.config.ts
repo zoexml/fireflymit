@@ -1,5 +1,4 @@
 import { resolve } from 'node:path'
-import { FireflyMitResolver } from '@fireflymit/ui/resolver'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
@@ -7,6 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
+import { FireflyMitResolver } from '../packages/ui/src/resolver'
 
 const root = import.meta.dirname
 const resolveRoot = (path: string) => resolve(root, path)

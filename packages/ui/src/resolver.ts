@@ -35,12 +35,15 @@ const components = [
   'CardBanner',
   'ContextMenu',
   'CountTo',
+  'DialogForm',
   'DragVerify',
+  'DrawerForm',
   'ProForm',
   'ProTable',
   'SearchBar',
   'SvgIcon',
   'TextScroll',
+  'Upload',
 ] as const
 
 const componentSet = new Set<string>(components)

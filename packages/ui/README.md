@@ -104,11 +104,14 @@ import '@fireflymit/ui/dist/index.css'
 | `CardBanner`  | 卡片式横幅，适合图文展示和操作按钮         |
 | `ContextMenu` | 右键上下文菜单，支持嵌套子菜单             |
 | `CountTo`     | 数字滚动动画组件                           |
+| `DialogForm`  | 弹窗表单，内置提交状态、校验和重置流程     |
 | `DragVerify`  | 拖拽验证滑块                               |
+| `DrawerForm`  | 抽屉表单，适合编辑和详情类业务流程         |
 | `ProForm`     | 高级表单生成器，支持多种字段类型           |
 | `SearchBar`   | 搜索栏，支持展开/收起                      |
 | `SvgIcon`     | Iconify SVG 图标组件                       |
 | `TextScroll`  | 文字滚动公告组件                           |
+| `Upload`      | 文件上传组件，支持拖拽、校验、进度和重试   |
 
 ## 样式
 

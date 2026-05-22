@@ -48,7 +48,7 @@
   - [ ] `ProDialog` / `ProDrawer`：统一弹窗表单、确认状态、footer 插槽
   - [ ] `PageContainer`：页面标题、面包屑、操作区、内容区布局
   - [ ] `EmptyState`：空状态、异常状态、操作按钮
-  - [ ] `UploadPanel`：文件上传、拖拽、进度、失败重试
+  - [x] `Upload`：文件上传、拖拽、进度、失败重试
   - [ ] `ImagePreview`：图片预览、缩放、旋转、列表切换
   - [ ] `CopyButton`：文本复制、反馈提示、禁用态
 - [ ] 组件工程规范
