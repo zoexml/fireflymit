@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build workspace prerequisites
+        run: pnpm --filter @fireflymit/hooks --filter @fireflymit/utils --filter @fireflymit/uno-preset build
+
       - name: Lint
         run: pnpm lint
 
