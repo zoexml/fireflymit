@@ -1,4 +1,5 @@
 import type { ObjectDirective } from 'vue'
+import { devWarn } from '../_utils/dev'
 
 interface EmojiElement extends HTMLElement {
   __emojiInputEl?: HTMLInputElement | HTMLTextAreaElement | null
@@ -25,7 +26,7 @@ export const vEmoji: ObjectDirective<EmojiElement> = {
   mounted(el) {
     const inputElement = findInputElement(el)
     if (!inputElement) {
-      console.warn('[v-emoji] directive requires an input or textarea element')
+      devWarn('[v-emoji] directive requires an input or textarea element')
       return
     }
 

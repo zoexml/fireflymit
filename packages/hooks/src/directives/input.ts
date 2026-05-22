@@ -1,4 +1,5 @@
 import type { ObjectDirective } from 'vue'
+import { devWarn } from '../_utils/dev'
 
 type InputType = 'number' | 'decimal' | 'decimal_2' | 'customize'
 
@@ -9,12 +10,12 @@ interface InputElement extends HTMLElement {
 
 const VALID_TYPES: InputType[] = ['number', 'decimal', 'decimal_2', 'customize']
 
-function triggerEvent(el: HTMLElement, type: string): void {
+const triggerEvent = (el: HTMLElement, type: string): void => {
   const event = new Event(type, { bubbles: true, cancelable: true })
   el.dispatchEvent(event)
 }
 
-function createHandler(type: InputType, rule?: RegExp): (el: HTMLInputElement) => void {
+const createHandler = (type: InputType, rule?: RegExp): (el: HTMLInputElement) => void => {
   switch (type) {
     case 'number':
       return (el) => {
@@ -67,7 +68,7 @@ export const vInput: ObjectDirective<InputElement, RegExp | undefined> = {
     const type = binding.arg as InputType | undefined
 
     if (!type || !VALID_TYPES.includes(type)) {
-      console.warn(
+      devWarn(
         `[v-input] requires a valid type argument: v-input:type="value". `
         + `Valid types: ${VALID_TYPES.join('/')}.`,
       )

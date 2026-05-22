@@ -1,4 +1,5 @@
 import type { ObjectDirective } from 'vue'
+import { devWarn } from '../_utils/dev'
 
 interface DebounceElement extends HTMLElement {
   __debounceTimer?: ReturnType<typeof setTimeout> | null
@@ -10,7 +11,7 @@ export const vDebounce: ObjectDirective<DebounceElement, { callback: () => void,
     const { callback, time = 300 } = binding.value || {}
 
     if (typeof callback !== 'function') {
-      console.warn('[v-debounce] directive value must contain a `callback` function')
+      devWarn('[v-debounce] directive value must contain a `callback` function')
       return
     }
 

@@ -3,8 +3,7 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import type { SearchBarEmits, SearchBarProps, SearchFormItem } from './types'
-import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue'
+import type { SearchBarEmits, SearchBarProps, SearchFormItem } from './SearchBar.types'
 import { useWindowSize } from '@vueuse/core'
 import {
   ElButton,
@@ -15,7 +14,6 @@ import {
   ElDatePicker,
   ElForm,
   ElFormItem,
-  ElIcon,
   ElInput,
   ElInputNumber,
   ElOption,
@@ -32,6 +30,7 @@ import {
 } from 'element-plus'
 import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
 import { createNamespace } from '~/_utils'
+import SvgIcon from '../SvgIcon/SvgIcon.vue'
 
 defineOptions({ name: 'SearchBar' })
 
@@ -394,10 +393,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
             <div v-if="shouldShowExpandToggle" class="filter-toggle" @click="toggleExpand">
               <span>{{ expandToggleText }}</span>
               <div class="icon-wrapper">
-                <ElIcon>
-                  <ArrowUpBold v-if="isExpanded" />
-                  <ArrowDownBold v-else />
-                </ElIcon>
+                <SvgIcon :icon="isExpanded ? 'ep:arrow-up-bold' : 'ep:arrow-down-bold'" />
               </div>
             </div>
           </div>

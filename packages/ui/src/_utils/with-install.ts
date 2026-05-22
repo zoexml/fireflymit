@@ -1,11 +1,12 @@
 import type { App, AppContext, Component, Directive, Plugin } from 'vue'
-import { NOOP } from '@vue/shared'
 import { createApp } from 'vue'
 
 export type SFCWithInstall<T> = T & Plugin
 export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
   _context: AppContext | null
 }
+
+const noop = (): void => {}
 
 // 使用示例：
 /**
@@ -63,7 +64,7 @@ export const withInstallDirective = <T extends Directive>(directive: T, name: st
 }
 
 export const withNoopInstall = <T>(component: T) => {
-  ;(component as SFCWithInstall<T>).install = NOOP
+  ;(component as SFCWithInstall<T>).install = noop
 
   return component as SFCWithInstall<T>
 }
@@ -75,7 +76,7 @@ export const withNoopInstall = <T>(component: T) => {
  * @returns 返回一个对象，包含实例和卸载方法
  * @template T 组件类型
  */
-export function mountComponent<T>(RootComponent: Component) {
+export const mountComponent = <T>(RootComponent: Component) => {
   const app = createApp(RootComponent)
   const root = document.createElement('div')
 

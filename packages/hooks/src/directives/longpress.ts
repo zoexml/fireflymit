@@ -1,4 +1,5 @@
 import type { ObjectDirective } from 'vue'
+import { devWarn } from '../_utils/dev'
 
 interface LongpressElement extends HTMLElement {
   __longpressTimer?: ReturnType<typeof setTimeout> | null
@@ -13,7 +14,7 @@ export const vLongpress: ObjectDirective<LongpressElement, () => void> = {
     el.__longpressDuration = Number(binding.arg) || 3000
 
     if (typeof cb !== 'function') {
-      console.warn('[v-longpress] directive must receive a callback function')
+      devWarn('[v-longpress] directive must receive a callback function')
       return
     }
 

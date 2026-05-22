@@ -2,6 +2,7 @@
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import { computed, nextTick, onUnmounted, shallowRef, watch } from 'vue'
 import { createNamespace } from '~/_utils'
+import { devWarn } from '~/_utils/dev'
 import { countToProps } from './CountTo.types'
 
 defineOptions({ name: 'CountTo' })
@@ -24,7 +25,7 @@ const DEFAULT_EASING = 'easeOutExpo'
 
 const validateNumber = (value: number, name: string, defaultValue: number): number => {
   if (!Number.isFinite(value)) {
-    console.warn(`[CountTo] Invalid ${name} value:`, value)
+    devWarn(`[CountTo] Invalid ${name} value:`, value)
     return defaultValue
   }
   return value
@@ -67,7 +68,7 @@ const safeDecimals = computed(() =>
 const safeEasing = computed(() => {
   const easing = props.easing
   if (!(easing in TransitionPresets)) {
-    console.warn('[CountTo] Invalid easing value:', easing)
+    devWarn('[CountTo] Invalid easing value:', easing)
     return DEFAULT_EASING
   }
   return easing
@@ -117,14 +118,14 @@ const resetPauseState = (): void => {
 
 const start = (target?: number): void => {
   if (props.disabled) {
-    console.warn('[CountTo] Animation is disabled')
+    devWarn('[CountTo] Animation is disabled')
     return
   }
 
   const finalTarget = target !== undefined ? target : targetValue.value
 
   if (!Number.isFinite(finalTarget)) {
-    console.warn('[CountTo] Invalid target value for start:', finalTarget)
+    devWarn('[CountTo] Invalid target value for start:', finalTarget)
     return
   }
 
@@ -168,7 +169,7 @@ const reset = (newTarget = 0): void => {
 
 const setTarget = (target: number): void => {
   if (!Number.isFinite(target)) {
-    console.warn('[CountTo] Invalid target value for setTarget:', target)
+    devWarn('[CountTo] Invalid target value for setTarget:', target)
     return
   }
 

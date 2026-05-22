@@ -1,7 +1,7 @@
 import { withInstall } from '~/_utils'
 import _SearchBar from './SearchBar.vue'
 
-export type { SanitizeOutputOptions, SearchBarEmits, SearchBarProps, SearchFormItem } from './types'
+export type { SanitizeOutputOptions, SearchBarEmits, SearchBarProps, SearchFormItem } from './SearchBar.types'
 
 export const SearchBar = withInstall(_SearchBar)
 export default SearchBar
