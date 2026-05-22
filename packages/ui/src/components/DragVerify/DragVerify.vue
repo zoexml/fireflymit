@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ShallowRef } from 'vue'
 
+import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 import { createNamespace } from '~/_utils'
 import SvgIcon from '../SvgIcon/SvgIcon.vue'
 import { dragVerifyProps } from './DragVerify.types'

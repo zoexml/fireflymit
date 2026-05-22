@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import type { MenuItemType } from './ContextMenu.types'
+import { computed, onUnmounted, ref } from 'vue'
 import { createNamespace } from '~/_utils'
 import { contextMenuProps } from './ContextMenu.types'
 
