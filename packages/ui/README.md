@@ -18,7 +18,7 @@ pnpm add @fireflymit/ui element-plus
 import FireflyUI from '@fireflymit/ui'
 import { createApp } from 'vue'
 import 'element-plus/dist/index.css'
-import '@fireflymit/ui/dist/index.css'
+import '@fireflymit/ui/style.css'
 
 const app = createApp(App)
 app.use(FireflyUI)
@@ -57,7 +57,7 @@ export default defineConfig({
 })
 ```
 
-默认会自动引入 `@fireflymit/ui/dist/index.css`。如果你已经在项目入口手动引入了组件库样式，可以关闭样式副作用：
+默认会自动引入 `@fireflymit/ui/style.css`。如果你已经在项目入口手动引入了组件库样式，可以关闭样式副作用：
 
 ```ts
 FireflyMitResolver({ importStyle: false })
@@ -84,7 +84,7 @@ FireflyMitResolver({ prefix: 'F' })
 ```ts
 import { Badge, Banner } from '@fireflymit/ui'
 import 'element-plus/dist/index.css'
-import '@fireflymit/ui/dist/index.css'
+import '@fireflymit/ui/style.css'
 ```
 
 或通过路径引入单个组件：
@@ -92,7 +92,7 @@ import '@fireflymit/ui/dist/index.css'
 ```ts
 import Badge from '@fireflymit/ui/es/components/Badge'
 import Banner from '@fireflymit/ui/es/components/Banner'
-import '@fireflymit/ui/dist/index.css'
+import '@fireflymit/ui/style.css'
 ```
 
 ## 组件列表
@@ -119,7 +119,7 @@ import '@fireflymit/ui/dist/index.css'
 
 ```ts
 import 'element-plus/dist/index.css'
-import '@fireflymit/ui/dist/index.css'
+import '@fireflymit/ui/style.css'
 ```
 
 ## TypeScript

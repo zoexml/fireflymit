@@ -4,6 +4,7 @@ import router from './router'
 import 'virtual:uno.css'
 import 'element-plus/dist/index.css'
 import '@fireflymit/ui/dist/index.css'
+import './theme-override.css'
 
 const app = createApp(App)
 

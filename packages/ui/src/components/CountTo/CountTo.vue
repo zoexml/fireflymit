@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { devWarn } from '@fireflymit/utils'
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import { computed, nextTick, onUnmounted, shallowRef, watch } from 'vue'
 import { createNamespace } from '~/_utils'
-import { devWarn } from '~/_utils/dev'
+import { DEFAULT_EASING, EPSILON, MAX_DECIMALS, MAX_DURATION, MIN_DURATION } from './CountTo.constants'
 import { countToProps } from './CountTo.types'
 
 defineOptions({ name: 'CountTo' })
@@ -16,12 +17,6 @@ const emit = defineEmits<{
 }>()
 
 const [className] = createNamespace('count-to')
-
-const EPSILON = Number.EPSILON
-const MIN_DURATION = 100
-const MAX_DURATION = 60000
-const MAX_DECIMALS = 10
-const DEFAULT_EASING = 'easeOutExpo'
 
 const validateNumber = (value: number, name: string, defaultValue: number): number => {
   if (!Number.isFinite(value)) {

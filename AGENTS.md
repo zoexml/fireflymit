@@ -43,7 +43,7 @@ fireflymit/
 │   ├── ui/                    # Vue 3 UI component library (Element Plus based)
 │   ├── utils/                 # Utility functions library
 │   ├── hooks/                 # Vue composables
-│   ├── shared/                # Shared code
+│   ├── uno-preset/            # UnoCSS preset
 │   └── lint-configs/          # Shared lint configs (eslint, prettier, stylelint, typescript, commitlint)
 ├── playground/                # Vue 3 app for testing components
 ├── docs/                      # VitePress documentation
@@ -62,7 +62,9 @@ fireflymit/
 **Package Exports**
 
 - `@fireflymit/ui` - Main UI component library
+- `@fireflymit/hooks` - Vue composables and directives
 - `@fireflymit/utils` - Utility functions (array, date, dom, random, string, tools, url)
+- `@fireflymit/uno-preset` - UnoCSS preset
 
 **Path Aliases** (from root tsconfig.json)
 

@@ -1,0 +1,4 @@
+/* 消费方覆盖组件库主题色 */
+:root {
+  --ffm-color-primary: #124df8;
+}

@@ -1,5 +1,5 @@
 import type { ObjectDirective } from 'vue'
-import { devWarn } from '../_utils/dev'
+import { devWarn } from '@fireflymit/utils'
 
 type InputType = 'number' | 'decimal' | 'decimal_2' | 'customize'
 

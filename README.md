@@ -88,6 +88,7 @@ pnpm add element-plus
 ```ts
 import FireflyUI from '@fireflymit/ui'
 import 'element-plus/dist/index.css'
+import '@fireflymit/ui/style.css'
 
 app.use(FireflyUI)
 ```

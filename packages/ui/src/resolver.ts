@@ -9,7 +9,7 @@ export interface FireflyMitResolverOptions {
    * Import library styles together with resolved components.
    *
    * The current build emits one bundled stylesheet, so this imports
-   * `@fireflymit/ui/dist/index.css` as the style side effect.
+   * `@fireflymit/ui/style.css` as the style side effect.
    *
    * @default true
    */
@@ -67,7 +67,7 @@ export const FireflyMitResolver = (options: FireflyMitResolverOptions = {}) => {
     return {
       name: 'default',
       from: `${packageName}/es/components/${componentName}`,
-      sideEffects: importStyle ? `${packageName}/dist/index.css` : undefined,
+      sideEffects: importStyle ? `${packageName}/style.css` : undefined,
     }
   }
 }

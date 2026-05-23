@@ -10,7 +10,7 @@ import dts from 'vite-plugin-dts'
 /**
  * 合并 dist/es 下所有 CSS 文件为 dist/index.css
  * 参照 Element Plus 的做法：全量样式输出到 dist/index.css
- * 消费者使用: import '@fireflymit/ui/dist/index.css'
+ * 消费者使用: import '@fireflymit/ui/style.css'
  */
 function concatStylesPlugin(): Plugin {
   const distDir = path.resolve(import.meta.dirname, 'dist')
@@ -20,7 +20,7 @@ function concatStylesPlugin(): Plugin {
     generateBundle(options, bundle) {
       if (options.format !== 'es') return
 
-      const priorityFiles = ['index.css', 'variables.css', 'config.css', 'mixins.css']
+      const priorityFiles = ['index.css', 'variables.css']
       const cssChunks: { name: string, source: string }[] = []
 
       for (const [fileName, chunk] of Object.entries(bundle) as [string, Rollup.OutputChunk | Rollup.OutputAsset][]) {
@@ -117,7 +117,7 @@ export default defineConfig({
         '@fireflymit/utils',
       ],
       // 入口地址
-      input: ['src/index.ts', 'src/resolver.ts'],
+      input: ['src/index.ts', 'src/resolver.ts', 'src/style.ts'],
       // 输出配置
       output: [
         // {

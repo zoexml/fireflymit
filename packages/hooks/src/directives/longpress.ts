@@ -1,5 +1,5 @@
 import type { ObjectDirective } from 'vue'
-import { devWarn } from '../_utils/dev'
+import { devWarn } from '@fireflymit/utils'
 
 interface LongpressElement extends HTMLElement {
   __longpressTimer?: ReturnType<typeof setTimeout> | null

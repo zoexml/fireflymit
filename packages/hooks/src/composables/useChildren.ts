@@ -5,22 +5,26 @@
 import type { ComponentInternalInstance, VNode, VNodeNormalizedChildren } from 'vue'
 import { isVNode, shallowRef } from 'vue'
 
-function flattedChildren(children: VNodeNormalizedChildren) {
+const appendFlattedChildren = (children: VNodeNormalizedChildren, result: VNode[]) => {
   const vNodes = Array.isArray(children) ? children : [children]
-  const result: VNode[] = []
 
   vNodes.forEach((child) => {
     if (Array.isArray(child)) {
-      result.push(...flattedChildren(child))
+      appendFlattedChildren(child, result)
     } else if (isVNode(child) && Array.isArray(child.children)) {
-      result.push(...flattedChildren(child.children))
+      appendFlattedChildren(child.children, result)
     } else {
       result.push(child as VNode)
       if (isVNode(child) && child.component?.subTree) {
-        result.push(...flattedChildren(child.component.subTree as unknown as VNode[]))
+        appendFlattedChildren(child.component.subTree as unknown as VNode[], result)
       }
     }
   })
+}
+
+const flattedChildren = (children: VNodeNormalizedChildren) => {
+  const result: VNode[] = []
+  appendFlattedChildren(children, result)
   return result
 }
 

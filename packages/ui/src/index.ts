@@ -1,8 +1,6 @@
 // src/index.ts
-// 全量样式请在项目入口手动引入:
-// import '@fireflymit/ui/dist/index.css'
-
-import './styles/index.scss'
+// 全量样式请在项目入口手动引入，避免逻辑入口产生 CSS 副作用:
+// import '@fireflymit/ui/style.css'
 
 export { default } from './components'
 export * from './components'

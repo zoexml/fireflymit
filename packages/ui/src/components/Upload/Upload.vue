@@ -12,6 +12,7 @@ import { ElButton, ElMessage, ElProgress, ElUpload, genFileId } from 'element-pl
 import { computed, useTemplateRef } from 'vue'
 import { createNamespace } from '~/_utils'
 import SvgIcon from '../SvgIcon/SvgIcon.vue'
+import { STATUS_ICON_MAP, STATUS_TEXT_MAP } from './Upload.constants'
 import { uploadProps } from './Upload.types'
 
 defineOptions({ name: 'Upload', inheritAttrs: false })
@@ -205,25 +206,11 @@ const clearFiles = () => {
 }
 
 const getStatusText = (file: UploadUserFile) => {
-  const statusMap: Record<string, string> = {
-    fail: '上传失败',
-    ready: '等待上传',
-    success: '上传成功',
-    uploading: '上传中',
-  }
-
-  return file.status ? statusMap[file.status] : '已选择'
+  return file.status ? STATUS_TEXT_MAP[file.status] : '已选择'
 }
 
 const getStatusIcon = (file: UploadUserFile) => {
-  const iconMap: Record<string, string> = {
-    fail: 'ri:error-warning-line',
-    ready: 'ri:file-line',
-    success: 'ri:checkbox-circle-line',
-    uploading: 'ri:loader-4-line',
-  }
-
-  return file.status ? iconMap[file.status] : 'ri:file-line'
+  return file.status ? STATUS_ICON_MAP[file.status] : 'ri:file-line'
 }
 
 defineExpose({

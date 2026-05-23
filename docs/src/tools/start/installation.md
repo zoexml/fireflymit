@@ -76,7 +76,7 @@ npm install @fireflymit/utils
 import FireflyUI from '@fireflymit/ui'
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@fireflymit/ui/dist/index.css'
+import '@fireflymit/ui/style.css'
 
 const app = createApp(App)
 app.use(FireflyUI)

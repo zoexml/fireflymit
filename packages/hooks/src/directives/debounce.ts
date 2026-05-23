@@ -1,5 +1,5 @@
 import type { ObjectDirective } from 'vue'
-import { devWarn } from '../_utils/dev'
+import { devWarn } from '@fireflymit/utils'
 
 interface DebounceElement extends HTMLElement {
   __debounceTimer?: ReturnType<typeof setTimeout> | null

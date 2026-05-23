@@ -30,5 +30,13 @@
   "peerDependencies": {
     "vue": "^3.0.0"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "@fireflymit/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "rimraf": "^6.1.2",
+    "typescript": "5.9.3",
+    "unbuild": "^3.6.1",
+    "vue": "^3.5.21"
+  }
 }

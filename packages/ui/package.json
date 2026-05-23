@@ -16,6 +16,7 @@
   ],
   "sideEffects": [
     "*.css",
+    "*.scss",
     "dist/**/*.css"
   ],
   "exports": {
@@ -29,6 +30,7 @@
       "import": "./dist/es/resolver.mjs",
       "require": "./dist/lib/resolver.js"
     },
+    "./style.css": "./dist/index.css",
     "./dist/index.css": "./dist/index.css",
     "./es/components/*": {
       "types": "./dist/es/components/*/index.d.ts",

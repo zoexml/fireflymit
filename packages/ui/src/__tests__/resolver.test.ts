@@ -8,27 +8,27 @@ describe('firefly mit resolver', () => {
     expect(resolver('Badge')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/Badge',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
     expect(resolver('ProTable')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/ProTable',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
     expect(resolver('DialogForm')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/DialogForm',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
     expect(resolver('DrawerForm')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/DrawerForm',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
     expect(resolver('Upload')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/Upload',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
   })
 
@@ -38,7 +38,7 @@ describe('firefly mit resolver', () => {
     expect(resolver('FBadge')).toEqual({
       name: 'default',
       from: '@fireflymit/ui/es/components/Badge',
-      sideEffects: '@fireflymit/ui/dist/index.css',
+      sideEffects: '@fireflymit/ui/style.css',
     })
     expect(resolver('Badge')).toBeUndefined()
   })
