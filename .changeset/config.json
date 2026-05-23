@@ -12,6 +12,8 @@
     "@fireflymit/commitlint-config",
     "@fireflymit/stylelint-config",
     "@fireflymit/eslint-config",
-    "@fireflymit/typescript-config"
+    "@fireflymit/typescript-config",
+    "playground",
+    "docs"
   ]
 }

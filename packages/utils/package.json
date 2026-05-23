@@ -1,7 +1,7 @@
 {
   "name": "@fireflymit/utils",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "@fireflymit utils library",
   "repository": {
     "type": "git",
