@@ -34,6 +34,3 @@ export const randomString = (length: number): string => {
   }
   return result
 }
-
-// test
-// console.log('🚀 ~ randomString(10) :', randomString(10)) // iZCKb4ZBcf

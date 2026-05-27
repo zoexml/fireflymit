@@ -18,20 +18,7 @@ export const hideMobile = (mobile: string) => {
  * @param text 要复制的文本
  */
 export const copyToClipboard = (text: string) => {
-  if (navigator.clipboard) {
-    return navigator.clipboard.writeText(text)
-  }
-  // 浏览器兼容的适配
-  const textArea = document.createElement('textarea')
-  textArea.value = text
-
-  document.body.appendChild(textArea)
-
-  textArea.focus()
-  textArea.select()
-
-  document.execCommand('copy')
-  document.body.removeChild(textArea)
+  return navigator.clipboard.writeText(text)
 }
 
 /**
@@ -45,9 +32,6 @@ export function randomColor() {
   const b = Math.floor(Math.random() * 256)
   return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`
 }
-
-// test
-// console.log('🚀 ~ randomColor():', randomColor()) // '#a0b0c0'
 
 /**
  * 解析URL查询参数
