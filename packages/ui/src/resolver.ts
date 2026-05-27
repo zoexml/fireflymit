@@ -1,3 +1,8 @@
+import type { FireflyMitComponentName } from './components/names'
+import { componentNames } from './components/names'
+
+export type { FireflyMitComponentName }
+
 export interface FireflyMitResolverOptions {
   /**
    * Component prefix used in templates or auto-import identifiers.
@@ -28,27 +33,7 @@ export interface FireflyMitResolveResult {
   sideEffects?: string
 }
 
-const components = [
-  'Avatar',
-  'Badge',
-  'Banner',
-  'CardBanner',
-  'ContextMenu',
-  'CountTo',
-  'DialogForm',
-  'DragVerify',
-  'DrawerForm',
-  'ProForm',
-  'ProTable',
-  'SearchBar',
-  'SvgIcon',
-  'TextScroll',
-  'Upload',
-] as const
-
-const componentSet = new Set<string>(components)
-
-export type FireflyMitComponentName = typeof components[number]
+const componentSet = new Set<string>(componentNames)
 
 export const FireflyMitResolver = (options: FireflyMitResolverOptions = {}) => {
   const {
