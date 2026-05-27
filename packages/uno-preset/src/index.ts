@@ -5,6 +5,65 @@ import type { Preset } from 'unocss'
 export function presetFireflymit(): Preset {
   return {
     name: 'preset-fireflymit',
+    theme: {
+      colors: {
+        brand: {
+          primary: '#409eff',
+          success: '#67c23a',
+          warning: '#e6a23c',
+          danger: '#f56c6c',
+          info: '#909399',
+        },
+        text: {
+          primary: '#303133',
+          regular: '#606266',
+          secondary: '#909399',
+          placeholder: '#a8abb2',
+          disabled: '#c0c4cc',
+        },
+        border: {
+          base: '#dcdfe6',
+          light: '#e4e7ed',
+          lighter: '#ebeef5',
+          extraLight: '#f2f6fc',
+        },
+        bg: {
+          base: '#ffffff',
+          page: '#f2f3f5',
+          overlay: '#ffffff',
+        },
+      },
+    },
+    rules: [
+      [
+        /^(?:p[tblr]|padding-(?:top|bottom|left|right))-safe$/,
+        (match: RegExpMatchArray) => {
+          const [m] = match
+          const propMap: Record<string, string> = {
+            'pt-safe': 'padding-top',
+            'pb-safe': 'padding-bottom',
+            'pl-safe': 'padding-left',
+            'pr-safe': 'padding-right',
+            'padding-top-safe': 'padding-top',
+            'padding-bottom-safe': 'padding-bottom',
+            'padding-left-safe': 'padding-left',
+            'padding-right-safe': 'padding-right',
+          }
+          const envProp = m.startsWith('pt') || m === 'padding-top-safe'
+            ? 'safe-area-inset-top'
+            : m.startsWith('pb') || m === 'padding-bottom-safe'
+              ? 'safe-area-inset-bottom'
+              : m.startsWith('pl') || m === 'padding-left-safe'
+                ? 'safe-area-inset-left'
+                : 'safe-area-inset-right'
+
+          return { [propMap[m] as string]: `env(${envProp}, 0px)` }
+        },
+      ],
+      [/^aspect-(\d+)\/(\d+)$/, (match: RegExpMatchArray) => ({
+        'aspect-ratio': `${match[1]}/${match[2]}`,
+      })],
+    ],
     shortcuts: [
       {
         'flex-center': 'flex justify-center items-center',
