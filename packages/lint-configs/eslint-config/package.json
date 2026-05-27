@@ -6,27 +6,17 @@
   "description": "ESLint config for fireflymit",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./index.mjs",
+      "default": "./index.mjs"
     }
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "./index.mjs",
+  "module": "./index.mjs",
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "unbuild",
-    "build:out": "unbuild --out",
-    "check-types": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "clean": "rimraf .turbo node_modules"
   },
   "peerDependencies": {
+    "@antfu/eslint-config": "^5.2.2",
     "eslint": "^9.34.0"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^5.2.2"
   }
 }
