@@ -14,7 +14,7 @@
   "scripts": {
     "clean": "rimraf .turbo node_modules"
   },
-  "dependencies": {
+  "peerDependencies": {
     "prettier": "^3.6.2"
   }
 }
