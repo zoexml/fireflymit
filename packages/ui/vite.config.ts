@@ -92,7 +92,7 @@ export default defineConfig({
     target: 'esnext', // 目标版本: 编译目标为 ES Modules（支持现代浏览器）
     outDir: 'dist', // 输出目录
     emptyOutDir: true, // 清空输出目录
-    minify: false, // 压缩 方便查看打包后的代码（排查问题），禁用最小化混淆，默认为esbuild
+    minify: process.env.NODE_ENV === 'production' ? 'esbuild' : false, // 生产压缩，开发保留可读性
     // css分离
     cssCodeSplit: true,
     // 库配置

@@ -7,4 +7,7 @@ export const sharedUnbuildConfig = defineBuildConfig({
   declaration: true,
   // 指定要打包的入口文件
   entries: ['src/index'],
+  rollup: {
+    emitCJS: false,
+  },
 })
