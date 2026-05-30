@@ -184,26 +184,6 @@ pnpm build                    # 重新构建
 | CJS  | CommonJS，Node.js 兼容格式               |
 | IIFE | 自执行函数，通过 `<script>` 标签引入     |
 
-## 第三方参考
-
-### apps/art-design-pro
-
-第三方开源项目 [art-design-pro](https://github.com/Daymychen/art-design-pro)，已克隆到本地作为参考应用。
-
-**同步上游更新：**
-
-```bash
-cd apps/art-design-pro
-git fetch vendor
-git merge vendor/main
-```
-
-或运行同步脚本：
-
-```bash
-pnpm run sync-art-design-pro
-```
-
 ## 有用链接
 
 - [Turborepo 官方文档](https://turborepo.com/docs)

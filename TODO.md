@@ -107,7 +107,6 @@
   - [ ] 统一包内 README、LICENSE、CHANGELOG、exports、files 字段
   - [ ] 增加 issue templates、PR template、CODEOWNERS
   - [ ] 增加安全策略和依赖更新策略
-  - [ ] 梳理 `apps/art-design-pro` 参考项目的同步与隔离策略
 
 ## 测试计划
 
