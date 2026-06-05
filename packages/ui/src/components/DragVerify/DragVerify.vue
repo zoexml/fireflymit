@@ -54,18 +54,23 @@ const passVerify = () => {
   emit('passCallback', seconds)
 }
 
-const dragStart = (e: MouseEvent) => {
+const getPageX = (e: MouseEvent | TouchEvent) => {
+  if ('touches' in e && e.touches[0]) return e.touches[0].pageX
+  return (e as MouseEvent).pageX
+}
+
+const dragStart = (e: MouseEvent | TouchEvent) => {
   if (!props.modelValue) {
     startTime.value = Date.now()
     isMoving.value = true
-    x.value = e.pageX
+    x.value = getPageX(e)
   }
   emit('handlerMove')
 }
 
-const dragMoving = (e: MouseEvent) => {
+const dragMoving = (e: MouseEvent | TouchEvent) => {
   if (isMoving.value && !props.modelValue) {
-    const diffX = e.pageX - x.value
+    const diffX = getPageX(e) - x.value
     const dragLimit = getDragLimit(props.width, props.height, dragVerify.value)
     if (diffX > 0 && diffX <= dragLimit) {
       handler.value.style.left = `${diffX}px`
@@ -78,9 +83,9 @@ const dragMoving = (e: MouseEvent) => {
   }
 }
 
-const dragFinish = (e: MouseEvent) => {
+const dragFinish = (e: MouseEvent | TouchEvent) => {
   if (isMoving.value && !props.modelValue) {
-    const diffX = e.pageX - x.value
+    const diffX = getPageX(e) - x.value
     const dragLimit = getDragLimit(props.width, props.height, dragVerify.value)
     if (diffX < dragLimit) {
       isOk.value = true
@@ -170,6 +175,9 @@ onUnmounted(() => {
     @mousemove="dragMoving"
     @mouseup="dragFinish"
     @mouseleave="dragFinish"
+    @touchmove.prevent="dragMoving"
+    @touchend="dragFinish"
+    @touchcancel="dragFinish"
   >
     <div ref="progressBar" :class="[bem('__progress-bar'), { goFirst2: isOk }]" :style="progressBarStyle" />
     <div ref="message" :class="[bem('__text')]" :style="textStyle">
@@ -190,6 +198,7 @@ onUnmounted(() => {
       :class="[bem('__handler'), { goFirst: isOk }]"
       :style="handlerStyle"
       @mousedown="dragStart"
+      @touchstart.prevent="dragStart"
     >
       <SvgIcon :icon="props.modelValue ? successIcon : handlerIcon" :class="bem('__handler-icon')" />
     </div>
@@ -197,10 +206,11 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.art-drag-verify {
+.ffm-drag-verify {
   position: relative;
   overflow: hidden;
   user-select: none;
+  touch-action: none;
 
   &__progress-bar {
     position: absolute;

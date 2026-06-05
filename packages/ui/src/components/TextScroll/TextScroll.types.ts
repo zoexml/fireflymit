@@ -13,7 +13,7 @@ export type TextScrollTheme
 export type TextScrollDirection = 'left' | 'right' | 'up' | 'down'
 
 export const textScrollProps = {
-  /** 滚动文本内容 */
+  /** 滚动文本内容（纯文本，需要富文本请使用默认插槽） */
   text: { type: String, default: '' },
   /** 主题类型 */
   type: {

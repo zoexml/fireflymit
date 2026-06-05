@@ -3,33 +3,28 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import type { FormEmits, FormItem } from './ProForm.types'
+import type { FormEmits } from './ProForm.types'
 import { useWindowSize } from '@vueuse/core'
 import {
   ElButton,
-  ElCascader,
   ElCheckbox,
-  ElCheckboxGroup,
   ElCol,
-  ElDatePicker,
   ElForm,
   ElFormItem,
-  ElInput,
-  ElInputNumber,
   ElOption,
   ElRadio,
-  ElRadioGroup,
-  ElRate,
   ElRow,
-  ElSelect,
-  ElSlider,
-  ElSwitch,
-  ElTimePicker,
-  ElTimeSelect,
-  ElTreeSelect,
 } from 'element-plus'
-import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
+import { computed, ref, toRefs, useTemplateRef } from 'vue'
 import { createNamespace } from '~/_utils'
+import {
+  deepCloneModelValue,
+  defaultSanitizeOptions,
+  getFormItemComponent,
+  getFormItemProps,
+  getFormItemSlots,
+  sanitizeFormOutput,
+} from '~/_utils/form-helpers'
 import { formProps } from './ProForm.types'
 
 defineOptions({ name: 'ProForm' })
@@ -39,26 +34,6 @@ const emit = defineEmits<FormEmits>()
 
 const [className, bem] = createNamespace('form')
 
-const componentMap = {
-  input: ElInput,
-  number: ElInputNumber,
-  select: ElSelect,
-  switch: ElSwitch,
-  checkbox: ElCheckbox,
-  checkboxgroup: ElCheckboxGroup,
-  radiogroup: ElRadioGroup,
-  date: ElDatePicker,
-  daterange: ElDatePicker,
-  datetime: ElDatePicker,
-  datetimerange: ElDatePicker,
-  rate: ElRate,
-  slider: ElSlider,
-  cascader: ElCascader,
-  timepicker: ElTimePicker,
-  timeselect: ElTimeSelect,
-  treeselect: ElTreeSelect,
-}
-
 const { width } = useWindowSize()
 const isMobile = computed(() => width.value < 500)
 
@@ -66,47 +41,15 @@ const formInstance = useTemplateRef<FormInstance>('formRef')
 const modelValue = defineModel<Record<string, any>>({ default: {} })
 const initialModelValue = ref<Record<string, any>>({})
 
-// Save form snapshot at initialization for reset restore
-const cloneModelValue = (value: Record<string, any> | undefined) => {
-  if (!value) return {}
+initialModelValue.value = deepCloneModelValue(modelValue.value) as Record<string, any>
 
-  const deepClone = (source: unknown): unknown => {
-    if (Array.isArray(source)) {
-      return source.map(item => deepClone(item))
-    }
-
-    if (source && typeof source === 'object') {
-      const rawSource = toRaw(source)
-      return Object.keys(rawSource).reduce<Record<string, unknown>>((accumulator, key) => {
-        accumulator[key] = deepClone((rawSource as Record<string, unknown>)[key])
-        return accumulator
-      }, {})
-    }
-
-    return source
-  }
-
-  return deepClone(toRaw(value)) as Record<string, any>
-}
-
-initialModelValue.value = cloneModelValue(modelValue.value)
-
-const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots', 'render']
-
-// Sanitize output options
 const sanitizeOutputOptions = computed(() => ({
-  removeEmptyString: true,
-  removeEmptyArray: true,
-  removeEmptyObject: true,
-  removeEmptyRichText: true,
-  keepZero: true,
-  keepFalse: true,
+  ...defaultSanitizeOptions,
   ...props.sanitizeOutput,
 }))
 
 const PATH_NUMBER_RE = /^\d+$/
 
-// 兼容 a.b、a.0.b 这类路径写法，数字段会被当作数组索引处理
 const parsePath = (path: string) => {
   return path
     .split('.')
@@ -121,7 +64,6 @@ const getFieldValue = (path: string) => {
   }, modelValue.value)
 }
 
-// 清空字段时只删除路径的最后一段，避免误删同级数据
 const deleteFieldValue = (path: string) => {
   const segments = parsePath(path)
   if (!segments.length) return
@@ -137,7 +79,6 @@ const deleteFieldValue = (path: string) => {
   }
 }
 
-// 表单值设置，支持嵌套路径，自动补齐中间对象或数组
 const setFieldValue = (path: string, value: unknown) => {
   const normalizedValue = value === '' ? undefined : value
   const segments = parsePath(path)
@@ -174,92 +115,8 @@ const setFieldValue = (path: string, value: unknown) => {
   })
 }
 
-const isRichTextEmpty = (value: string) => {
-  if (/<(?:img|video|audio|iframe|embed|object)\b/i.test(value)) {
-    return false
-  }
-
-  return (
-    value
-      .replace(/&nbsp;/gi, '')
-      .replace(/<br\s*\/?>/gi, '')
-      .replace(/<[^>]*>/g, '')
-      .trim() === ''
-  )
-}
-
-// 提交时按配置清洗空值
-const sanitizeOutputValue = (value: unknown): unknown => {
-  const options = sanitizeOutputOptions.value
-
-  if (Array.isArray(value)) {
-    const sanitizedArray = value.map(item => sanitizeOutputValue(item)).filter(item => item !== undefined)
-    return sanitizedArray.length === 0 && options.removeEmptyArray ? undefined : sanitizedArray
-  }
-
-  if (value && typeof value === 'object') {
-    const rawValue = toRaw(value)
-    const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>((accumulator, [key, item]) => {
-      const sanitizedItem = sanitizeOutputValue(item)
-      if (sanitizedItem !== undefined) {
-        accumulator[key] = sanitizedItem
-      }
-      return accumulator
-    }, {})
-    return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject ? undefined : sanitizedObject
-  }
-
-  if (typeof value === 'string') {
-    if (options.removeEmptyString && value.trim() === '') {
-      return undefined
-    }
-    if (options.removeEmptyRichText && isRichTextEmpty(value)) {
-      return undefined
-    }
-    return value
-  }
-
-  if (value === 0) {
-    return options.keepZero ? value : undefined
-  }
-
-  if (value === false) {
-    return options.keepFalse ? value : undefined
-  }
-
-  return value ?? undefined
-}
-
 const getSanitizedOutput = () => {
-  return (sanitizeOutputValue(cloneModelValue(modelValue.value)) || {}) as Record<string, any>
-}
-
-const getProps = (item: FormItem) => {
-  if (item.props) return item.props
-  const itemProps = { ...item }
-  rootProps.forEach(key => delete (itemProps as Record<string, any>)[key])
-  return itemProps
-}
-
-// 获取插槽
-const getSlots = (item: FormItem) => {
-  if (!item.slots) return {}
-  const validSlots: Record<string, () => any> = {}
-  Object.entries(item.slots).forEach(([key, slotFn]) => {
-    if (slotFn) {
-      validSlots[key] = slotFn
-    }
-  })
-  return validSlots
-}
-
-// 组件
-const getComponent = (item: FormItem) => {
-  if (item.render) {
-    return item.render
-  }
-  const { type } = item
-  return componentMap[type as keyof typeof componentMap] || componentMap.input
+  return (sanitizeFormOutput(deepCloneModelValue(modelValue.value), sanitizeOutputOptions.value) || {}) as Record<string, any>
 }
 
 /**
@@ -296,7 +153,7 @@ const handleReset = () => {
   Object.keys(modelValue.value).forEach((key) => {
     delete modelValue.value[key]
   })
-  Object.assign(modelValue.value, cloneModelValue(initialModelValue.value))
+  Object.assign(modelValue.value, deepCloneModelValue(initialModelValue.value) as Record<string, any>)
 
   emit('reset')
 }
@@ -315,7 +172,6 @@ defineExpose({
   getOutput: getSanitizedOutput,
 })
 
-// 解构 props 以便在模板中直接使用
 const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
 
@@ -339,28 +195,24 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
             </template>
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
-                :is="getComponent(item)"
+                :is="getFormItemComponent(item)"
                 :model-value="getFieldValue(item.key)"
-                v-bind="getProps(item)"
+                v-bind="getFormItemProps(item)"
                 @update:model-value="setFieldValue(item.key, $event)"
               >
-                <!-- 下拉选择 -->
-                <template v-if="item.type === 'select' && getProps(item)?.options">
-                  <ElOption v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'select' && getFormItemProps(item)?.options">
+                  <ElOption v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 复选框组 -->
-                <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
-                  <ElCheckbox v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'checkboxgroup' && getFormItemProps(item)?.options">
+                  <ElCheckbox v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 单选框组 -->
-                <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
-                  <ElRadio v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'radiogroup' && getFormItemProps(item)?.options">
+                  <ElRadio v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 动态插槽支持 -->
-                <template v-for="(slotFn, slotName) in getSlots(item)" :key="slotName" #[slotName]>
+                <template v-for="(slotFn, slotName) in getFormItemSlots(item)" :key="slotName" #[slotName]>
                   <component :is="slotFn" />
                 </template>
               </component>
@@ -391,9 +243,9 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </template>
 
 <style lang="scss" scoped>
-.art-form {
+.ffm-form {
   padding: 1rem 1rem 0;
-  background-color: var(--art-main-bg-color, #f7f8fa);
+  background-color: var(--ffm-main-bg-color, #f7f8fa);
   border-radius: calc(var(--custom-radius, 4px) / 2 + 2px);
 
   &__row {
@@ -420,9 +272,8 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
   }
 }
 
-// 响应式优化
 @media (width <= 768px) {
-  .art-form {
+  .ffm-form {
     padding: 16px 16px 0;
 
     &__action-buttons {
@@ -430,7 +281,7 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
       gap: 8px;
       align-items: stretch;
 
-      .art-form__buttons {
+      .ffm-form__buttons {
         justify-content: center;
       }
     }

@@ -150,7 +150,7 @@ defineExpose({
 </template>
 
 <style lang="scss">
-.art-dialog-form {
+.ffm-dialog-form {
   overflow: hidden;
   border: 1px solid var(--el-border-color-extra-light);
   border-radius: 10px;
@@ -198,12 +198,12 @@ defineExpose({
     padding: 0;
   }
 
-  .art-form {
+  .ffm-form {
     padding: 0;
     background-color: transparent;
   }
 
-  .art-form__row {
+  .ffm-form__row {
     row-gap: 2px;
   }
 
@@ -219,7 +219,7 @@ defineExpose({
 }
 
 @media (width <= 768px) {
-  .art-dialog-form {
+  .ffm-dialog-form {
     width: calc(100vw - 32px) !important;
     margin-top: 8vh;
 

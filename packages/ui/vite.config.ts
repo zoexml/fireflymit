@@ -99,7 +99,7 @@ export default defineConfig({
     lib: {
       // 入口文件
       entry: 'src/index.ts',
-      name: 'art-ui',
+      name: 'ffm-ui',
       // CSS 输出文件名
       cssFileName: 'style',
     },

@@ -339,7 +339,7 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.art-upload {
+.ffm-upload {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -485,7 +485,7 @@ defineExpose({
 }
 
 @media (width <= 768px) {
-  .art-upload {
+  .ffm-upload {
     &__dropzone {
       min-height: 144px;
       padding: 18px;

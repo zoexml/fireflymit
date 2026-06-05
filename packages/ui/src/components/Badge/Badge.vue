@@ -28,7 +28,7 @@ const colors: Record<BadgeType, string> = {
 </template>
 
 <style lang="scss" scoped>
-.art-badge {
+.ffm-badge {
   display: inline-flex;
   gap: 6px;
   align-items: center;

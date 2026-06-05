@@ -108,7 +108,7 @@ function generateMeteors(count: number): BannerMeteor[] {
 </template>
 
 <style lang="scss" scoped>
-.art-banner {
+.ffm-banner {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -221,7 +221,7 @@ function generateMeteors(count: number): BannerMeteor[] {
 }
 
 @media (width <= 640px) {
-  .art-banner {
+  .ffm-banner {
     box-sizing: border-box;
     justify-content: flex-start;
     padding: 16px;

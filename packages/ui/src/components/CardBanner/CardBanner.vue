@@ -63,7 +63,7 @@ const handleCancel = () => {
 </template>
 
 <style lang="scss" scoped>
-.art-card-banner {
+.ffm-card-banner {
   display: flex;
   align-items: center;
   justify-content: center;

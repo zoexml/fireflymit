@@ -3,33 +3,28 @@
 <!-- 写法同 ElementPlus 官方文档组件，把属性写在 props 里面就可以了 -->
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import type { SearchBarEmits, SearchBarProps, SearchFormItem } from './SearchBar.types'
+import type { SearchBarEmits, SearchBarProps } from './SearchBar.types'
 import { useWindowSize } from '@vueuse/core'
 import {
   ElButton,
-  ElCascader,
   ElCheckbox,
-  ElCheckboxGroup,
   ElCol,
-  ElDatePicker,
   ElForm,
   ElFormItem,
-  ElInput,
-  ElInputNumber,
   ElOption,
   ElRadio,
-  ElRadioGroup,
-  ElRate,
   ElRow,
-  ElSelect,
-  ElSlider,
-  ElSwitch,
-  ElTimePicker,
-  ElTimeSelect,
-  ElTreeSelect,
 } from 'element-plus'
-import { computed, ref, toRaw, toRefs, useTemplateRef } from 'vue'
+import { computed, ref, toRefs, useTemplateRef } from 'vue'
 import { createNamespace } from '~/_utils'
+import {
+  deepCloneModelValue,
+  defaultSanitizeOptions,
+  getFormItemComponent,
+  getFormItemProps,
+  getFormItemSlots,
+  sanitizeFormOutput,
+} from '~/_utils/form-helpers'
 import SvgIcon from '../SvgIcon/SvgIcon.vue'
 
 defineOptions({ name: 'SearchBar' })
@@ -58,26 +53,6 @@ const emit = defineEmits<SearchBarEmits>()
 
 const [className] = createNamespace('search-bar')
 
-const componentMap = {
-  input: ElInput,
-  number: ElInputNumber,
-  select: ElSelect,
-  switch: ElSwitch,
-  checkbox: ElCheckbox,
-  checkboxgroup: ElCheckboxGroup,
-  radiogroup: ElRadioGroup,
-  date: ElDatePicker,
-  daterange: ElDatePicker,
-  datetime: ElDatePicker,
-  datetimerange: ElDatePicker,
-  rate: ElRate,
-  slider: ElSlider,
-  cascader: ElCascader,
-  timepicker: ElTimePicker,
-  timeselect: ElTimeSelect,
-  treeselect: ElTreeSelect,
-}
-
 const { width } = useWindowSize()
 const isMobile = computed(() => width.value < 500)
 
@@ -85,77 +60,25 @@ const formInstance = useTemplateRef<FormInstance>('formRef')
 const modelValue = defineModel<Record<string, any>>({ default: {} })
 const initialModelValue = ref<Record<string, any>>({})
 
-// Save form snapshot at initialization for reset restore
-const cloneModelValue = (value: Record<string, any> | undefined) => {
-  if (!value) return {}
-
-  const deepClone = (source: unknown): unknown => {
-    if (Array.isArray(source)) {
-      return source.map(item => deepClone(item))
-    }
-
-    if (source && typeof source === 'object') {
-      const rawSource = toRaw(source)
-      return Object.keys(rawSource).reduce<Record<string, unknown>>((accumulator, key) => {
-        accumulator[key] = deepClone((rawSource as Record<string, unknown>)[key])
-        return accumulator
-      }, {})
-    }
-
-    return source
-  }
-
-  return deepClone(toRaw(value)) as Record<string, any>
-}
-
-initialModelValue.value = cloneModelValue(modelValue.value)
+initialModelValue.value = deepCloneModelValue(modelValue.value) as Record<string, any>
 
 /**
  * 是否展开状态
  */
 const isExpanded = ref(props.defaultExpanded)
 
-const rootProps = ['label', 'labelWidth', 'key', 'type', 'hidden', 'span', 'slots', 'render']
-
-// Sanitize output options
 const sanitizeOutputOptions = computed(() => ({
-  removeEmptyString: true,
-  removeEmptyArray: true,
-  removeEmptyObject: true,
-  removeEmptyRichText: true,
-  keepZero: true,
-  keepFalse: true,
+  ...defaultSanitizeOptions,
   ...props.sanitizeOutput,
 }))
-
-const getProps = (item: SearchFormItem) => {
-  if (item.props) return item.props
-  const itemProps = { ...item }
-  rootProps.forEach(key => delete (itemProps as Record<string, any>)[key])
-  return itemProps
-}
-
-// 获取插槽
-const getSlots = (item: SearchFormItem) => {
-  if (!item.slots) return {}
-  const validSlots: Record<string, () => any> = {}
-  Object.entries(item.slots).forEach(([key, slotFn]) => {
-    if (slotFn) {
-      validSlots[key] = slotFn
-    }
-  })
-  return validSlots
-}
 
 /**
  * 获取列宽 span 值（简易响应式降级）
  */
 const getColSpan = (itemSpan: number | undefined): number => {
-  const finalSpan = itemSpan ?? props.span
-  return finalSpan
+  return itemSpan ?? props.span
 }
 
-// 搜索表单清空输入时不保留空字符串
 const normalizeFieldValue = (value: unknown) => {
   return value === '' ? undefined : value
 }
@@ -173,74 +96,8 @@ const setFieldValue = (key: string, value: unknown) => {
   modelValue.value[key] = normalizedValue
 }
 
-const isRichTextEmpty = (value: string) => {
-  if (/<(?:img|video|audio|iframe|embed|object)\b/i.test(value)) {
-    return false
-  }
-
-  return (
-    value
-      .replace(/&nbsp;/gi, '')
-      .replace(/<br\s*\/?>/gi, '')
-      .replace(/<[^>]*>/g, '')
-      .trim() === ''
-  )
-}
-
-// 搜索时按配置清洗空值
-const sanitizeOutputValue = (value: unknown): unknown => {
-  const options = sanitizeOutputOptions.value
-
-  if (Array.isArray(value)) {
-    const sanitizedArray = value.map(item => sanitizeOutputValue(item)).filter(item => item !== undefined)
-    return sanitizedArray.length === 0 && options.removeEmptyArray ? undefined : sanitizedArray
-  }
-
-  if (value && typeof value === 'object') {
-    const rawValue = toRaw(value)
-    const sanitizedObject = Object.entries(rawValue).reduce<Record<string, unknown>>((accumulator, [key, item]) => {
-      const sanitizedItem = sanitizeOutputValue(item)
-      if (sanitizedItem !== undefined) {
-        accumulator[key] = sanitizedItem
-      }
-      return accumulator
-    }, {})
-    return Object.keys(sanitizedObject).length === 0 && options.removeEmptyObject ? undefined : sanitizedObject
-  }
-
-  if (typeof value === 'string') {
-    if (options.removeEmptyString && value.trim() === '') {
-      return undefined
-    }
-    if (options.removeEmptyRichText && isRichTextEmpty(value)) {
-      return undefined
-    }
-    return value
-  }
-
-  if (value === 0) {
-    return options.keepZero ? value : undefined
-  }
-
-  if (value === false) {
-    return options.keepFalse ? value : undefined
-  }
-
-  return value ?? undefined
-}
-
 const getSanitizedOutput = () => {
-  return (sanitizeOutputValue(cloneModelValue(modelValue.value)) || {}) as Record<string, any>
-}
-
-// 组件
-const getComponent = (item: SearchFormItem) => {
-  // 优先使用 render 函数或组件渲染自定义组件
-  if (item.render) {
-    return item.render
-  }
-  const { type } = item
-  return componentMap[type as keyof typeof componentMap] || componentMap.input
+  return (sanitizeFormOutput(deepCloneModelValue(modelValue.value), sanitizeOutputOptions.value) || {}) as Record<string, any>
 }
 
 /**
@@ -293,16 +150,13 @@ const toggleExpand = () => {
  * 处理重置事件
  */
 const handleReset = () => {
-  // 重置表单字段（UI 层）
   formInstance.value?.resetFields()
 
-  // 恢复初始表单值，保留默认搜索条件
   Object.keys(modelValue.value).forEach((key) => {
     delete modelValue.value[key]
   })
-  Object.assign(modelValue.value, cloneModelValue(initialModelValue.value))
+  Object.assign(modelValue.value, deepCloneModelValue(initialModelValue.value) as Record<string, any>)
 
-  // 触发 reset 事件
   emit('reset')
 }
 
@@ -310,7 +164,6 @@ const handleReset = () => {
  * 处理搜索事件
  */
 const handleSearch = () => {
-  // 对外只抛出清洗后的查询参数
   emit('search', getSanitizedOutput())
 }
 
@@ -318,11 +171,9 @@ defineExpose({
   ref: formInstance,
   validate: (...args: any[]) => formInstance.value?.validate(...args),
   reset: handleReset,
-  // 允许外部在手动组装请求前直接读取清洗后的参数
   getOutput: getSanitizedOutput,
 })
 
-// 解构 props 以便在模板中直接使用
 const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </script>
 
@@ -346,28 +197,24 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
             </template>
             <slot :name="item.key" :item="item" :modelValue="modelValue">
               <component
-                :is="getComponent(item)"
+                :is="getFormItemComponent(item)"
                 :model-value="getFieldValue(item.key)"
-                v-bind="getProps(item)"
+                v-bind="getFormItemProps(item)"
                 @update:model-value="setFieldValue(item.key, $event)"
               >
-                <!-- 下拉选择 -->
-                <template v-if="item.type === 'select' && getProps(item)?.options">
-                  <ElOption v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'select' && getFormItemProps(item)?.options">
+                  <ElOption v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 复选框组 -->
-                <template v-if="item.type === 'checkboxgroup' && getProps(item)?.options">
-                  <ElCheckbox v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'checkboxgroup' && getFormItemProps(item)?.options">
+                  <ElCheckbox v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 单选框组 -->
-                <template v-if="item.type === 'radiogroup' && getProps(item)?.options">
-                  <ElRadio v-for="option in getProps(item).options" v-bind="option" :key="option.value" />
+                <template v-if="item.type === 'radiogroup' && getFormItemProps(item)?.options">
+                  <ElRadio v-for="option in getFormItemProps(item).options" v-bind="option" :key="option.value" />
                 </template>
 
-                <!-- 动态插槽支持 -->
-                <template v-for="(slotFn, slotName) in getSlots(item)" :key="slotName" #[slotName]>
+                <template v-for="(slotFn, slotName) in getFormItemSlots(item)" :key="slotName" #[slotName]>
                   <component :is="slotFn" />
                 </template>
               </component>
@@ -404,9 +251,9 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
 </template>
 
 <style lang="scss" scoped>
-.art-search-bar {
+.ffm-search-bar {
   padding: 15px 20px 0;
-  background-color: var(--art-main-bg-color, #f7f8fa);
+  background-color: var(--ffm-main-bg-color, #f7f8fa);
   border-radius: calc(var(--custom-radius, 4px) / 2 + 2px);
 
   .search-form-row {
@@ -460,9 +307,8 @@ const { span, gutter, labelPosition, labelWidth } = toRefs(props)
   }
 }
 
-// 响应式优化
 @media (width <= 768px) {
-  .art-search-bar {
+  .ffm-search-bar {
     padding: 16px 16px 0;
 
     .action-column {

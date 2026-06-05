@@ -480,7 +480,7 @@ const handleDensityChange = (size: ProTableSize) => {
 </template>
 
 <style lang="scss" scoped>
-.art-table {
+.ffm-table {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -575,7 +575,7 @@ const handleDensityChange = (size: ProTableSize) => {
     font-size: 16px;
     font-weight: 600;
 
-    .art-svg-icon {
+    .ffm-svg-icon {
       flex-shrink: 0;
       color: var(--el-color-primary);
       font-size: 18px;
@@ -704,7 +704,7 @@ const handleDensityChange = (size: ProTableSize) => {
 }
 
 @media (width <= 768px) {
-  .art-table {
+  .ffm-table {
     &__toolbar {
       align-items: flex-start;
       flex-direction: column;

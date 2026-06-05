@@ -154,13 +154,6 @@ const { pause, resume } = useRafFn(
   { immediate: false },
 )
 
-const handleContentClick = (e: MouseEvent) => {
-  const target = e.target as HTMLElement
-  if (target.tagName === 'A') {
-    e.stopPropagation()
-  }
-}
-
 // 监听容器尺寸变化
 watch([containerWidth, containerHeight], () => {
   debouncedMeasure()
@@ -201,18 +194,17 @@ onBeforeUnmount(() => {
     <div
       :class="[bem('__content'), contentClass, { [bem('__content--ready')]: isReady }]"
       :style="contentStyle"
-      @click="handleContentClick"
     >
       <!-- 原始内容 -->
       <span ref="textRef" :class="bem('__text')">
         <slot>
-          <span v-html="text" />
+          {{ text }}
         </slot>
       </span>
       <!-- 克隆内容用于无缝循环 -->
       <span v-if="shouldClone" :class="bem('__clone')" :style="cloneSpacing">
         <slot>
-          <span v-html="text" />
+          {{ text }}
         </slot>
       </span>
     </div>
@@ -231,7 +223,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
-.art-text-scroll {
+.ffm-text-scroll {
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -288,16 +280,6 @@ onBeforeUnmount(() => {
     &--vertical {
       display: flex;
       flex-direction: column;
-    }
-
-    :deep(a) {
-      color: var(--el-color-danger, #f56c6c);
-
-      &:hover {
-        color: var(--el-color-danger, #f56c6c);
-        text-decoration: underline;
-        opacity: 0.8;
-      }
     }
   }
 

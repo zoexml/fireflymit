@@ -146,16 +146,16 @@
   --el-border-radius-round: var(--ffm-radius-full);
   --el-component-custom-height: var(--ffm-control-height-md);
   --custom-radius: var(--ffm-control-radius-md);
-  --art-color: var(--ffm-color-bg);
-  --art-card-border: var(--ffm-color-border);
+  --ffm-color: var(--ffm-color-bg);
+  --ffm-card-border: var(--ffm-color-border);
   --default-border: var(--ffm-color-border);
   --default-border-dashed: var(--ffm-color-border-dashed);
   --default-bg-color: var(--ffm-color-bg-page);
   --default-box-color: var(--ffm-color-surface);
-  --art-main-bg-color: var(--ffm-color-bg-page);
-  --art-hover-color: var(--ffm-color-hover);
-  --art-active-color: var(--ffm-color-active);
-  --art-el-active-color: var(--ffm-color-active);
+  --ffm-main-bg-color: var(--ffm-color-bg-page);
+  --ffm-hover-color: var(--ffm-color-hover);
+  --ffm-active-color: var(--ffm-color-active);
+  --ffm-el-active-color: var(--ffm-color-active);
 }
 
 .dark,

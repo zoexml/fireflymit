@@ -258,21 +258,21 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.art-context-menu__wrapper {
+.ffm-context-menu__wrapper {
   --context-menu-border-radius: v-bind('`${props.borderRadius}px`');
 
-  .art-context-menu {
+  .ffm-context-menu {
     background: var(--el-bg-color, #fff);
     border-radius: var(--context-menu-border-radius);
     box-shadow: var(--ffm-shadow-md, 0 2px 12px 0 rgb(0 0 0 / 10%));
   }
 
-  .art-context-menu__list {
+  .ffm-context-menu__list {
     margin: 0;
     list-style: none;
   }
 
-  .art-context-menu__item {
+  .ffm-context-menu__item {
     position: relative;
     display: flex;
     align-items: center;
@@ -308,21 +308,21 @@ defineExpose({
         background-color: transparent !important;
       }
 
-      .art-context-menu__icon,
-      .art-context-menu__label {
+      .ffm-context-menu__icon,
+      .ffm-context-menu__label {
         color: var(--el-text-color-disabled, #c0c4cc) !important;
       }
     }
   }
 
-  .art-context-menu__icon {
+  .ffm-context-menu__icon {
     flex-shrink: 0;
     margin-right: 8px;
     font-size: 16px;
     color: var(--el-text-color-regular, #606266);
   }
 
-  .art-context-menu__label {
+  .ffm-context-menu__label {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -330,25 +330,25 @@ defineExpose({
     white-space: nowrap;
   }
 
-  .art-context-menu__submenu {
+  .ffm-context-menu__submenu {
     &:hover {
-      .art-context-menu__submenu-list {
+      .ffm-context-menu__submenu-list {
         display: block;
       }
 
-      .art-context-menu__arrow {
+      .ffm-context-menu__arrow {
         transform: rotate(90deg);
       }
     }
   }
 
-  .art-context-menu__submenu-title {
+  .ffm-context-menu__submenu-title {
     display: flex;
     align-items: center;
     width: 100%;
   }
 
-  .art-context-menu__arrow {
+  .ffm-context-menu__arrow {
     margin-right: 0;
     margin-left: auto;
     font-size: 14px;
@@ -360,7 +360,7 @@ defineExpose({
     }
   }
 
-  .art-context-menu__submenu-list {
+  .ffm-context-menu__submenu-list {
     position: absolute;
     top: 0;
     left: 100%;
@@ -374,7 +374,7 @@ defineExpose({
     box-shadow: var(--ffm-shadow-md, 0 2px 12px 0 rgb(0 0 0 / 10%));
   }
 
-  .art-context-menu__submenu-item {
+  .ffm-context-menu__submenu-item {
     margin: 0 6px;
   }
 

@@ -28,7 +28,7 @@ const bindAttrs = computed<{ class: string, style: string }>(() => ({
 </template>
 
 <style lang="scss" scoped>
-.art-svg-icon {
+.ffm-svg-icon {
   display: inline-block;
   width: 1em;
   height: 1em;

@@ -25,8 +25,16 @@ const getAvatarText = (name?: string) => {
   return letterRegex.test(first) ? first.toUpperCase() : first
 }
 
-/** 随机生成颜色 */
-const getColor = () => `hsl(${Math.random() * 360}, 65%, 55%)`
+const avatarColor = computed(() => {
+  const name = props.name || ''
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+    hash |= 0
+  }
+  const hue = Math.abs(hash) % 360
+  return `hsl(${hue}, 55%, 52%)`
+})
 </script>
 
 <template>
@@ -39,7 +47,7 @@ const getColor = () => `hsl(${Math.random() * 360}, 65%, 55%)`
       v-else
       :class="bem('placeholder')"
       :style="{
-        backgroundColor: backgroundColor || getColor(),
+        backgroundColor: backgroundColor || avatarColor,
         fontSize: `${fontSize}px`,
         borderRadius,
       }"
@@ -50,7 +58,7 @@ const getColor = () => `hsl(${Math.random() * 360}, 65%, 55%)`
 </template>
 
 <style lang="scss" scoped>
-.art-avatar {
+.ffm-avatar {
   position: relative;
   display: flex;
   align-items: center;

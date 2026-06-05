@@ -16,7 +16,7 @@ const emit = defineEmits<{
   reset: []
 }>()
 
-const [className] = createNamespace('count-to')
+const [className, bem] = createNamespace('count-to')
 
 const validateNumber = (value: number, name: string, defaultValue: number): number => {
   if (!Number.isFinite(value)) {
@@ -238,13 +238,18 @@ defineExpose({
 </script>
 
 <template>
-  <span :class="[className, isRunning ? 'transition-opacity duration-300 ease-in-out' : '']">
+  <span :class="[className, isRunning ? [bem('animating')] : []]">
     {{ formattedValue }}
   </span>
 </template>
 
 <style lang="scss" scoped>
-.art-count-to {
+.ffm-count-to {
   font-variant-numeric: tabular-nums;
+  transition: opacity 0.3s ease-in-out;
+
+  &--animating {
+    opacity: 0.7;
+  }
 }
 </style>

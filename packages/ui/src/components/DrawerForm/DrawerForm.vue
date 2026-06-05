@@ -151,7 +151,7 @@ defineExpose({
 </template>
 
 <style lang="scss">
-.art-drawer-form {
+.ffm-drawer-form {
   box-shadow: -16px 0 42px rgb(15 23 42 / 14%);
 
   &__panel {
@@ -209,12 +209,12 @@ defineExpose({
     padding: 0;
   }
 
-  .art-form {
+  .ffm-form {
     padding: 0;
     background-color: transparent;
   }
 
-  .art-form__row {
+  .ffm-form__row {
     row-gap: 2px;
   }
 
@@ -230,7 +230,7 @@ defineExpose({
 }
 
 @media (width <= 768px) {
-  .art-drawer-form {
+  .ffm-drawer-form {
     width: 100% !important;
 
     &__body {

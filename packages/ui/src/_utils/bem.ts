@@ -7,7 +7,7 @@
  */
 
 export function createNamespace(name: string): [string, (...mods: string[]) => string] {
-  const prefixedName = `art-${name}`
+  const prefixedName = `ffm-${name}`
 
   const bem = (...mods: string[]) => {
     const classNames: string[] = []
