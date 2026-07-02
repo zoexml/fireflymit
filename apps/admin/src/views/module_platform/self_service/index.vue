@@ -1,11 +1,249 @@
+<script setup lang="ts">
+import type {
+  AvailablePackage,
+  PackageChangePreview,
+  SelfServiceOrderItem,
+  WorkspaceData,
+} from '@/api/module_platform/self_service'
+import type { DescriptionsItem } from '@/components/others/fa-descriptions/index.vue'
+import { useSettingsStore } from '@stores'
+import { resolveStatusColumns } from '@utils'
+import { useRouter } from 'vue-router'
+import SelfServiceAPI from '@/api/module_platform/self_service'
+import FaProgressCard from '@/components/cards/fa-progress-card/index.vue'
+import FaStatsCard from '@/components/cards/fa-stats-card/index.vue'
+import FaTimelineListCard from '@/components/cards/fa-timeline-list-card/index.vue'
+import { useTable } from '@/hooks/core/useTable'
+
+defineOptions({ name: 'SelfService' })
+
+const { isDark } = storeToRefs(useSettingsStore())
+
+const orderTableRef = ref()
+
+const router = useRouter()
+type SelfServiceTab = 'workspace' | 'packages' | 'orders'
+
+const activeTab = ref<SelfServiceTab>('workspace')
+const selfServiceTabOptions = [
+  { label: '工作台', value: 'workspace' },
+  { label: '选购套餐', value: 'packages' },
+  { label: '我的订单', value: 'orders' },
+]
+
+// ─── 工作台 ───
+const workspace = ref<WorkspaceData | null>(null)
+const workspaceLoading = ref(false)
+
+const recentOrderTimeline = computed(() => {
+  if (!workspace.value?.recent_orders?.length) return []
+  return workspace.value.recent_orders.map((o) => {
+    const statusMap: Record<number, { label: string, color: string }> = {
+      0: { label: '待支付', color: 'rgb(230, 162, 60)' },
+      1: { label: '已支付', color: 'rgb(103, 194, 58)' },
+      2: { label: '已取消', color: 'rgb(144, 147, 153)' },
+      3: { label: '已退款', color: 'rgb(245, 108, 108)' },
+    }
+    const s = statusMap[o.status] || { label: '未知', color: 'rgb(144, 147, 153)' }
+    return {
+      time: o.created_at || '—',
+      status: s.color,
+      content: `${o.order_no} - ¥${((o.amount || 0) / 100).toFixed(2)}`,
+      code: s.label,
+    }
+  })
+})
+
+async function loadWorkspace() {
+  workspaceLoading.value = true
+  try {
+    const { data: res } = await SelfServiceAPI.getWorkspace()
+    workspace.value = (res?.data as WorkspaceData) || null
+  } catch {
+    // ignore
+  } finally {
+    workspaceLoading.value = false
+  }
+}
+
+// ─── 套餐 ───
+const packages = ref<AvailablePackage[]>([])
+const packagesLoading = ref(false)
+
+// ─── 订单表格 ───
+const {
+  columns: orderColumns,
+  columnChecks: orderColumnChecks,
+  data: orderData,
+  loading: orderLoading,
+  pagination: orderPagination,
+  getData: getOrderData,
+  handleSizeChange: handleOrderSizeChange,
+  handleCurrentChange: handleOrderCurrentChange,
+} = useTable({
+  core: {
+    apiFn: SelfServiceAPI.listMyOrders,
+    apiParams: {
+      page_no: 1,
+      page_size: 20,
+    },
+    columnsFactory: resolveStatusColumns<SelfServiceOrderItem>(() => [
+      { prop: 'order_no', label: '订单号', minWidth: 200, showOverflowTooltip: true },
+      { prop: 'package_name', label: '套餐', width: 120 },
+      {
+        prop: 'order_type',
+        label: '类型',
+        width: 100,
+        status: {
+          new: { type: 'info', text: '新购' },
+          renew: { type: 'info', text: '续费' },
+          upgrade: { type: 'info', text: '升级' },
+          downgrade: { type: 'info', text: '降级' },
+        },
+      },
+      {
+        prop: 'amount',
+        label: '金额',
+        width: 120,
+        formatter: (row: SelfServiceOrderItem) => `¥${(row.amount / 100).toFixed(2)}`,
+      },
+      {
+        prop: 'status',
+        label: '状态',
+        width: 100,
+        status: {
+          0: { type: 'warning', text: '待支付' },
+          1: { type: 'success', text: '已支付' },
+          2: { type: 'info', text: '已取消' },
+          3: { type: 'danger', text: '已退款' },
+        },
+      },
+      {
+        prop: 'pay_method',
+        label: '支付方式',
+        width: 100,
+        formatter: (row: SelfServiceOrderItem) => row.pay_method || '—',
+      },
+      { prop: 'pay_time', label: '支付时间', width: 160, showOverflowTooltip: true },
+      { prop: 'created_at', label: '创建时间', width: 160, showOverflowTooltip: true },
+    ]),
+  },
+})
+
+// ─── 操作弹窗 ───
+const actionDialogVisible = ref(false)
+const actionSubmitting = ref(false)
+const actionLoading = ref(false)
+const preview = ref<PackageChangePreview | null>(null)
+const currentAction = ref('')
+const currentPackage = ref<AvailablePackage | null>(null)
+const actionDialogTitle = ref('确认操作')
+
+const previewDescriptionItems: DescriptionsItem[] = [
+  { label: '当前套餐', prop: 'current_package' },
+  { label: '目标套餐', prop: 'target_package', slot: 'target_package' },
+  { label: '操作类型', prop: 'action', slot: 'action' },
+  { label: '应付金额', prop: 'amount', slot: 'amount' },
+]
+
+// ─── 标签函数 ───
+function actionLabel(action: string): string {
+  const map: Record<string, string> = {
+    buy: '购买',
+    renew: '续费',
+    upgrade: '升级',
+    downgrade: '降级',
+  }
+  return map[action] || action
+}
+
+function actionTypeTag(
+  action: string,
+): 'primary' | 'success' | 'info' | 'warning' | 'danger' | undefined {
+  const map: Record<string, 'primary' | 'success' | 'info' | 'warning' | 'danger' | undefined> = {
+    buy: 'success',
+    renew: undefined,
+    upgrade: 'primary',
+    downgrade: 'warning',
+  }
+  return map[action]
+}
+
+// ─── 加载 ───
+async function loadPackages() {
+  packagesLoading.value = true
+  try {
+    const { data: res } = await SelfServiceAPI.getAvailablePackages()
+    const payload = res?.data as unknown as { packages?: AvailablePackage[] } | undefined
+    packages.value = payload?.packages || []
+  } catch {
+    // ignore
+  } finally {
+    packagesLoading.value = false
+  }
+}
+
+const onTabChange = (tab: string | number) => {
+  if (tab === 'workspace') loadWorkspace()
+  else if (tab === 'packages') loadPackages()
+  else if (tab === 'orders') getOrderData()
+}
+
+// ─── 动作处理 ───
+async function handleAction(action: string, pkg: AvailablePackage) {
+  currentAction.value = action
+  currentPackage.value = pkg
+  actionDialogTitle.value = `${actionLabel(action)} - ${pkg.name}`
+  actionLoading.value = true
+  preview.value = null
+  actionDialogVisible.value = true
+
+  try {
+    const { data: res } = await SelfServiceAPI.previewPackageChange(pkg.id)
+    preview.value = (res?.data as PackageChangePreview) || null
+  } catch {
+    actionDialogVisible.value = false
+  } finally {
+    actionLoading.value = false
+  }
+}
+
+async function confirmAction() {
+  if (!currentPackage.value) return
+  actionSubmitting.value = true
+  try {
+    const { data: res } = await SelfServiceAPI.createOrder({
+      package_id: currentPackage.value.id,
+      order_type: currentAction.value as 'buy' | 'renew' | 'upgrade' | 'downgrade',
+    })
+    const orderData = res?.data as { order_id: number, amount?: number } | undefined
+    actionDialogVisible.value = false
+    if (orderData?.order_id && (orderData?.amount || 0) > 0) {
+      router.push(`/payment/${orderData.order_id}`)
+    } else {
+      activeTab.value = 'orders'
+      getOrderData()
+    }
+  } catch {
+    // ignore
+  } finally {
+    actionSubmitting.value = false
+  }
+}
+
+onMounted(() => {
+  loadWorkspace()
+})
+</script>
+
 <template>
   <div class="fa-full-height">
     <FaPageSegmented v-model="activeTab" :options="selfServiceTabOptions" @change="onTabChange" />
 
-    <div v-show="activeTab === 'workspace'" class="flex flex-1 flex-col min-h-0">
+    <div v-show="activeTab === 'workspace'" class="min-h-0 flex flex-col flex-1">
       <ElScrollbar v-if="workspace" class="workspace-scroll" :view-style="{ paddingRight: '4px' }">
         <!-- 欢迎横幅 -->
-        <FaBasicBanner
+        <FBanner
           class="workspace-banner"
           :title="`${workspace.tenant.name}（${workspace.tenant.code}）`"
           :subtitle="
@@ -17,6 +255,7 @@
           titleColor="var(--fa-gray-900)"
           subtitleColor="var(--fa-gray-500)"
           :decoration="false"
+          :dark="isDark"
         />
 
         <!-- 统计卡片行 -->
@@ -122,7 +361,7 @@
       </div>
     </div>
 
-    <div v-show="activeTab === 'packages'" class="flex flex-1 flex-col min-h-0">
+    <div v-show="activeTab === 'packages'" class="min-h-0 flex flex-col flex-1">
       <div v-if="!packagesLoading && packages.length" class="package-grid">
         <div
           v-for="pkg in packages"
@@ -132,7 +371,9 @@
         >
           <div class="package-card__header">
             <h3>{{ pkg.name }}</h3>
-            <ElTag v-if="pkg.is_current" type="warning" size="small">当前套餐</ElTag>
+            <ElTag v-if="pkg.is_current" type="warning" size="small">
+              当前套餐
+            </ElTag>
           </div>
           <div class="package-card__price">
             <span class="price-value">¥{{ (pkg.price / 100).toFixed(2) }}</span>
@@ -151,7 +392,7 @@
               <span class="spec-label">最大部门数</span>
               <span class="spec-value">{{ pkg.max_depts || "无限" }}</span>
             </div>
-            <div class="spec-item" v-if="pkg.trial_days > 0">
+            <div v-if="pkg.trial_days > 0" class="spec-item">
               <span class="spec-label">试用天数</span>
               <span class="spec-value">{{ pkg.trial_days }} 天</span>
             </div>
@@ -172,7 +413,7 @@
       <ElSkeleton v-else :rows="6" animated />
     </div>
 
-    <div v-show="activeTab === 'orders'" class="flex flex-1 flex-col min-h-0">
+    <div v-show="activeTab === 'orders'" class="min-h-0 flex flex-col flex-1">
       <ElCard class="fa-table-card">
         <FaTableHeader
           v-model:columns="orderColumnChecks"
@@ -203,12 +444,16 @@
           :items="previewDescriptionItems"
         >
           <template #target_package>
-            <ElTag type="primary" size="small">{{ preview.target_package }}</ElTag>
+            <ElTag type="primary" size="small">
+              {{ preview.target_package }}
+            </ElTag>
           </template>
           <template #action>
-            <ElTag :type="actionTypeTag(preview.action)" size="small">{{
-              actionLabel(preview.action)
-            }}</ElTag>
+            <ElTag :type="actionTypeTag(preview.action)" size="small">
+              {{
+                actionLabel(preview.action)
+              }}
+            </ElTag>
           </template>
           <template #amount>
             <span class="price">¥{{ (preview.amount / 100).toFixed(2) }}</span>
@@ -217,7 +462,9 @@
         </FaDescriptions>
 
         <div v-if="preview.gained_menus?.length" class="menu-change">
-          <h4 class="menu-change__title gain">新增菜单</h4>
+          <h4 class="menu-change__title gain">
+            新增菜单
+          </h4>
           <ElTag
             v-for="m in preview.gained_menus"
             :key="m.id"
@@ -229,7 +476,9 @@
           </ElTag>
         </div>
         <div v-if="preview.lost_menus?.length" class="menu-change">
-          <h4 class="menu-change__title loss">失去菜单</h4>
+          <h4 class="menu-change__title loss">
+            失去菜单
+          </h4>
           <ElTag
             v-for="m in preview.lost_menus"
             :key="m.id"
@@ -246,8 +495,7 @@
             v-for="r in preview.affected_roles"
             :key="r"
             style="margin-left: 4px; color: #e6a23c"
-            >{{ r }}</span
-          >
+          >{{ r }}</span>
         </div>
         <div v-if="preview.affected_users > 0" style="margin-top: 8px">
           <span class="text-warning">影响用户数：{{ preview.affected_users }} 人</span>
@@ -255,249 +503,16 @@
       </div>
 
       <template #footer>
-        <ElButton @click="actionDialogVisible = false">取消</ElButton>
-        <ElButton type="primary" :loading="actionSubmitting" @click="confirmAction"
-          >确认下单</ElButton
-        >
+        <ElButton @click="actionDialogVisible = false">
+          取消
+        </ElButton>
+        <ElButton type="primary" :loading="actionSubmitting" @click="confirmAction">
+          确认下单
+        </ElButton>
       </template>
     </FaDialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { useTable } from "@/hooks/core/useTable";
-import FaStatsCard from "@/components/cards/fa-stats-card/index.vue";
-import FaProgressCard from "@/components/cards/fa-progress-card/index.vue";
-import FaTimelineListCard from "@/components/cards/fa-timeline-list-card/index.vue";
-import FaBasicBanner from "@/components/banners/fa-basic-banner/index.vue";
-import SelfServiceAPI from "@/api/module_platform/self_service";
-import type {
-  AvailablePackage,
-  PackageChangePreview,
-  SelfServiceOrderItem,
-  WorkspaceData,
-} from "@/api/module_platform/self_service";
-import { resolveStatusColumns } from "@utils";
-import type { DescriptionsItem } from "@/components/others/fa-descriptions/index.vue";
-
-defineOptions({ name: "SelfService" });
-
-const router = useRouter();
-type SelfServiceTab = "workspace" | "packages" | "orders";
-
-const activeTab = ref<SelfServiceTab>("workspace");
-const selfServiceTabOptions = [
-  { label: "工作台", value: "workspace" },
-  { label: "选购套餐", value: "packages" },
-  { label: "我的订单", value: "orders" },
-];
-
-// ─── 工作台 ───
-const workspace = ref<WorkspaceData | null>(null);
-const workspaceLoading = ref(false);
-
-const recentOrderTimeline = computed(() => {
-  if (!workspace.value?.recent_orders?.length) return [];
-  return workspace.value.recent_orders.map((o) => {
-    const statusMap: Record<number, { label: string; color: string }> = {
-      0: { label: "待支付", color: "rgb(230, 162, 60)" },
-      1: { label: "已支付", color: "rgb(103, 194, 58)" },
-      2: { label: "已取消", color: "rgb(144, 147, 153)" },
-      3: { label: "已退款", color: "rgb(245, 108, 108)" },
-    };
-    const s = statusMap[o.status] || { label: "未知", color: "rgb(144, 147, 153)" };
-    return {
-      time: o.created_at || "—",
-      status: s.color,
-      content: `${o.order_no} - ¥${((o.amount || 0) / 100).toFixed(2)}`,
-      code: s.label,
-    };
-  });
-});
-
-async function loadWorkspace() {
-  workspaceLoading.value = true;
-  try {
-    const { data: res } = await SelfServiceAPI.getWorkspace();
-    workspace.value = (res?.data as WorkspaceData) || null;
-  } catch {
-    // ignore
-  } finally {
-    workspaceLoading.value = false;
-  }
-}
-
-// ─── 套餐 ───
-const packages = ref<AvailablePackage[]>([]);
-const packagesLoading = ref(false);
-
-// ─── 订单表格 ───
-const {
-  columns: orderColumns,
-  columnChecks: orderColumnChecks,
-  data: orderData,
-  loading: orderLoading,
-  pagination: orderPagination,
-  getData: getOrderData,
-  handleSizeChange: handleOrderSizeChange,
-  handleCurrentChange: handleOrderCurrentChange,
-} = useTable({
-  core: {
-    apiFn: SelfServiceAPI.listMyOrders,
-    apiParams: {
-      page_no: 1,
-      page_size: 20,
-    },
-    columnsFactory: resolveStatusColumns<SelfServiceOrderItem>(() => [
-      { prop: "order_no", label: "订单号", minWidth: 200, showOverflowTooltip: true },
-      { prop: "package_name", label: "套餐", width: 120 },
-      {
-        prop: "order_type",
-        label: "类型",
-        width: 100,
-        status: {
-          new: { type: "info", text: "新购" },
-          renew: { type: "info", text: "续费" },
-          upgrade: { type: "info", text: "升级" },
-          downgrade: { type: "info", text: "降级" },
-        },
-      },
-      {
-        prop: "amount",
-        label: "金额",
-        width: 120,
-        formatter: (row: SelfServiceOrderItem) => `¥${(row.amount / 100).toFixed(2)}`,
-      },
-      {
-        prop: "status",
-        label: "状态",
-        width: 100,
-        status: {
-          0: { type: "warning", text: "待支付" },
-          1: { type: "success", text: "已支付" },
-          2: { type: "info", text: "已取消" },
-          3: { type: "danger", text: "已退款" },
-        },
-      },
-      {
-        prop: "pay_method",
-        label: "支付方式",
-        width: 100,
-        formatter: (row: SelfServiceOrderItem) => row.pay_method || "—",
-      },
-      { prop: "pay_time", label: "支付时间", width: 160, showOverflowTooltip: true },
-      { prop: "created_at", label: "创建时间", width: 160, showOverflowTooltip: true },
-    ]),
-  },
-});
-
-// ─── 操作弹窗 ───
-const actionDialogVisible = ref(false);
-const actionSubmitting = ref(false);
-const actionLoading = ref(false);
-const preview = ref<PackageChangePreview | null>(null);
-const currentAction = ref("");
-const currentPackage = ref<AvailablePackage | null>(null);
-const actionDialogTitle = ref("确认操作");
-
-const previewDescriptionItems: DescriptionsItem[] = [
-  { label: "当前套餐", prop: "current_package" },
-  { label: "目标套餐", prop: "target_package", slot: "target_package" },
-  { label: "操作类型", prop: "action", slot: "action" },
-  { label: "应付金额", prop: "amount", slot: "amount" },
-];
-
-// ─── 标签函数 ───
-function actionLabel(action: string): string {
-  const map: Record<string, string> = {
-    buy: "购买",
-    renew: "续费",
-    upgrade: "升级",
-    downgrade: "降级",
-  };
-  return map[action] || action;
-}
-
-function actionTypeTag(
-  action: string
-): "primary" | "success" | "info" | "warning" | "danger" | undefined {
-  const map: Record<string, "primary" | "success" | "info" | "warning" | "danger" | undefined> = {
-    buy: "success",
-    renew: undefined,
-    upgrade: "primary",
-    downgrade: "warning",
-  };
-  return map[action];
-}
-
-// ─── 加载 ───
-async function loadPackages() {
-  packagesLoading.value = true;
-  try {
-    const { data: res } = await SelfServiceAPI.getAvailablePackages();
-    const payload = res?.data as unknown as { packages?: AvailablePackage[] } | undefined;
-    packages.value = payload?.packages || [];
-  } catch {
-    // ignore
-  } finally {
-    packagesLoading.value = false;
-  }
-}
-
-const onTabChange = (tab: string | number) => {
-  if (tab === "workspace") loadWorkspace();
-  else if (tab === "packages") loadPackages();
-  else if (tab === "orders") getOrderData();
-};
-
-// ─── 动作处理 ───
-async function handleAction(action: string, pkg: AvailablePackage) {
-  currentAction.value = action;
-  currentPackage.value = pkg;
-  actionDialogTitle.value = `${actionLabel(action)} - ${pkg.name}`;
-  actionLoading.value = true;
-  preview.value = null;
-  actionDialogVisible.value = true;
-
-  try {
-    const { data: res } = await SelfServiceAPI.previewPackageChange(pkg.id);
-    preview.value = (res?.data as PackageChangePreview) || null;
-  } catch {
-    actionDialogVisible.value = false;
-  } finally {
-    actionLoading.value = false;
-  }
-}
-
-async function confirmAction() {
-  if (!currentPackage.value) return;
-  actionSubmitting.value = true;
-  try {
-    const { data: res } = await SelfServiceAPI.createOrder({
-      package_id: currentPackage.value.id,
-      order_type: currentAction.value as "buy" | "renew" | "upgrade" | "downgrade",
-    });
-    const orderData = res?.data as { order_id: number; amount?: number } | undefined;
-    actionDialogVisible.value = false;
-    if (orderData?.order_id && (orderData?.amount || 0) > 0) {
-      router.push(`/payment/${orderData.order_id}`);
-    } else {
-      activeTab.value = "orders";
-      getOrderData();
-    }
-  } catch {
-    // ignore
-  } finally {
-    actionSubmitting.value = false;
-  }
-}
-
-onMounted(() => {
-  loadWorkspace();
-});
-</script>
 
 <style scoped lang="scss">
 .fa-full-height {
