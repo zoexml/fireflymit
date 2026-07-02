@@ -11,7 +11,7 @@
                 <ElIcon v-if="elementIconComp">
                   <component :is="elementIconComp" />
                 </ElIcon>
-                <ArtSvgIcon v-else-if="selectedIcon" :icon="resolveIconForArtSvgIcon(selectedIcon)" />
+                <FSvgIcon v-else-if="selectedIcon" :icon="resolveIconForArtSvgIcon(selectedIcon)" />
               </template>
               <template #suffix>
                 <!-- 清空按钮 -->
@@ -51,7 +51,7 @@
                   @click="selectIcon(icon)"
                 >
                   <ElTooltip :content="icon" placement="bottom" effect="light">
-                    <ArtSvgIcon :icon="resolveIconForArtSvgIcon(icon)" />
+                    <FSvgIcon :icon="resolveIconForArtSvgIcon(icon)" />
                   </ElTooltip>
                 </li>
               </ul>

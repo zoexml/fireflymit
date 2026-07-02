@@ -9,7 +9,7 @@
       class="mr-4 size-11 flex items-center justify-center rounded-lg text-xl text-white"
       :class="iconStyle"
     >
-      <ArtSvgIcon :icon="icon" />
+      <FSvgIcon :icon="icon" />
     </div>
     <div class="flex-1">
       <p class="m-0 text-lg font-medium" :style="{ color: textColor }" v-if="title">
@@ -32,7 +32,7 @@
       </p>
     </div>
     <div v-if="showArrow">
-      <ArtSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-500" />
+      <FSvgIcon icon="ri:arrow-right-s-line" class="text-xl text-g-500" />
     </div>
   </div>
 </template>

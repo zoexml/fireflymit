@@ -74,12 +74,12 @@
           @click="openSearchDialog"
         >
           <div class="flex items-center">
-            <ArtSvgIcon icon="ri:search-line" class="text-sm text-g-500" />
+            <FSvgIcon icon="ri:search-line" class="text-sm text-g-500" />
             <span class="ml-1 text-xs font-normal text-g-500">{{ $t("topBar.search.title") }}</span>
           </div>
           <div class="flex items-center h-5 px-1.5 text-g-500/80 border border-g-400 rounded">
-            <ArtSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
-            <ArtSvgIcon v-else icon="ri:command-fill" class="text-xs" />
+            <FSvgIcon v-if="isWindows" icon="vaadin:ctrl-a" class="text-sm" />
+            <FSvgIcon v-else icon="ri:command-fill" class="text-xs" />
             <span class="ml-0.5 text-xs">k</span>
           </div>
         </div>
@@ -116,7 +116,7 @@
                   :class="{ 'is-selected': locale === item.value }"
                 >
                   <span class="menu-txt">{{ item.label }}</span>
-                  <ArtSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
+                  <FSvgIcon icon="ri:check-fill" v-if="locale === item.value" />
                 </ElDropdownItem>
               </div>
             </ElDropdownMenu>

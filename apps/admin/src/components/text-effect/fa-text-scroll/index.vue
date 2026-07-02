@@ -10,7 +10,7 @@
       class="flex items-center justify-center absolute left-0 h-full w-9 z-10"
       :style="{ backgroundColor: bgColor }"
     >
-      <ArtSvgIcon icon="ri:volume-down-line" class="text-lg" />
+      <FSvgIcon icon="ri:volume-down-line" class="text-lg" />
     </div>
 
     <div
@@ -40,7 +40,7 @@
       :style="{ backgroundColor: bgColor }"
       @click="handleClose"
     >
-      <ArtSvgIcon icon="ri:close-fill" class="text-lg" />
+      <FSvgIcon icon="ri:close-fill" class="text-lg" />
     </div>
   </div>
 </template>

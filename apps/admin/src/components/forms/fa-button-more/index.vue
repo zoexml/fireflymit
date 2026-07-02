@@ -12,7 +12,7 @@
               @click="handleClick(item)"
             >
               <div class="flex items-center gap-2" :style="{ color: item.color }">
-                <ArtSvgIcon v-if="item.icon" :icon="item.icon" />
+                <FSvgIcon v-if="item.icon" :icon="item.icon" />
                 <span>{{ item.label }}</span>
               </div>
             </ElDropdownItem>

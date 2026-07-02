@@ -19,7 +19,7 @@
     <template #footer>
       <div class="flex flex-wrap justify-end gap-2">
         <ElButton v-if="articleId != null" @click="emitOpenCommentWall">
-          <ArtSvgIcon icon="ri:message-3-line" class="mr-1" />
+          <FSvgIcon icon="ri:message-3-line" class="mr-1" />
           留言讨论
         </ElButton>
         <ElButton @click="visible = false">关闭</ElButton>

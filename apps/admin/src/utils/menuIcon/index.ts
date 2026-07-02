@@ -58,7 +58,7 @@ export function resolveElementPlusIconComponent(icon?: string | null): Component
   return null;
 }
 
-/** Iconify 完整 id（侧栏 ArtSvgIcon 使用） */
+/** Iconify 完整 id（侧栏 FSvgIcon 使用） */
 export function isIconifyStoredIcon(icon?: string | null): boolean {
   const s = icon?.trim();
   return !!s && s.includes(":");
@@ -89,7 +89,7 @@ export function elementMenuIconToEpIconify(icon: string): string {
 
 /**
  * 历史：本地 `assets/images/svg/*.svg` 文件名作菜单存值，配合 `i-svg:` 类展示。
- * 现统一映射为 Iconify Remix Icon（`ri:`），由 `ArtSvgIcon` 渲染。
+ * 现统一映射为 Iconify Remix Icon（`ri:`），由 `FSvgIcon` 渲染。
  */
 
 const FILE_SUFFIX: Record<string, string> = {

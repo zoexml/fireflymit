@@ -153,7 +153,8 @@
         />
       </ElCol>
       <ElCol :xs="24" :sm="6" :md="5" class="mb-5">
-        <FaCardBanner
+        <FCardBanner
+          height="100%"
           :image="bannerIcon4"
           title="版本更新提醒"
           description="FastapiAdmin v3.0.0 已发布，包含优化和新功能。"
@@ -181,7 +182,6 @@ defineOptions({ name: "DashboardWorkplace", inheritAttrs: false });
 import { ElMessage } from "element-plus";
 import bannerIcon4 from "@imgs/3d/icon4.webp";
 import cover2 from "@imgs/cover/img2.webp";
-import FaCardBanner from "@/components/banners/fa-card-banner/index.vue";
 import FaImageCard from "@/components/cards/fa-image-card/index.vue";
 import FaDataListCard from "@/components/cards/fa-data-list-card/index.vue";
 import FaTimelineListCard from "@/components/cards/fa-timeline-list-card/index.vue";

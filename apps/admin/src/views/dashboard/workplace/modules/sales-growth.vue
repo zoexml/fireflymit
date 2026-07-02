@@ -4,7 +4,7 @@
       <div class="title">
         <h4 class="text-2xl">
           <span>12%</span>
-          <ArtSvgIcon icon="ri:arrow-right-up-line" class="text-success text-lg ml-1" />
+          <FSvgIcon icon="ri:arrow-right-up-line" class="text-success text-lg ml-1" />
         </h4>
         <p>增长</p>
       </div>

@@ -70,7 +70,7 @@
             @keyup.enter="$emit('submit')"
           >
             <template #prefix>
-              <ArtSvgIcon
+              <FSvgIcon
                 icon="mdi:shield-lock-outline"
                 class="size-[18px] text-(--el-text-color-secondary)"
               />

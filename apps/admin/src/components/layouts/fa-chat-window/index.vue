@@ -75,8 +75,8 @@
           </ElInput>
           <div class="mt-3 flex items-center justify-between">
             <div class="flex items-center">
-              <ArtSvgIcon icon="ri:image-line" class="mr-5 cursor-pointer text-g-600 text-lg" />
-              <ArtSvgIcon
+              <FSvgIcon icon="ri:image-line" class="mr-5 cursor-pointer text-g-600 text-lg" />
+              <FSvgIcon
                 icon="ri:emotion-happy-line"
                 class="mr-5 cursor-pointer text-g-600 text-lg"
               />

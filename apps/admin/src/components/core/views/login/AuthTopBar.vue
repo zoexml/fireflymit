@@ -23,11 +23,11 @@
             :style="{ background: color, '--index': index }"
             @click="changeThemeColor(color)"
           >
-            <ArtSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" class="text-white" />
+            <FSvgIcon v-if="color === systemThemeColor" icon="ri:check-fill" class="text-white" />
           </div>
         </div>
         <div class="btn palette-btn relative z-[2] h-8 w-8 c-p flex-cc tad-300">
-          <ArtSvgIcon
+          <FSvgIcon
             icon="ri:palette-line"
             class="text-xl text-g-800 transition-colors duration-300"
           />
@@ -39,7 +39,7 @@
         popper-class="langDropDownStyle"
       >
         <div class="btn language-btn h-8 w-8 c-p flex-cc tad-300">
-          <ArtSvgIcon
+          <FSvgIcon
             icon="ri:translate-2"
             class="text-[19px] text-g-800 transition-colors duration-300"
           />
@@ -52,7 +52,7 @@
                 :class="{ 'is-selected': locale === lang.value }"
               >
                 <span class="menu-txt">{{ lang.label }}</span>
-                <ArtSvgIcon icon="ri:check-fill" class="text-base" v-if="locale === lang.value" />
+                <FSvgIcon icon="ri:check-fill" class="text-base" v-if="locale === lang.value" />
               </ElDropdownItem>
             </div>
           </ElDropdownMenu>
@@ -63,7 +63,7 @@
         class="btn theme-btn h-8 w-8 c-p flex-cc tad-300"
         @click="themeAnimation"
       >
-        <ArtSvgIcon
+        <FSvgIcon
           :icon="isDark ? 'ri:sun-fill' : 'ri:moon-line'"
           class="text-xl text-g-800 transition-colors duration-300"
         />

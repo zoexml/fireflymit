@@ -44,7 +44,7 @@
                 alt=""
                 aria-hidden="true"
               />
-              <ArtSvgIcon
+              <FSvgIcon
                 v-else
                 :icon="resolveIconForArtSvgIcon(getFileTreeNodeIcon(data.label))"
                 class="inline shrink-0 text-base"

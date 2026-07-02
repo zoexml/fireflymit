@@ -10,7 +10,7 @@
         class="size-11 flex items-center justify-center bg-g-300 text-xl rounded-lg"
         :class="iconStyle"
       >
-        <ArtSvgIcon :icon="icon" class="text-2xl" />
+        <FSvgIcon :icon="icon" class="text-2xl" />
       </div>
       <div>
         <FCountTo

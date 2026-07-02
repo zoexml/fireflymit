@@ -17,7 +17,7 @@
           @click="search"
           :class="!showSearchBar ? 'active bg-theme! hover:bg-theme/80!' : ''"
         >
-          <ArtSvgIcon icon="ri:search-line" :class="!showSearchBar ? 'text-white' : 'text-g-700'" />
+          <FSvgIcon icon="ri:search-line" :class="!showSearchBar ? 'text-white' : 'text-g-700'" />
         </div>
       </ElTooltip>
 
@@ -28,7 +28,7 @@
         @click="refresh"
         :class="{ loading: loading && isManualRefresh }"
       >
-        <ArtSvgIcon
+        <FSvgIcon
           icon="ri:refresh-line"
           :class="loading && isManualRefresh ? 'animate-spin text-g-600' : ''"
         />
@@ -37,7 +37,7 @@
       <!-- 表格大小 -->
       <ElDropdown v-if="shouldShow('size')" @command="handleTableSizeChange">
         <div class="button">
-          <ArtSvgIcon icon="ri:arrow-up-down-fill" />
+          <FSvgIcon icon="ri:arrow-up-down-fill" />
         </div>
         <template #dropdown>
           <ElDropdownMenu>
@@ -60,7 +60,7 @@
 
       <!-- 全屏 -->
       <div v-if="shouldShow('fullscreen')" class="button" @click="toggleFullScreen">
-        <ArtSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
+        <FSvgIcon :icon="isFullScreen ? 'ri:fullscreen-exit-line' : 'ri:fullscreen-line'" />
       </div>
 
       <!-- 行拖拽排序 -->
@@ -74,7 +74,7 @@
           @click="toggleRowDrag"
           :class="isRowDrag ? 'active bg-theme! hover:bg-theme/80!' : ''"
         >
-          <ArtSvgIcon icon="ri:drag-move-line" :class="isRowDrag ? 'text-white' : 'text-g-700'" />
+          <FSvgIcon icon="ri:drag-move-line" :class="isRowDrag ? 'text-white' : 'text-g-700'" />
         </div>
       </ElTooltip>
 
@@ -82,7 +82,7 @@
       <ElPopover v-if="shouldShow('columns')" placement="bottom" trigger="click">
         <template #reference>
           <div class="button">
-            <ArtSvgIcon icon="ri:align-right" />
+            <FSvgIcon icon="ri:align-right" />
           </div>
         </template>
         <div>
@@ -104,7 +104,7 @@
                   class="drag-icon mr-2 h-4.5 flex items-center justify-center text-g-500"
                   :class="item.fixed ? 'cursor-default text-g-300' : 'cursor-move'"
                 >
-                  <ArtSvgIcon
+                  <FSvgIcon
                     :icon="item.fixed ? 'ri:unpin-line' : 'ri:drag-move-2-fill'"
                     class="text-base"
                   />
@@ -126,7 +126,7 @@
       <ElPopover v-if="shouldShow('settings')" placement="bottom" trigger="click">
         <template #reference>
           <div class="button">
-            <ArtSvgIcon icon="ri:settings-line" />
+            <FSvgIcon icon="ri:settings-line" />
           </div>
         </template>
         <div class="flex min-w-[200px] flex-col gap-2">

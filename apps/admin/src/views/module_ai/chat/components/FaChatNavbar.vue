@@ -2,12 +2,12 @@
   <div class="chat-navbar">
     <div class="navbar-left">
       <button class="collapse-btn" @click="toggleSidebar">
-        <ArtSvgIcon
+        <FSvgIcon
           v-if="!props.isSidebarCollapsed"
           :icon="resolveIconForArtSvgIcon('layout_leftbar_close_line')"
           class="size-6"
         />
-        <ArtSvgIcon
+        <FSvgIcon
           v-else
           :icon="resolveIconForArtSvgIcon('layout_leftbar_open_line')"
           class="size-6"

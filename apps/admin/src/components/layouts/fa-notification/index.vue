@@ -43,7 +43,7 @@
               class="size-9 leading-9 text-center rounded-lg flex items-center justify-center"
               :class="[getNoticeStyle(item.type).iconClass]"
             >
-              <ArtSvgIcon class="text-lg bg-transparent!" :icon="getNoticeStyle(item.type).icon" />
+              <FSvgIcon class="text-lg bg-transparent!" :icon="getNoticeStyle(item.type).icon" />
             </div>
             <div class="w-[calc(100%-45px)] ml-3.5">
               <h4 class="text-sm font-normal leading-5.5 text-g-900">{{ item.title }}</h4>
@@ -62,7 +62,7 @@
             <div
               class="size-9 leading-9 text-center rounded-lg flex items-center justify-center bg-info/12 text-info"
             >
-              <ArtSvgIcon class="text-lg bg-transparent!" icon="ri:message-3-line" />
+              <FSvgIcon class="text-lg bg-transparent!" icon="ri:message-3-line" />
             </div>
             <div class="w-[calc(100%-45px)] ml-3.5">
               <h4 class="text-sm font-normal leading-5.5 text-g-900">{{ item.title }}</h4>
@@ -88,7 +88,7 @@
           v-show="currentTabIsEmpty"
           class="relative top-25 h-full text-g-500 text-center bg-transparent!"
         >
-          <ArtSvgIcon icon="system-uicons:inbox" class="text-5xl" />
+          <FSvgIcon icon="system-uicons:inbox" class="text-5xl" />
           <p class="mt-3.5 text-xs bg-transparent!">
             {{ $t("notice.text[0]") }}{{ barList[barActiveIndex]?.name }}
           </p>

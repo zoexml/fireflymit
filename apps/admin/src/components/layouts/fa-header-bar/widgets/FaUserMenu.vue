@@ -49,35 +49,35 @@
               class="flex items-center p-2 mb-3 select-none rounded-md cursor-pointer last:mb-0 hover:bg-(--fa-gray-200)"
               @click="goPage('/fastlink/profile')"
             >
-              <ArtSvgIcon icon="ri:user-3-line" class="mr-2 text-base" />
+              <FSvgIcon icon="ri:user-3-line" class="mr-2 text-base" />
               <span class="text-sm">{{ $t("topBar.user.userCenter") }}</span>
             </li>
             <li
               class="flex items-center p-2 mb-3 select-none rounded-md cursor-pointer last:mb-0 hover:bg-(--fa-gray-200)"
               @click="openParamConfig"
             >
-              <ArtSvgIcon icon="ri:settings-3-line" class="mr-2 text-base" />
+              <FSvgIcon icon="ri:settings-3-line" class="mr-2 text-base" />
               <span class="text-sm">{{ $t("topBar.user.paramConfig") }}</span>
             </li>
             <li
               class="flex items-center p-2 mb-3 select-none rounded-md cursor-pointer last:mb-0 hover:bg-(--fa-gray-200)"
               @click="toGithub()"
             >
-              <ArtSvgIcon icon="ri:github-line" class="mr-2 text-base" />
+              <FSvgIcon icon="ri:github-line" class="mr-2 text-base" />
               <span class="text-sm">{{ $t("topBar.user.github") }}</span>
             </li>
             <li
               class="flex items-center p-2 mb-3 select-none rounded-md cursor-pointer last:mb-0 hover:bg-(--fa-gray-200)"
               @click="toGitee"
             >
-              <ArtSvgIcon icon="ri:git-branch-line" class="mr-2 text-base" />
+              <FSvgIcon icon="ri:git-branch-line" class="mr-2 text-base" />
               <span class="text-sm">{{ $t("topBar.user.gitee") }}</span>
             </li>
             <li
               class="flex items-center p-2 mb-3 select-none rounded-md cursor-pointer last:mb-0 hover:bg-(--fa-gray-200)"
               @click="lockScreen()"
             >
-              <ArtSvgIcon icon="ri:lock-line" class="mr-2 text-base" />
+              <FSvgIcon icon="ri:lock-line" class="mr-2 text-base" />
               <span class="text-sm">{{ $t("topBar.user.lockScreen") }}</span>
             </li>
             <div class="w-full h-px my-2 bg-g-300/80"></div>

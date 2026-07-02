@@ -12,7 +12,7 @@
       @contextmenu.prevent="fabCollapsed = true"
       @click="handleOpen"
     >
-      <ArtSvgIcon :icon="resolveIconForArtSvgIcon('ai')" class="ai-icon" />
+      <FSvgIcon :icon="resolveIconForArtSvgIcon('ai')" class="ai-icon" />
     </ElButton>
 
     <!-- 收缩态：贴边小标签，避免遮挡表单控件 -->
@@ -36,7 +36,7 @@
     >
       <template #header>
         <div class="dialog-header">
-          <ArtSvgIcon :icon="resolveIconForArtSvgIcon('ai')" class="header-icon" />
+          <FSvgIcon :icon="resolveIconForArtSvgIcon('ai')" class="header-icon" />
           <span class="title">AI 智能助手</span>
         </div>
       </template>

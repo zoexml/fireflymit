@@ -14,9 +14,9 @@
       :class="{ 'is-active': dropdownVisible, 'is-switching': switching }"
       :title="`当前租户：${currentTenantName}`"
     >
-      <ArtSvgIcon icon="ri:building-2-fill" class="icon" />
+      <FSvgIcon icon="ri:building-2-fill" class="icon" />
       <span class="name">{{ currentTenantName }}</span>
-      <ArtSvgIcon
+      <FSvgIcon
         v-if="!switching"
         icon="ri:arrow-down-s-line"
         class="arrow"
@@ -39,7 +39,7 @@
         >
           <div class="dropdown-item" :class="{ 'is-current': t.id === currentTenant?.id }">
             <div class="item-main">
-              <ArtSvgIcon
+              <FSvgIcon
                 :icon="t.id === currentTenant?.id ? 'ri:check-line' : 'ri:building-2-line'"
                 class="item-icon"
                 :class="{ active: t.id === currentTenant?.id }"
@@ -55,7 +55,7 @@
           </div>
         </ElDropdownItem>
         <div class="dropdown-footer-hint">
-          <ArtSvgIcon icon="ri:information-line" class="hint-icon" />
+          <FSvgIcon icon="ri:information-line" class="hint-icon" />
           <span>点击其他租户即可切换</span>
         </div>
         <div v-if="switching" class="dropdown-footer">

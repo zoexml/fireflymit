@@ -73,7 +73,7 @@
             <!-- 头部：图标 + 名称 + 状态徽章 -->
             <div class="card-header">
               <span class="card-icon" :class="categoryIconBg(item.category)">
-                <ArtSvgIcon :icon="item.icon || 'ri:plug-2-line'" />
+                <FSvgIcon :icon="item.icon || 'ri:plug-2-line'" />
               </span>
               <div class="card-title-group">
                 <span class="card-title">{{ item.name }}</span>
@@ -101,7 +101,7 @@
             <!-- 底部 -->
             <div class="card-footer">
               <span class="footer-author">
-                <ArtSvgIcon icon="ri:user-3-line" />{{ item.author || "—" }}
+                <FSvgIcon icon="ri:user-3-line" />{{ item.author || "—" }}
               </span>
               <div class="footer-actions">
                 <ElButton
@@ -137,7 +137,7 @@
                         @click="doToggle(item)"
                       >
                         <ElIcon>
-                          <ArtSvgIcon
+                          <FSvgIcon
                             :icon="
                               item.status === 0 ? 'ri:forbid-2-line' : 'ri:checkbox-circle-line'
                             "
@@ -203,7 +203,7 @@
           max-height="75vh"
         >
           <template #icon>
-            <ArtSvgIcon v-if="detailFormData.icon" :icon="detailFormData.icon" />
+            <FSvgIcon v-if="detailFormData.icon" :icon="detailFormData.icon" />
             <span v-else>—</span>
           </template>
           <template #status>

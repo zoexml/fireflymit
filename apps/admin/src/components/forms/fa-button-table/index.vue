@@ -8,7 +8,7 @@
     :style="{ backgroundColor: buttonBgColor, color: iconColor }"
     @click="handleClick"
   >
-    <ArtSvgIcon :icon="iconContent" />
+    <FSvgIcon :icon="iconContent" />
   </div>
 </template>
 

@@ -111,7 +111,7 @@
 
       <!-- 双列菜单右侧折叠按钮 -->
       <div class="dual-menu-collapse-btn" v-if="isDualMenu" @click="toggleMenuVisibility">
-        <ArtSvgIcon
+        <FSvgIcon
           class="text-g-500/70"
           :icon="menuOpen ? 'ri:arrow-left-wide-fill' : 'ri:arrow-right-wide-fill'"
         />

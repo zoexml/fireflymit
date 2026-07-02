@@ -11,7 +11,7 @@
     <component :is="elementComponent" />
   </ElIcon>
 
-  <ArtSvgIcon
+  <FSvgIcon
     v-else-if="isInvalidElementPrefix"
     :icon="epFallback"
     :color="color"
@@ -19,7 +19,7 @@
     :style="mergedStyle"
   />
 
-  <ArtSvgIcon v-else :icon="resolvedFaIcon" :color="color" :class="iconClass" :style="mergedStyle" />
+  <FSvgIcon v-else :icon="resolvedFaIcon" :color="color" :class="iconClass" :style="mergedStyle" />
 </template>
 
 <script setup lang="ts">
