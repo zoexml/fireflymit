@@ -26,6 +26,7 @@
   },
   "workspaces": [
     "packages/**",
+    "apps/*",
     "docs",
     "playground"
   ],
@@ -33,6 +34,9 @@
     "clean": "turbo run clean --continue && rimraf .turbo dist && rm -rf node_modules",
     "dev": "turbo run dev",
     "dev:play": "pnpm -F playground dev",
+    "dev:admin": "pnpm -F @fireflymit/admin dev",
+    "dev:backend": "cd apps/admin-backend && uv run main.py run --env=dev",
+    "dev:full": "concurrently --names BACKEND,ADMIN --prefix-colors cyan,green \"pnpm dev:backend\" \"pnpm dev:admin\"",
     "dev:docs": "vitepress dev docs",
     "dev:storybook": "storybook dev -p 6006",
     "build": "turbo run build",
@@ -78,6 +82,7 @@
     "@unocss/eslint-plugin": "^66.5.0",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
+    "concurrently": "^9.1.2",
     "eslint": "^9.34.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-storybook": "^10.3.6",

@@ -12,6 +12,9 @@ pnpm install
 pnpm dev                    # Run all dev servers via Turbo
 pnpm dev:play               # Run playground dev server only
 pnpm dev:docs               # Run VitePress docs
+pnpm dev:admin              # Run admin frontend (apps/admin)
+pnpm dev:backend            # Run admin backend (FastAPI)
+pnpm dev:full               # Run admin frontend + backend concurrently
 
 # Build
 pnpm build                  # Build all packages via Turbo
@@ -39,6 +42,9 @@ pnpm dev --filter @fireflymit/ui
 
 ```
 fireflymit/
+├── apps/
+│   ├── admin/                  # @fireflymit/admin — Vue 3 后台管理系统 (fastapi-admin 前端)
+│   └── admin-backend/          # FastAPI 后端 (Python, 不受 pnpm 管理)
 ├── packages/
 │   ├── ui/                    # Vue 3 UI component library (Element Plus based)
 │   ├── utils/                 # Utility functions library
@@ -47,6 +53,8 @@ fireflymit/
 │   └── lint-configs/          # Shared lint configs (eslint, prettier, stylelint, typescript, commitlint)
 ├── playground/                # Vue 3 app for testing components
 ├── docs/                      # VitePress documentation
+├── docker/                    # Docker Compose + Nginx + Dockerfile (部署用)
+├── deploy.sh / deploy.bat     # 部署脚本
 └── turbo.json                 # Turborepo pipeline config
 ```
 
@@ -77,3 +85,47 @@ fireflymit/
 - Components use `.vue` SFC format with TypeScript
 - Lint-staged runs ESLint on pre-commit hooks
 - Commit messages follow conventional commits (commitlint)
+
+## Upstream Sync (fastapi-admin)
+
+`apps/admin` 和 `apps/admin-backend` 来源于 [fastapiadmin/FastapiAdmin](https://github.com/fastapiadmin/FastapiAdmin)（原始上游通过 `upstream` remote 配置）。
+
+### 目录映射
+
+| 原始上游 (FastapiAdmin) | fireflymit |
+|---|---|
+| `frontend/web/` | `apps/admin/` |
+| `backend/` | `apps/admin-backend/` |
+| `docker/` | `docker/` |
+
+### 同步工作流
+
+```bash
+# 1. 拉取上游最新
+git fetch upstream main
+
+# 2. 查看上游整体变更
+git diff HEAD...upstream/main --stat
+
+# 3. 查看前端变更（目录映射：frontend/web → apps/admin）
+git diff HEAD...upstream/main -- frontend/web/
+
+# 4. 查看后端变更
+git diff HEAD...upstream/main -- backend/
+
+# 5. 选择性合并某个文件
+git show upstream/main:frontend/web/src/components/xxx.vue > /tmp/upstream.vue
+# 手动对比 /tmp/upstream.vue 和 apps/admin/src/components/xxx.vue
+```
+
+### 冲突注意
+
+以下文件已做 fireflymit 定制，同步时需要手动处理，**不能直接覆盖**：
+
+| 文件 | 定制内容 |
+|---|---|
+| `apps/admin/package.json` | 包名 `@fireflymit/admin`，移除了 engines/packageManager/pnpm.overrides |
+| `apps/admin/vite.config.ts` | alova AutoImport，Vite v8 兼容修复 |
+| `apps/admin/.npmrc` | 不影响 |
+
+- `@fireflymit/ui` 保持使用已发布版本（`^0.1.3`），不改为 `workspace:*`

@@ -49,3 +49,45 @@ docs/.vitepress/cache/
 # Auto-imports
 packages/ui/src/types/auto-imports.d.ts
 playground/src/types/components.d.ts
+apps/admin/src/types/auto-imports.d.ts
+apps/admin/src/types/components.d.ts
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv
+venv
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Backend
+apps/admin-backend/logs/
+apps/admin-backend/*.db
+apps/admin-backend/alembic/versions/*
+!apps/admin-backend/alembic/versions/.gitkeep
+
+# Docker
+docker/nginx/app/dist
+docker/nginx/docs/dist
+docker/nginx/web/dist
+docker/nginx/ssl/*
+!docker/nginx/ssl/.gitkeep
+docker/.env
+docker/docker-compose.yaml
+
+# Env files (backend)
+apps/admin-backend/.env
+apps/admin-backend/env/
+
+# Claude
+CLAUDE.md
+AGENTS.md
+.codebuddy
+.plan
