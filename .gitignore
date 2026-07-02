@@ -64,8 +64,6 @@ htmlcov/
 # Backend
 apps/admin-backend/logs/
 apps/admin-backend/*.db
-apps/admin-backend/alembic/versions/*
-!apps/admin-backend/alembic/versions/.gitkeep
 
 # Docker
 docker/nginx/app/dist

@@ -96,15 +96,31 @@ fireflymit/
 | `backend/` | `apps/admin-backend/` |
 | `docker/` | `docker/` |
 
+### 检查上游更新
+
+```bash
+# 拉取上游最新（注意上游默认分支是 master，不是 main）
+git fetch upstream master
+
+# 查看上游最新提交
+git log upstream/master --oneline -5
+
+# 对比上游与当前代码差异（前端）
+git diff upstream/master:frontend/web/src/ HEAD:apps/admin/src/ --stat
+
+# 对比上游与当前代码差异（后端）
+git diff upstream/master:backend/ HEAD:apps/admin-backend/ --stat
+```
+
+**当前同步状态**：上游 `1966c53d` (2026-06-28)，已合并至 `8c9aaf5` (2026-07-02)。
+
 ### 同步工作流
 
 ```bash
-git fetch upstream main                              # 拉取上游最新
-git diff HEAD...upstream/main --stat                 # 查看整体变更
-git diff HEAD...upstream/main -- frontend/web/       # 前端变更
-git diff HEAD...upstream/main -- backend/            # 后端变更
-git show upstream/main:frontend/web/src/xxx.vue \    # 查看上游某个文件
-  > /tmp/upstream.vue
+git fetch upstream master                              # 拉取上游最新
+# 确认有更新后，逐文件对比合并
+git diff upstream/master:frontend/web/src/xxx.vue \    # 查看上游某个文件
+  HEAD:apps/admin/src/xxx.vue
 ```
 
 ### 冲突注意
