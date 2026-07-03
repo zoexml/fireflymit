@@ -98,23 +98,38 @@ fireflymit/
 | `backend/` | `apps/admin-backend/` |
 | `docker/` | `docker/` |
 
+### 如何判断上游是否有更新
+
+```bash
+# 1. 拉取上游最新（上游分支是 master）
+git fetch upstream master
+
+# 2. 查看上游领先当前 HEAD 的提交数（有输出 = 有更新）
+git log HEAD..upstream/master --oneline
+
+# 3. 查看上游更新涉及哪些目录
+git diff HEAD...upstream/master --stat
+```
+
+没有输出说明已是最新，无需同步。
+
 ### 同步工作流
 
 ```bash
-# 1. 拉取上游最新
-git fetch upstream main
+# 1. 拉取上游最新（注意上游默认分支是 master，不是 main）
+git fetch upstream master
 
 # 2. 查看上游整体变更
-git diff HEAD...upstream/main --stat
+git diff HEAD...upstream/master --stat
 
 # 3. 查看前端变更（目录映射：frontend/web → apps/admin）
-git diff HEAD...upstream/main -- frontend/web/
+git diff HEAD...upstream/master -- frontend/web/
 
 # 4. 查看后端变更
-git diff HEAD...upstream/main -- backend/
+git diff HEAD...upstream/master -- backend/
 
 # 5. 选择性合并某个文件
-git show upstream/main:frontend/web/src/components/xxx.vue > /tmp/upstream.vue
+git show upstream/master:frontend/web/src/components/xxx.vue > /tmp/upstream.vue
 # 手动对比 /tmp/upstream.vue 和 apps/admin/src/components/xxx.vue
 ```
 
