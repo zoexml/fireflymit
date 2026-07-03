@@ -71,12 +71,7 @@ docker/nginx/docs/dist
 docker/nginx/web/dist
 docker/nginx/ssl/*
 !docker/nginx/ssl/.gitkeep
-docker/.env
 docker/docker-compose.yaml
-
-# Env files (backend)
-apps/admin-backend/.env
-apps/admin-backend/env/
 
 # Claude
 CLAUDE.md
