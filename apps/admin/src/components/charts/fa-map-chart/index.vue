@@ -1,10 +1,7 @@
 <!-- 地图图表 -->
 <template>
-  <div
-    class="relative w-full h-100 p-5 mb-5 max-sm:mb-4"
-    :style="{ height: 'calc(100vh - 180px)' }"
-  >
-    <div v-if="isEmpty" class="h-full flex items-center justify-center">
+  <div class="relative w-full" :style="{ height: 'calc(100vh - 120px)' }">
+    <div v-if="isEmpty" class="h-full flex-cc">
       <ElEmpty description="暂无地图数据" />
     </div>
 
@@ -13,101 +10,100 @@
 </template>
 
 <script setup lang="ts">
-import { echarts } from "@/plugins/echarts";
-import { useSettingsStore } from "@stores";
-import chinaMapJson from "@/mock/json/chinaMap.json";
-import type { MapChartProps } from "@/types/component/chart";
+import { echarts } from '@/plugins/echarts'
+import { useSettingStore } from '@/store'
+import chinaMapJson from '@/mock/json/chinaMap.json'
+import type { MapChartProps } from '@/types/component/chart'
 
-defineOptions({ name: "FaMapChart" });
+defineOptions({ name: 'ArtMapChart' })
 
-const chinaMapRef = ref<HTMLElement | null>(null);
-const chartInstance = shallowRef<echarts.ECharts | null>(null);
-const settingStore = useSettingsStore();
-const { isDark } = storeToRefs(settingStore);
+const chinaMapRef = ref<HTMLElement | null>(null)
+const chartInstance = shallowRef<echarts.ECharts | null>(null)
+const settingStore = useSettingStore()
+const { isDark } = storeToRefs(settingStore)
 
-const props = withDefaults(defineProps<MapChartProps & { dynamic?: boolean }>(), {
+const props = withDefaults(defineProps<MapChartProps>(), {
   mapData: () => [],
-  selectedRegion: "",
+  selectedRegion: '',
   showLabels: true,
   showScatter: true,
-  isEmpty: false,
-  dynamic: false,
-});
-
-interface Emits {
-  renderComplete: [];
-  regionClick: [region: { name: string; adcode: string; level: string }];
-}
+  isEmpty: false
+})
 
 // 定义 emit
-const emit = defineEmits<Emits>();
+const emit = defineEmits<{
+  renderComplete: []
+  regionClick: [region: { name: string; adcode: string; level: string }]
+}>()
 
 // 检查是否为空数据
 const isEmpty = computed(() => {
-  return props.isEmpty || (!props.mapData?.length && !chinaMapJson);
-});
+  return props.isEmpty || (!props.mapData?.length && !chinaMapJson)
+})
 
 // 根据 geoJson 数据准备地图数据
-const prepareMapData = (geoJson: { features: Array<{ properties: Record<string, unknown> }> }) => {
+const prepareMapData = (geoJson: {
+  features: Array<{ properties: Record<string, unknown> }>
+}) => {
   return geoJson.features.map((feature) => ({
     name: feature.properties.name as string,
     value: Math.round(Math.random() * 1000),
     adcode: feature.properties.adcode as string,
     level: feature.properties.level as string,
-    selected: false,
-  }));
-};
+    selected: false
+  }))
+}
 
 // 获取主题相关的样式配置
 const getThemeStyles = () => ({
-  borderColor: isDark.value ? "rgba(255,255,255,0.6)" : "rgba(147,235,248,1)",
-  shadowColor: isDark.value ? "rgba(0,0,0,0.8)" : "rgba(128,217,248,1)",
-  labelColor: isDark.value ? "#fff" : "#333",
-  backgroundColor: isDark.value ? "rgba(0,0,0,0.8)" : "rgba(255,255,255,0.9)",
-});
+  borderColor: isDark.value ? 'rgba(255,255,255,0.6)' : 'rgba(147,235,248,1)',
+  shadowColor: isDark.value ? 'rgba(0,0,0,0.8)' : 'rgba(128,217,248,1)',
+  labelColor: isDark.value ? '#fff' : '#333',
+  backgroundColor: isDark.value ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.9)'
+})
 
 // 构造 ECharts 配置项
 const createChartOption = (mapData: Array<Record<string, unknown>>) => {
-  const themeStyles = getThemeStyles();
+  const themeStyles = getThemeStyles()
 
   return {
     animation: false, // 关闭动画效果，减少鼠标移动高亮时的掉帧感
     tooltip: {
       show: true,
       backgroundColor: themeStyles.backgroundColor,
-      borderColor: isDark.value ? "#333" : "#ddd",
+      borderColor: isDark.value ? '#333' : '#ddd',
       borderWidth: 1,
       textStyle: {
-        color: themeStyles.labelColor,
+        color: themeStyles.labelColor
       },
       formatter: ({ data }: { data?: Record<string, unknown> }) => {
-        const { name, adcode, level } = data || {};
+        const { name, adcode, level } = data || {}
         return `
-            <div :style="'padding: 8px;'">
-              <div><strong>名称:</strong> ${name || "未知区域"}</div>
-              <div><strong>代码:</strong> ${adcode || "暂无"}</div>
-              <div><strong>级别:</strong> ${level || "暂无"}</div>
+            <div style="padding: 8px;">
+              <div><strong>名称:</strong> ${name || '未知区域'}</div>
+              <div><strong>代码:</strong> ${adcode || '暂无'}</div>
+              <div><strong>级别:</strong> ${level || '暂无'}</div>
             </div>
-          `;
-      },
+          `
+      }
     },
     geo: {
-      map: "china",
+      map: 'china',
       zoom: 1,
       show: true,
       roam: false,
       scaleLimit: {
         min: 0.8,
-        max: 3,
+        max: 3
       },
-      layoutSize: "100%",
+      layoutSize: '100%',
       emphasis: {
         label: { show: props.showLabels },
         itemStyle: {
-          areaColor: "rgba(82,180,255,0.9)",
-          borderColor: "#fff",
-          borderWidth: 3,
-        },
+          areaColor: 'rgba(82,180,255,0.9)',
+          borderColor: '#fff',
+          borderWidth: 3
+        }
       },
       itemStyle: {
         borderColor: themeStyles.borderColor,
@@ -115,208 +111,181 @@ const createChartOption = (mapData: Array<Record<string, unknown>>) => {
         shadowColor: themeStyles.shadowColor,
         shadowOffsetX: 2,
         shadowOffsetY: 15,
-        shadowBlur: 15,
-      },
+        shadowBlur: 15
+      }
     },
     series: [
       {
-        type: "map",
-        map: "china",
+        type: 'map',
+        map: 'china',
         aspectScale: 0.75,
         zoom: 1,
         label: {
           show: props.showLabels,
-          color: "#fff",
-          fontSize: 10,
+          color: '#fff',
+          fontSize: 10
         },
         itemStyle: {
-          borderColor: "rgba(147,235,248,0.8)",
+          borderColor: 'rgba(147,235,248,0.8)',
           borderWidth: 2,
           areaColor: {
-            type: "linear",
+            type: 'linear',
             x: 0,
             y: 0,
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: "rgba(147,235,248,0.3)" },
-              { offset: 1, color: "rgba(32,120,207,0.9)" },
-            ],
+              { offset: 0, color: 'rgba(147,235,248,0.3)' },
+              { offset: 1, color: 'rgba(32,120,207,0.9)' }
+            ]
           },
-          shadowColor: "rgba(32,120,207,1)",
+          shadowColor: 'rgba(32,120,207,1)',
           shadowOffsetY: 15,
-          shadowBlur: 20,
+          shadowBlur: 20
         },
         emphasis: {
           label: {
             show: true,
-            color: "#fff",
-            fontSize: 12,
+            color: '#fff',
+            fontSize: 12
           },
           itemStyle: {
-            areaColor: "rgba(82,180,255,0.9)",
-            borderColor: "#fff",
-            borderWidth: 3,
-          },
+            areaColor: 'rgba(82,180,255,0.9)',
+            borderColor: '#fff',
+            borderWidth: 3
+          }
         },
         select: {
           label: {
             show: true,
-            color: "#fff",
-            fontWeight: "bold",
+            color: '#fff',
+            fontWeight: 'bold'
           },
           itemStyle: {
-            areaColor: "#4FAEFB",
-            borderColor: "#fff",
-            borderWidth: 2,
-          },
+            areaColor: '#4FAEFB',
+            borderColor: '#fff',
+            borderWidth: 2
+          }
         },
-        data: mapData,
+        data: mapData
       },
       // 散点标记配置（例如：城市标记）
       ...(props.showScatter
         ? [
-            {
-              name: "城市",
-              type: "scatter",
-              coordinateSystem: "geo",
-              symbol: "pin",
-              symbolSize: 15,
-              label: { show: false },
-              itemStyle: {
-                color: "#F99020",
-                shadowBlur: 10,
-                shadowColor: "#333",
-              },
-              data: [
-                { name: "北京", value: [116.405285, 39.904989, 100] },
-                { name: "上海", value: [121.472644, 31.231706, 100] },
-                { name: "深圳", value: [114.085947, 22.547, 100] },
-              ],
+          {
+            name: '城市',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            symbol: 'pin',
+            symbolSize: 15,
+            label: { show: false },
+            itemStyle: {
+              color: '#F99020',
+              shadowBlur: 10,
+              shadowColor: '#333'
             },
-          ]
-        : []),
-    ],
-  };
-};
+            data: [
+              { name: '北京', value: [116.405285, 39.904989, 100] },
+              { name: '上海', value: [121.472644, 31.231706, 100] },
+              { name: '深圳', value: [114.085947, 22.547, 100] }
+            ]
+          }
+        ]
+        : [])
+    ]
+  }
+}
 
 // 初始化并渲染地图
 const initMap = async (): Promise<void> => {
-  if (!chinaMapRef.value) return;
+  if (!chinaMapRef.value) return
 
-  chartInstance.value = echarts.init(chinaMapRef.value);
+  chartInstance.value = echarts.init(chinaMapRef.value)
 
-  echarts.registerMap("china", chinaMapJson as any);
-  const mapData = props.mapData.length > 0 ? props.mapData : prepareMapData(chinaMapJson);
-  const option = createChartOption(mapData);
+  echarts.registerMap('china', chinaMapJson as any)
+  const mapData = props.mapData.length > 0 ? props.mapData : prepareMapData(chinaMapJson)
+  const option = createChartOption(mapData)
 
-  chartInstance.value.setOption(option);
+  chartInstance.value.setOption(option)
 
   // 绑定事件
-  chartInstance.value.on("click", handleMapClick);
+  chartInstance.value.on('click', handleMapClick)
 
-  emit("renderComplete");
-};
+  emit('renderComplete')
+}
 
 // 处理地图点击事件
 const handleMapClick = (params: Record<string, unknown>) => {
-  if (params.componentType === "series") {
-    const data = params.data as Record<string, unknown> | undefined;
+  if (params.componentType === 'series') {
+    const data = params.data as Record<string, unknown> | undefined
     const regionData = {
       name: params.name as string,
-      adcode: (data?.adcode as string) || "",
-      level: (data?.level as string) || "",
-    };
+      adcode: (data?.adcode as string) || '',
+      level: (data?.level as string) || ''
+    }
+
+    console.log(`选中区域: ${params.name}`, params)
 
     // 高亮选中区域
     chartInstance.value?.dispatchAction({
-      type: "select",
+      type: 'select',
       seriesIndex: 0,
-      dataIndex: params.dataIndex as number,
-    });
+      dataIndex: params.dataIndex as number
+    })
 
-    emit("regionClick", regionData);
+    emit('regionClick', regionData)
   }
-};
+}
 
 // 窗口 resize 时调整图表大小
 const resizeChart = () => {
-  chartInstance.value?.resize();
-};
-
-let initTimer: ReturnType<typeof setTimeout> | null = null;
-let dynamicTimer: ReturnType<typeof setInterval> | null = null;
+  chartInstance.value?.resize()
+}
 
 // 处理组件销毁
 const cleanupChart = () => {
-  if (initTimer !== null) {
-    clearTimeout(initTimer);
-    initTimer = null;
-  }
-  if (dynamicTimer !== null) {
-    clearInterval(dynamicTimer);
-    dynamicTimer = null;
-  }
   if (chartInstance.value) {
-    chartInstance.value.off("click", handleMapClick);
-    chartInstance.value.dispose();
-    chartInstance.value = null;
+    chartInstance.value.off('click', handleMapClick)
+    chartInstance.value.dispose()
+    chartInstance.value = null
   }
-  window.removeEventListener("resize", resizeChart);
-};
-
-const updateDynamicData = () => {
-  if (!chartInstance.value || chartInstance.value.isDisposed()) return;
-  const mapData = prepareMapData(chinaMapJson);
-  const scatterData = [
-    { name: "北京", value: [116.405285, 39.904989, Math.round(50 + Math.random() * 200)] },
-    { name: "上海", value: [121.472644, 31.231706, Math.round(50 + Math.random() * 200)] },
-    { name: "深圳", value: [114.085947, 22.547, Math.round(50 + Math.random() * 200)] },
-    { name: "成都", value: [104.065735, 30.659462, Math.round(30 + Math.random() * 150)] },
-    { name: "武汉", value: [114.298572, 30.584355, Math.round(30 + Math.random() * 150)] },
-    { name: "杭州", value: [120.153576, 30.287459, Math.round(30 + Math.random() * 150)] },
-  ];
-  chartInstance.value.setOption({ series: [{ data: mapData }, { data: scatterData }] });
-};
+  window.removeEventListener('resize', resizeChart)
+}
 
 // 生命周期钩子
 onMounted(() => {
   if (!isEmpty.value) {
-    (async () => {
-      await initMap();
-      initTimer = setTimeout(resizeChart, 100);
-      if (props.dynamic) {
-        dynamicTimer = setInterval(updateDynamicData, 4000);
-      }
-    })();
+    initMap().then(() => {
+      setTimeout(resizeChart, 100)
+    })
   }
-  window.addEventListener("resize", resizeChart);
-});
+  window.addEventListener('resize', resizeChart)
+})
 
-onUnmounted(cleanupChart);
+onUnmounted(cleanupChart)
 
 // 监听主题变化，重新初始化地图
 watch(isDark, (newVal, oldVal) => {
   if (newVal !== oldVal && chartInstance.value) {
-    cleanupChart();
+    cleanupChart()
     nextTick(() => {
       if (!isEmpty.value) {
-        initMap();
+        initMap()
       }
-    });
+    })
   }
-});
+})
 
 // 监听数据变化
 watch(
   () => props.mapData,
   () => {
     if (chartInstance.value && !isEmpty.value) {
-      const mapData = props.mapData.length > 0 ? props.mapData : prepareMapData(chinaMapJson);
-      const option = createChartOption(mapData);
-      chartInstance.value.setOption(option);
+      const mapData = props.mapData.length > 0 ? props.mapData : prepareMapData(chinaMapJson)
+      const option = createChartOption(mapData)
+      chartInstance.value.setOption(option)
     }
   },
   { deep: true }
-);
+)
 </script>
