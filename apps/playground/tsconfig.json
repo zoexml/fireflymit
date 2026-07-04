@@ -12,10 +12,10 @@
     "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"],
-      "~/*": ["../packages/ui/src/*"],
-      "@fireflymit/ui": ["../packages/ui/src/index.ts"],
-      "@fireflymit/hooks": ["../packages/hooks/src/index.ts"],
-      "@fireflymit/utils": ["../packages/utils/src/index.ts"]
+      "~/*": ["../../packages/ui/src/*"],
+      "@fireflymit/ui": ["../../packages/ui/src/index.ts"],
+      "@fireflymit/hooks": ["../../packages/hooks/src/index.ts"],
+      "@fireflymit/utils": ["../../packages/utils/src/index.ts"]
     },
     "types": ["vite/client"],
     "allowImportingTsExtensions": true,

@@ -9,7 +9,7 @@ import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import MetaLayouts from 'vite-plugin-vue-meta-layouts'
-import { FireflyMitResolver } from '../packages/ui/src/resolver'
+import { FireflyMitResolver } from '../../packages/ui/src/resolver'
 
 const root = import.meta.dirname
 const resolveRoot = (path: string) => resolve(root, path)
@@ -17,7 +17,7 @@ const resolveRoot = (path: string) => resolve(root, path)
 const workspacePackages = ['hooks', 'utils', 'ui'] as const
 const workspaceAliases = workspacePackages.map(packageName => ({
   find: new RegExp(`^@fireflymit/${packageName}$`),
-  replacement: resolveRoot(`../packages/${packageName}/src/index.ts`),
+  replacement: resolveRoot(`../../packages/${packageName}/src/index.ts`),
 }))
 
 export default defineConfig({
@@ -54,8 +54,8 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: resolveRoot('./src') },
-      { find: '~', replacement: resolveRoot('../packages/ui/src') },
-      { find: /^@fireflymit\/ui\/resolver$/, replacement: resolveRoot('../packages/ui/src/resolver.ts') },
+      { find: '~', replacement: resolveRoot('../../packages/ui/src') },
+      { find: /^@fireflymit\/ui\/resolver$/, replacement: resolveRoot('../../packages/ui/src/resolver.ts') },
       ...workspaceAliases,
     ],
   },
