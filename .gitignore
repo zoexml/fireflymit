@@ -78,3 +78,8 @@ CLAUDE.md
 AGENTS.md
 .codebuddy
 .plan
+
+# Auto-generated types (unplugin-vue-router)
+playground/src/types/typed-router.d.ts
+playground/src/types/router.d.ts
+playground/src/types/auto-import.d.ts

@@ -5,7 +5,10 @@ import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
+import MetaLayouts from 'vite-plugin-vue-meta-layouts'
 import { FireflyMitResolver } from '../packages/ui/src/resolver'
 
 const root = import.meta.dirname
@@ -22,13 +25,21 @@ export default defineConfig({
     Unocss(),
     vue(),
     vueJsx(),
+    VueRouter({
+      routesFolder: 'src/views',
+      dts: './src/types/typed-router.d.ts',
+      exclude: ['**/components/**/*.vue'],
+      extensions: ['.vue'],
+    }),
+    MetaLayouts(),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', VueRouterAutoImports],
       resolvers: [
         ElementPlusResolver(),
         FireflyMitResolver({ prefix: 'F', importStyle: false }),
       ],
       dts: './src/types/auto-import.d.ts',
+      dirs: ['./src/composables/**'],
     }),
     Components({
       resolvers: [
@@ -36,6 +47,8 @@ export default defineConfig({
         FireflyMitResolver({ prefix: 'F', importStyle: false }),
       ],
       dts: './src/types/components.d.ts',
+      dirs: ['./src/components/**'],
+      include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
     }),
   ],
   resolve: {

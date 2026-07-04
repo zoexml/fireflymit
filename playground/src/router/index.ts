@@ -1,36 +1,14 @@
-import type { RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
-
-export const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Play',
-    meta: { title: '组件测试' },
-    component: () => import('@/views/play/index.vue'),
-  },
-  {
-    path: '/hooks',
-    name: 'Hooks',
-    meta: { title: 'Hooks' },
-    component: () => import('@/views/hooks/index.vue'),
-  },
-  {
-    path: '/directives',
-    name: 'Directives',
-    meta: { title: 'Directives' },
-    component: () => import('@/views/directives/index.vue'),
-  },
-]
+import { setupLayouts } from 'virtual:meta-layouts'
+import { createRouter, createWebHistory } from 'vue-router/auto'
+import { routes } from 'vue-router/auto-routes'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    ...routes,
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/',
-    },
-  ],
+  routes: setupLayouts(routes),
+  strict: true,
+  scrollBehavior: (_to, _from, _savedPosition) => {
+    return { left: 0, top: 0 }
+  },
 })
 
 export default router

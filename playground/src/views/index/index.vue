@@ -7,7 +7,6 @@ const activeComponent = ref(components[0].value)
 
 <template>
   <div class="page-layout">
-    <!-- 组件切换 -->
     <div class="toolbar flex flex-wrap gap-2 rounded-lg bg-gray-100 p-3">
       <el-radio-group v-model="activeComponent" size="small">
         <el-radio-button v-for="item in components" :key="item.value" :value="item.value">
