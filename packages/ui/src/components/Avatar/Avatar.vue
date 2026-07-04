@@ -38,7 +38,7 @@ const avatarColor = computed(() => {
 </script>
 
 <template>
-  <div :class="className" :style="{ width: `${size}px`, height: `${size}px` }">
+  <div :class="className" :style="{ width: `${size}px`, height: `${size}px`, borderRadius }">
     <!-- 有头像显示图片 -->
     <img v-if="src" :src="src" :alt="name" :class="bem('img')">
 

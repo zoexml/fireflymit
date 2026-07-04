@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { nextTick } from "vue";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { SETTING_DEFAULT_CONFIG } from "@/config/setting";
 import { useClipboard } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
@@ -23,7 +23,7 @@ import { ElMessage } from "element-plus";
 defineOptions({ name: "SettingActions" });
 
 const { t } = useI18n();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { copy, copied } = useClipboard();
 const { switchThemeStyles } = useTheme();
 

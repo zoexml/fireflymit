@@ -3,11 +3,11 @@
  */
 
 import { computed } from "vue";
-import { useMenuStore, useSettingsStore } from "@stores";
+import { useMenuStore, useSettingStore } from "@stores";
 
 export function useCommon() {
   const menuStore = useMenuStore();
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
 
   const homePath = computed(() => menuStore.getHomePath());
 

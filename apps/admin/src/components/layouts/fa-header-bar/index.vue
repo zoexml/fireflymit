@@ -191,7 +191,7 @@ import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { useFullscreen, useWindowSize } from "@vueuse/core";
 import { LanguageEnum, MenuTypeEnum } from "@/enums/appEnum";
-import { useSettingsStore, useMenuStore, useUserStore, useConfigStore } from "@stores";
+import { useSettingStore, useMenuStore, useUserStore, useConfigStore } from "@stores";
 import AppConfig from "@/config";
 import { languageOptions } from "@/locales";
 import { mittBus, themeAnimation } from "@utils";
@@ -209,7 +209,7 @@ const router = useRouter();
 const { locale } = useI18n();
 const { width } = useWindowSize();
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const userStore = useUserStore();
 const menuStore = useMenuStore();
 const configStore = useConfigStore();

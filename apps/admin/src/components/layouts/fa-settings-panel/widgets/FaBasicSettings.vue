@@ -12,14 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaBasicSettings" });
 import { useSettingsConfig } from "../composables/useSettingsConfig";
 import { useSettingsHandlers } from "../composables/useSettingsHandlers";
 import { storeToRefs } from "pinia";
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { basicSettingsConfig } = useSettingsConfig();
 const { basicHandlers } = useSettingsHandlers();
 

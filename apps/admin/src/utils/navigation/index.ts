@@ -3,7 +3,7 @@ import { router } from "@/router";
 import type { AppRouteRecord, AppRouteRecord as AppRouteRecordFromTypes } from "@/types";
 import i18n, { $t } from "@/locales";
 import AppConfig from "@/config";
-import { useSettingsStore, useWorktabStore } from "@stores";
+import { useSettingStore, useWorktabStore } from "@stores";
 import { IframeRouteManager } from "@/router";
 import { useCommon } from "@/hooks/core/useCommon";
 
@@ -130,7 +130,7 @@ export const setWorktab = (to: RouteLocationNormalized): void => {
     fixedTab: meta.fixedTab as boolean,
   };
 
-  if (useSettingsStore().showWorkTab || path === useCommon().homePath.value) {
+  if (useSettingStore().showWorkTab || path === useCommon().homePath.value) {
     worktabStore.openTab(tabPayload);
   } else {
     worktabStore.syncCurrentFromRoute({

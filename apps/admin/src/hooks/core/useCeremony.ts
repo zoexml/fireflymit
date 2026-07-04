@@ -48,7 +48,7 @@
 import { useTimeoutFn, useIntervalFn, useDateFormat } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { mittBus, formatToDate } from "@utils";
 import { festivalConfigList } from "@/config/modules/festival";
 import { buildBuiltinSolarFestivals } from "@/config/modules/festival.builtin";
@@ -76,7 +76,7 @@ const FESTIVAL_CONFIG = {
  * 提供节日烟花效果和祝福文本展示
  */
 export function useCeremony() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
   const { holidayFireworksLoaded, isShowFireworks } = storeToRefs(settingStore);
 
   let fireworksInterval: { pause: () => void } | null = null;

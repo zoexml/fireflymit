@@ -2,7 +2,7 @@
 
 import NProgress from "nprogress";
 import { ThemeMode } from "@/enums";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { fourDotsSpinnerSvg } from "@/assets/images/svg/loading";
 import { useTheme } from "@/hooks/core/useTheme";
 import { SystemThemeEnum } from "@/enums/appEnum";
@@ -161,7 +161,7 @@ export function setElementThemeColor(color: string): void {
   const elStyle = document.documentElement.style;
 
   elStyle.setProperty("--el-color-primary", color);
-  handleElementThemeColor(color, useSettingsStore().isDark);
+  handleElementThemeColor(color, useSettingStore().isDark);
 
   for (let i = 1; i < 16; i++) {
     const itemColor = colourBlend(color, mixColor, i / 16);
@@ -309,7 +309,7 @@ const toggleTheme = () => {
   // 主题切换通过 CSS 变量 + html.dark 类名实时应用，无需重建 RouterView。
   // 历史代码曾在这里调用 useCommon().refresh() 触发整页重建，会造成闪烁，
   // 且对正确实现的主题切换没有必要 —— 移除后切换即无刷新。
-  useTheme().switchThemeStyles(useSettingsStore().systemThemeType === LIGHT ? DARK : LIGHT);
+  useTheme().switchThemeStyles(useSettingStore().systemThemeType === LIGHT ? DARK : LIGHT);
 };
 
 export const toggleTransition = (enable: boolean) => {

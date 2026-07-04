@@ -16,13 +16,13 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaThemeSettings" });
 import { useSettingsConfig } from "../composables/useSettingsConfig";
 import { useTheme } from "@/hooks/core/useTheme";
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { systemThemeMode } = storeToRefs(settingStore);
 const { configOptions } = useSettingsConfig();
 const { switchThemeStyles } = useTheme();

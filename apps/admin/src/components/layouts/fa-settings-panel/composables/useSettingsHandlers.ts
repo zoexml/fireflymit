@@ -1,4 +1,4 @@
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { storeToRefs } from "pinia";
 import type { ContainerWidthEnum } from "@/enums/appEnum";
 
@@ -6,7 +6,7 @@ import type { ContainerWidthEnum } from "@/enums/appEnum";
  * 设置项通用处理逻辑
  */
 export function useSettingsHandlers() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
 
   // DOM 操作相关
   const domOperations = {

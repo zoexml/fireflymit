@@ -71,7 +71,7 @@ import type { CmComponentRef } from "codemirror-editor-vue3";
 import { ElMessage } from "element-plus";
 import { ArrowDown, CopyDocument } from "@element-plus/icons-vue";
 import { useClipboard } from "@vueuse/core";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { ThemeMode } from "@/enums/settings/theme.enum";
 import {
   getExampleFromPresetMasterSub,
@@ -93,7 +93,7 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const { copy } = useClipboard();
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingStore();
 
 const sqlText = ref("");
 const sqlRef = ref<CmComponentRef>();

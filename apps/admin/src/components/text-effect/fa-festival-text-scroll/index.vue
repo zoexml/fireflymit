@@ -21,13 +21,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { useCeremony } from "@/hooks/core/useCeremony";
 import { WEB_LINKS } from "@utils";
 
 defineOptions({ name: "FaFestivalTextScroll" });
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { showFestivalText } = storeToRefs(settingStore);
 const { currentFestivalData, closeFestivalScroll } = useCeremony();
 

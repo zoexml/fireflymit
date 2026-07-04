@@ -1,11 +1,11 @@
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { MenuThemeEnum, MenuTypeEnum } from "@/enums/appEnum";
 
 /**
  * 设置状态管理
  */
 export function useSettingsState() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
 
   // 色弱模式初始化
   const initColorWeak = () => {

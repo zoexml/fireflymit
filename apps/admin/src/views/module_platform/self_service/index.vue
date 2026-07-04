@@ -6,7 +6,7 @@ import type {
   WorkspaceData,
 } from '@/api/module_platform/self_service'
 import type { DescriptionsItem } from '@/components/others/fa-descriptions/index.vue'
-import { useSettingsStore } from '@stores'
+import { useSettingStore } from '@stores'
 import { resolveStatusColumns } from '@utils'
 import { useRouter } from 'vue-router'
 import SelfServiceAPI from '@/api/module_platform/self_service'
@@ -17,7 +17,7 @@ import { useTable } from '@/hooks/core/useTable'
 
 defineOptions({ name: 'SelfService' })
 
-const { isDark } = storeToRefs(useSettingsStore())
+const { isDark } = storeToRefs(useSettingStore())
 
 const orderTableRef = ref()
 

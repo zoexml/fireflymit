@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { LanguageEnum } from "@/enums/appEnum";
 import { router } from "@/router";
-import { useSettingsStore } from "./setting.store";
+import { useSettingStore } from "./setting.store";
 import { useWorktabStore } from "./worktab.store";
 import { useMenuStore } from "./menu.store";
 import { useConfigStore } from "./config.store";
@@ -75,7 +75,7 @@ export const useUserStore = defineStore(
     // 计算属性：基础用户信息
     const basicInfo = computed(() => info.value as UserInfoLike);
     // 计算属性：获取设置状态
-    const getSettingState = computed(() => useSettingsStore().$state);
+    const getSettingState = computed(() => useSettingStore().$state);
     // 计算属性：获取工作台状态
     const getWorktabState = computed(() => useWorktabStore().$state);
     // 计算属性：获取基础信息

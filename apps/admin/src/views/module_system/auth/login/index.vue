@@ -103,7 +103,7 @@ import AuthAPI, {
   type OAuthProvider,
 } from "@/api/module_system/auth";
 import { UserAPI, type ForgetPasswordForm, type RegisterForm } from "@/api/module_system/user";
-import { useAppStore, useConfigStore, useSettingsStore, useUserStore } from "@/store";
+import { useAppStore, useConfigStore, useSettingStore, useUserStore } from "@/store";
 import { Auth, HttpError, startOAuthLogin } from "@utils";
 import FaAuthTopBar from "@/components/views/fa-login/widgets/FaAuthTopBar.vue";
 import FaLoginLeftView from "@/components/views/fa-login/backdrops/FaLoginLeftView.vue";
@@ -122,7 +122,7 @@ type LoginFlowMode = "account" | "mobile" | "qr";
 
 const appStore = useAppStore();
 const configStore = useConfigStore();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();

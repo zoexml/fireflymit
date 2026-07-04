@@ -1,5 +1,5 @@
 import { ref, computed, watch } from "vue";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { storeToRefs } from "pinia";
 import { useBreakpoints } from "@vueuse/core";
 import AppConfig from "@/config";
@@ -14,7 +14,7 @@ import { useSettingsHandlers } from "./useSettingsHandlers";
  * 设置面板核心逻辑管理
  */
 export function useSettingsPanel() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
   const { systemThemeType, systemThemeMode, menuType } = storeToRefs(settingStore);
 
   // Composables

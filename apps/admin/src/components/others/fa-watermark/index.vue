@@ -24,7 +24,7 @@ import AppConfig from "@/config";
 import { defaultSettings } from "@/config/setting";
 import { ThemeMode } from "@/enums";
 import { hexToRgba } from "@utils";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaWatermark" });
 
@@ -64,7 +64,7 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 3100,
 });
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { watermarkVisible, themeColor, theme } = storeToRefs(settingStore);
 
 /** 未指定 fontColor 时使用当前主题色半透明，与 App.vue 全局水印策略一致 */

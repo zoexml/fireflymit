@@ -25,10 +25,10 @@ import AppConfig from "@/config";
 
 defineOptions({ name: "FaMenuStyleSettings" });
 import { MenuTypeEnum, type MenuThemeEnum } from "@/enums/appEnum";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 const menuThemeList = AppConfig.themeList;
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { menuThemeType, menuType, isDark } = storeToRefs(settingStore);
 const isTopMenu = computed(() => menuType.value === MenuTypeEnum.TOP);
 const isDualMenu = computed(() => menuType.value === MenuTypeEnum.DUAL_MENU);

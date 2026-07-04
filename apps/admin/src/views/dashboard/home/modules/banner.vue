@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import bannerCover from '@imgs/login/lf_icon2.webp'
-import { useSettingsStore, useUserStore } from '@stores'
+import { useSettingStore, useUserStore } from '@stores'
 import { greetings } from '@utils'
 import { computed } from 'vue'
 
 const userStore = useUserStore()
-const settingsStore = useSettingsStore()
+const settingsStore = useSettingStore()
 const { isDark } = storeToRefs(settingsStore)
 
 const userInfo = computed(() => userStore.basicInfo)

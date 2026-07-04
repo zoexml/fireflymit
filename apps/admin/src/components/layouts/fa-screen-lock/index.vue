@@ -158,7 +158,7 @@ import { ElInput } from "element-plus";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 import CryptoJS from "crypto-js";
-import { useUserStore, useSettingsStore } from "@stores";
+import { useUserStore, useSettingStore } from "@stores";
 import { mittBus, useNow } from "@utils";
 import bgDark from "@imgs/lock/bg_dark.webp";
 import bgLight from "@imgs/lock/bg_light.webp";
@@ -171,7 +171,7 @@ const router = useRouter();
 const ENCRYPT_KEY = import.meta.env.VITE_LOCK_ENCRYPT_KEY;
 
 const userStore = useUserStore();
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingStore();
 const { info: userInfo, lockPassword, isLock } = storeToRefs(userStore);
 const { isDark } = storeToRefs(settingsStore);
 

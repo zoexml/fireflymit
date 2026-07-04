@@ -22,7 +22,7 @@
 import type { AppRouteRecord } from "@/types/router";
 import type { Router, RouteLocationNormalized } from "vue-router";
 import { nextTick } from "vue";
-import { useSettingsStore, useUserStore, useMenuStore, useWorktabStore } from "@stores";
+import { useSettingStore, useUserStore, useMenuStore, useWorktabStore } from "@stores";
 import { ROUTE_PATH_LOGIN_ALT, staticRoutes } from "../routes/staticRoutes";
 import { useCommon } from "@/hooks/core/useCommon";
 import {
@@ -137,7 +137,7 @@ async function handleRouteGuard(
   router: Router
 ) {
   // 顺序：登录 → 动态路由初始化失败兜底 → 动态路由注册 → 根路径 → 已匹配页 → 404
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
   const userStore = useUserStore();
 
   if (settingStore.showNprogress) {

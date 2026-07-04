@@ -60,7 +60,7 @@
 import { computed } from "vue";
 import type { AppRouteRecord } from "@/types/router";
 import { formatMenuTitle, handleMenuJump } from "@utils";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaSidebarSubmenu" });
 
@@ -96,7 +96,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>();
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 
 const { menuOpen } = storeToRefs(settingStore);
 

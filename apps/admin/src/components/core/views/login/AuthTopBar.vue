@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
   import { useI18n } from "vue-i18n"
-  import { useSettingsStore } from "@stores"
+  import { useSettingStore } from "@stores"
   import { useUserStore } from "@stores"
   import { useHeaderBar } from "@/hooks/core/useHeaderBar"
   import { themeAnimation } from "@utils"
@@ -85,7 +85,7 @@
 
   defineOptions({ name: "AuthTopBar" })
 
-  const settingsStore = useSettingsStore()
+  const settingsStore = useSettingStore()
   const userStore = useUserStore()
   const { isDark, systemThemeColor } = storeToRefs(settingsStore)
   const { shouldShowThemeToggle, shouldShowLanguage } = useHeaderBar()

@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, onMounted, onUnmounted } from "vue";
 import { useAppStore, useUserStore } from "./store";
-import { useSettingsStore } from "./store/modules/setting.store";
+import { useSettingStore } from "./store/modules/setting.store";
 import { defaultSettings } from "./config/setting";
 import { ComponentSize } from "./enums/settings/layout.enum";
 import AiAssistant from "./components/others/fa-ai-assistant/index.vue";
@@ -37,7 +37,7 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 import { router } from "@/router";
 
 const appStore = useAppStore();
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingStore();
 const userStore = useUserStore();
 
 const size = computed(() => appStore.size as ComponentSize);

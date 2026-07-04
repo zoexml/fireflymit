@@ -62,7 +62,7 @@
 import type { CSSProperties } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 import { useRoute, type RouteLocationNormalizedLoaded } from "vue-router";
-import { useSettingsStore, useWorktabStore } from "@stores";
+import { useSettingStore, useWorktabStore } from "@stores";
 
 defineOptions({ name: "FaPageContent" });
 
@@ -90,7 +90,7 @@ const isNarrowViewport = useMediaQuery("(max-width: 800px)");
 const backtopScrollTarget = computed(() => (isNarrowViewport.value ? "" : "#app-content"));
 const backtopTargetKey = computed(() => (isNarrowViewport.value ? "win" : "main"));
 
-const { pageTransition, containerWidth, refresh, showWorkTab } = storeToRefs(useSettingsStore());
+const { pageTransition, containerWidth, refresh, showWorkTab } = storeToRefs(useSettingStore());
 const { keepAliveExclude, opened } = storeToRefs(useWorktabStore());
 
 /** 多标签开启时：仅已打开且允许缓存的标签组件名进入 include；关闭多标签时不传 include，避免 opened 过窄误伤缓存。 */

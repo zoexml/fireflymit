@@ -51,7 +51,7 @@
 
 import { echarts, type EChartsOption } from "@/plugins/echarts";
 import { storeToRefs } from "pinia";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { getCssVar } from "@utils";
 import type { BaseChartProps, ChartThemeConfig, UseChartOptions } from "@/types/component/chart";
 
@@ -85,7 +85,7 @@ const RESIZE_DEBOUNCE_DELAY = 100;
 export function useChart(options: UseChartOptions = {}) {
   const { initOptions, initDelay = 0, threshold = 0.1, autoTheme = true } = options;
 
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
   const { isDark, menuOpen, menuType } = storeToRefs(settingStore);
 
   const chartRef = ref<HTMLElement>();

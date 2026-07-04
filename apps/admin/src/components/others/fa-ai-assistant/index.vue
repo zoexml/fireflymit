@@ -125,7 +125,7 @@ import { resolveIconForArtSvgIcon } from "@utils";
 import { nextTick, onBeforeUnmount, onMounted, watch, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { AiChatAPI, ChatSession, ChatSessionDetail } from "@/api/module_ai/chat";
 
 type ToolFunctionCall = {
@@ -160,7 +160,7 @@ type AiResponse = {
 };
 
 const router = useRouter();
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingStore();
 
 // 状态管理
 const dialogVisible = ref(false);

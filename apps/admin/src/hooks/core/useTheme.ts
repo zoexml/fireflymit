@@ -31,7 +31,7 @@
  * @author FastapiAdmin Team
  */
 
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { SystemThemeEnum } from "@/enums/appEnum";
 import AppConfig from "@/config";
 import { SystemThemeTypes } from "@/types/store";
@@ -40,7 +40,7 @@ import { usePreferredDark } from "@vueuse/core";
 import { watch } from "vue";
 
 export function useTheme() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
 
   // 禁用过渡效果
   const disableTransitions = () => {
@@ -127,7 +127,7 @@ export function useTheme() {
  * 初始化主题系统
  */
 export function initializeTheme() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
   const prefersDark = usePreferredDark();
 
   // 根据系统偏好应用主题

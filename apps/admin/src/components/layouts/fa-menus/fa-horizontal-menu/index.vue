@@ -26,11 +26,11 @@
 
 <script setup lang="ts">
 import type { AppRouteRecord } from "@/types/router";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaHorizontalMenu" });
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { isDark } = storeToRefs(settingStore);
 
 interface Props {

@@ -18,14 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaMenuLayoutSettings" });
 import { useSettingsConfig } from "../composables/useSettingsConfig";
 import { useSettingsState } from "../composables/useSettingsState";
 
 const { width } = useWindowSize();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { menuType } = storeToRefs(settingStore);
 const { configOptions } = useSettingsConfig();
 const { switchMenuLayouts } = useSettingsState();

@@ -17,7 +17,7 @@
 
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { headerBarConfig } from "@/config/modules/headerBar";
 import { HeaderBarFeatureConfig } from "@/types";
 
@@ -26,7 +26,7 @@ import { HeaderBarFeatureConfig } from "@/types";
  * @returns 顶部栏功能相关的状态和方法
  */
 export function useHeaderBar() {
-  const settingStore = useSettingsStore();
+  const settingStore = useSettingStore();
 
   // 获取顶部栏配置
   const headerBarConfigRef = computed<HeaderBarFeatureConfig>(() => headerBarConfig);

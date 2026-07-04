@@ -20,14 +20,14 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 defineOptions({ name: "FaBoxStyleSettings" });
 import { useSettingsConfig } from "../composables/useSettingsConfig";
 import { useSettingsHandlers } from "../composables/useSettingsHandlers";
 import { storeToRefs } from "pinia";
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { boxBorderMode } = storeToRefs(settingStore);
 const { boxStyleOptions } = useSettingsConfig();
 const { boxStyleHandlers } = useSettingsHandlers();

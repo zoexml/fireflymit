@@ -24,7 +24,7 @@ import { SidebarColor, ThemeMode } from "@/enums/settings/theme.enum";
 import type { LayoutMode } from "@/enums/settings/layout.enum";
 import type { Ref } from "vue";
 
-export const useSettingsStore = defineStore(
+export const useSettingStore = defineStore(
   "settingStore",
   () => {
     // 菜单

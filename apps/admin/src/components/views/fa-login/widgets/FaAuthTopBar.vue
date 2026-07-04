@@ -74,7 +74,7 @@
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
-import { useSettingsStore, useUserStore, useConfigStore } from "@stores";
+import { useSettingStore, useUserStore, useConfigStore } from "@stores";
 import { useHeaderBar } from "@/hooks/core/useHeaderBar";
 import { themeAnimation } from "@utils";
 import { languageOptions } from "@/locales";
@@ -84,7 +84,7 @@ import AppConfig from "@/config";
 defineOptions({ name: "AuthTopBar" });
 
 const configStore = useConfigStore();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const userStore = useUserStore();
 const { isDark, systemThemeColor } = storeToRefs(settingStore);
 const { shouldShowThemeToggle, shouldShowLanguage } = useHeaderBar();

@@ -44,12 +44,12 @@
  *   → settingStore.showGuide=false → 后续不再显示
  */
 import { computed } from "vue";
-import { useAppStore, useSettingsStore } from "@stores";
+import { useAppStore, useSettingStore } from "@stores";
 
 defineOptions({ name: "AppLayout" });
 
 const appStore = useAppStore();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 
 /** 新手指引显隐 —— session 级状态，首次登录/注册后自动弹出 */
 const guideVisible = computed({

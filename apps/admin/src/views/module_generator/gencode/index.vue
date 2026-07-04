@@ -157,7 +157,7 @@ import GencodeAPI, {
 import MenuAPI, { MenuTable } from "@/api/module_platform/menu";
 import DictAPI, { DictTable } from "@/api/module_system/dict";
 import { MenuTypeEnum } from "@/enums";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { useTable } from "@/hooks/core/useTable";
 import type { SearchFormItem } from "@/components/forms/fa-search-bar/index.vue";
 import type FaSearchBar from "@/components/forms/fa-search-bar/index.vue";
@@ -258,7 +258,7 @@ const previewTypes = ref<string[]>([...previewTypeOptions]);
 const code = ref<string>("");
 const treeData = ref<TreeNode[]>([]);
 
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingStore();
 
 // 主题计算属性 - 使用 isDark 判断当前是否为暗色模式
 const codeTheme = computed(() => (settingsStore.isDark ? "dracula" : "default"));

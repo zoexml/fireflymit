@@ -61,10 +61,10 @@
 <script setup lang="ts">
 defineOptions({ name: "FaGuide" });
 import { computed } from "vue";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 import { MenuTypeEnum } from "@/enums/appEnum";
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { t } = useI18n();
 
 interface Props {

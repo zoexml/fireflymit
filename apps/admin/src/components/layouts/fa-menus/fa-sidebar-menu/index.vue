@@ -131,7 +131,7 @@
 
 <script setup lang="ts">
 import AppConfig from "@/config";
-import { useConfigStore, useSettingsStore, useMenuStore } from "@stores";
+import { useConfigStore, useSettingStore, useMenuStore } from "@stores";
 import { MenuTypeEnum, MenuWidth } from "@/enums/appEnum";
 import { isIframe, handleMenuJump } from "@utils";
 import SidebarSubmenu from "./widgets/FaSidebarSubmenu.vue";
@@ -146,7 +146,7 @@ const MENU_CLOSE_WIDTH = MenuWidth.CLOSE;
 
 const route = useRoute();
 const router = useRouter();
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const configStore = useConfigStore();
 
 /** 租户配置：tenant_logo / tenant_name */

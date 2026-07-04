@@ -55,7 +55,7 @@ import {
   useDebounceFn,
   useTimeoutFn,
 } from "@vueuse/core";
-import { useSettingsStore } from "@stores";
+import { useSettingStore } from "@stores";
 
 type ThemeType =
   | "theme"
@@ -113,7 +113,7 @@ const handleClose = () => {
   emit("close");
 };
 
-const settingStore = useSettingsStore();
+const settingStore = useSettingStore();
 const { isDark } = storeToRefs(settingStore);
 
 const containerRef = ref<HTMLElement>();

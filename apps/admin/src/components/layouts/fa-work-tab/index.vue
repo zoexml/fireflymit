@@ -172,7 +172,7 @@ import { LocationQueryRaw, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
-import { refreshAppCaches, useWorktabStore, useUserStore, useSettingsStore } from '@stores'
+import { refreshAppCaches, useWorktabStore, useUserStore, useSettingStore } from '@stores'
 import type { MenuItemType } from '@fireflymit/ui'
 import { useCommon } from '@/hooks/core/useCommon'
 import { formatMenuTitle, quickStartManager } from '@utils'
@@ -200,7 +200,7 @@ const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 const { currentRoute } = router
-const settingStore = useSettingsStore()
+const settingStore = useSettingStore()
 const { tabStyle, showWorkTab } = storeToRefs(settingStore)
 
 /** tab-google：Chrome 顶栏标签（tab-default / tab-card 走原有样式） */
