@@ -59,7 +59,10 @@ fireflymit/
 │   │   ├── stylelint-config/
 │   │   ├── typescript-config/
 │   │   └── commitlint-config/
-├── playground/                    # 开发测试环境 (Vue 3 应用)
+├── apps/
+│   ├── admin/                     # @fireflymit/admin — Vue 3 后台管理前端
+│   ├── admin-backend/             # FastAPI 后端（Python，不受 pnpm 管理）
+│   └── playground/                # 开发测试环境 (Vue 3 应用)
 ├── docs/                          # VitePress 文档
 ├── scripts/                       # 构建脚本
 ├── turbo.json                     # Turborepo 流水线配置

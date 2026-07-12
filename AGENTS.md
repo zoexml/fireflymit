@@ -43,15 +43,15 @@ pnpm dev --filter @fireflymit/ui
 ```
 fireflymit/
 ├── apps/
-│   ├── admin/                  # @fireflymit/admin — Vue 3 后台管理系统 (fastapi-admin 前端)
-│   └── admin-backend/          # FastAPI 后端 (Python, 不受 pnpm 管理)
+│   ├── admin/                  # @fireflymit/admin — Vue 3 admin (fastapi-admin frontend)
+│   ├── admin-backend/          # FastAPI backend (Python, not managed by pnpm)
+│   └── playground/            # Vue 3 app for testing components
 ├── packages/
 │   ├── ui/                    # Vue 3 UI component library (Element Plus based)
 │   ├── utils/                 # Utility functions library
 │   ├── hooks/                 # Vue composables
 │   ├── uno-preset/            # UnoCSS preset
 │   └── lint-configs/          # Shared lint configs (eslint, prettier, stylelint, typescript, commitlint)
-├── playground/                # Vue 3 app for testing components
 ├── docs/                      # VitePress documentation
 ├── docker/                    # Docker Compose + Nginx + Dockerfile (部署用)
 ├── deploy.sh / deploy.bat     # 部署脚本
