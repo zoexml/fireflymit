@@ -45,14 +45,14 @@ fireflymit/
 ├── apps/
 │   ├── admin/                  # @fireflymit/admin — Vue 3 admin (fastapi-admin frontend)
 │   ├── admin-backend/          # FastAPI backend (Python, not managed by pnpm)
-│   └── playground/            # Vue 3 app for testing components
+│   ├── playground/            # Vue 3 app for testing components
+│   └── docs/                  # VitePress documentation site
 ├── packages/
 │   ├── ui/                    # Vue 3 UI component library (Element Plus based)
 │   ├── utils/                 # Utility functions library
 │   ├── hooks/                 # Vue composables
 │   ├── uno-preset/            # UnoCSS preset
 │   └── lint-configs/          # Shared lint configs (eslint, prettier, stylelint, typescript, commitlint)
-├── docs/                      # VitePress documentation
 ├── docker/                    # Docker Compose + Nginx + Dockerfile (部署用)
 ├── deploy.sh / deploy.bat     # 部署脚本
 └── turbo.json                 # Turborepo pipeline config

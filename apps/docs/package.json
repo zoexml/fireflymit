@@ -8,9 +8,9 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "dev": "cd .. && vitepress dev docs",
-    "build": "cd .. && vitepress build docs",
-    "preview": "cd .. && vitepress preview docs",
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview .",
     "test": "echo \"No docs tests configured\""
   },
   "devDependencies": {

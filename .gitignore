@@ -35,7 +35,7 @@ yarn-error.log*
 *.pem
 
 *storybook.log
-docs/.vitepress/cache/
+apps/docs/.vitepress/cache/
 
 # pnpm local store
 .pnpm-store
