@@ -1,0 +1,46 @@
+{
+  "name": "@fireflymit/scaffold",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One-command engineering setup for new or existing projects",
+  "exports": {
+    ".": "./src/index.js",
+    "./presets": "./src/utils/presets.js",
+    "./templates": "./src/utils/templates.js"
+  },
+  "main": "./src/index.js",
+  "bin": {
+    "firefly": "./src/cli.js"
+  },
+  "files": [
+    "README.md",
+    "src",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/cli.js",
+    "firefly": "node src/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --cache --fix"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.8.0",
+    "execa": "^9.5.2",
+    "fs-extra": "^11.3.0",
+    "picocolors": "^1.1.0"
+  },
+  "devDependencies": {
+    "@fireflymit/eslint-config": "workspace:*",
+    "@fireflymit/typescript-config": "workspace:*",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.0.0",
+    "typescript": "5.9.3",
+    "vitest": "^4.0.14"
+  }
+}

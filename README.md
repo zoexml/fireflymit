@@ -59,6 +59,7 @@ fireflymit/
 │   │   ├── stylelint-config/
 │   │   ├── typescript-config/
 │   │   └── commitlint-config/
+│   ├── scaffold/                     # 工程脚手架 CLI (@fireflymit/scaffold)
 ├── apps/
 │   ├── admin/                     # @fireflymit/admin — Vue 3 后台管理前端
 │   ├── admin-backend/             # FastAPI 后端（Python，不受 pnpm 管理）
@@ -129,6 +130,20 @@ import { useLockScroll, vCopy } from '@fireflymit/ui'
 ### @fireflymit/eslint-config / prettier-config / stylelint-config
 
 项目统一的代码规范配置，基于 [antfu/eslint-config](https://github.com/antfu/eslint-config)。
+
+### @fireflymit/scaffold
+
+一键给新项目或已有项目套上团队工程规范的 CLI 工具。支持三种预设（vue-monorepo / node-lib / basic），可单独应用或组合各种 config（ESLint、Prettier、TypeScript 等）。
+
+```bash
+# 初始化新项目
+firefly init my-app --preset vue-monorepo
+
+# 往已有项目增量添加 config
+firefly apply . --config eslint,typescript,git-hooks --yes
+```
+
+详见 [packages/scaffold/README.md](packages/scaffold/README.md)
 
 ## 常用操作
 
