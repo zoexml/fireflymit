@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @fireflymit/hooks --filter @fireflymit/utils --filter @fireflymit/uno-preset build && npx storybook build -o .storybook/dist",
+  "outputDirectory": ".storybook/dist",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": null
+}
