@@ -3,6 +3,14 @@ name: 📚 Deploy Docs
 on:
   push:
     branches: [main]
+    paths:
+      - 'apps/docs/**'
+      - 'packages/ui/**'
+      - '.storybook/**'
+      - package.json
+      - pnpm-lock.yaml
+      - uno.config.ts
+      - .github/workflows/deploy.yml
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,6 +45,8 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build workspace prerequisites
+        run: pnpm --filter @fireflymit/hooks --filter @fireflymit/utils --filter @fireflymit/uno-preset build
       - name: Lint
         run: pnpm lint
       - name: Typecheck
