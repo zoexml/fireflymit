@@ -42,7 +42,7 @@ export const nav = [
 // 侧边栏
 export const sidebar = generateSidebar([
   {
-    documentRootPath: 'src',
+    documentRootPath: 'apps/docs/src',
     scanStartPath: 'tools',
     resolvePath: '/tools/',
     useTitleFromFrontmatter: true,
@@ -50,7 +50,7 @@ export const sidebar = generateSidebar([
     collapsed: false,
   },
   {
-    documentRootPath: 'src',
+    documentRootPath: 'apps/docs/src',
     scanStartPath: 'standard',
     resolvePath: '/standard/',
     useTitleFromFrontmatter: true,
