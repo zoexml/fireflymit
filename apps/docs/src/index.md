@@ -22,6 +22,9 @@ hero:
     - theme: alt
       text: Hooks
       link: /tools/hooks/hooks
+    - theme: alt
+      text: 🧩 组件预览
+      link: https://fireflymit.vercel.app
 
 features:
   - icon: 🧩

@@ -30,6 +30,7 @@ export const nav = [
       {
         text: 'UI & 样式',
         items: [
+          { text: 'fireflymit 组件库预览', link: 'https://fireflymit.vercel.app' },
           { text: 'Element Plus', link: 'https://element-plus.org/zh-CN/' },
           { text: 'UnoCSS', link: 'https://unocss.dev/' },
         ],
