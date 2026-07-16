@@ -39,31 +39,8 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build workspace prerequisites
-        run: pnpm --filter @fireflymit/hooks --filter @fireflymit/utils --filter @fireflymit/uno-preset build
       - name: Build VitePress
         run: pnpm build:docs
-      - name: Build UI
-        run: pnpm build:ui
-      - name: Build Storybook
-        run: pnpm build:storybook
-      - name: Merge outputs
-        run: |
-          mkdir -p apps/docs/.vitepress/dist/ui
-          cp -r .storybook/dist/* apps/docs/.vitepress/dist/ui/
-          cat > apps/docs/.vitepress/dist/ui/404.html << 'HTML'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="utf-8">
-            <meta http-equiv="refresh" content="0;url=/fireflymit/ui/">
-            <script>
-              location.href = '/fireflymit/ui/';
-            </script>
-          </head>
-          <body><a href="/fireflymit/ui/">Go to Storybook</a></body>
-          </html>
-          HTML
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
