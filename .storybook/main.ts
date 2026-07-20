@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
-import { createRequire } from 'node:module'
 
+import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -11,11 +11,6 @@ function getAbsolutePath(value: string) {
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const uiSrc = resolve(repoRoot, 'packages/ui/src')
-
-// Resolve from packages/ui context, which depends on element-plus
-const uiRequire = createRequire(resolve(repoRoot, 'packages/ui/package.json'))
-const epDir = dirname(uiRequire.resolve('element-plus/package.json'))
-const uiDistCss = uiRequire.resolve('@fireflymit/ui/dist/index.css')
 
 const config: StorybookConfig = {
   stories: [
@@ -42,11 +37,20 @@ const config: StorybookConfig = {
       vueTemplate: true,
     }))
     config.resolve = config.resolve || {}
+    // Resolve CSS deps from packages/ui context (pnpm strict mode)
+    const uiRequire = createRequire(resolve(repoRoot, 'packages/ui/package.json'))
+    const epDir = dirname(uiRequire.resolve('element-plus/package.json'))
+    let uiDistCss: string | undefined
+    try {
+      uiDistCss = uiRequire.resolve('@fireflymit/ui/dist/index.css')
+    } catch {
+      // @fireflymit/ui may not be built yet
+    }
     config.resolve.alias = {
       ...config.resolve.alias,
       '~': uiSrc,
       'element-plus/dist/index.css': resolve(epDir, 'dist/index.css'),
-      '@fireflymit/ui/dist/index.css': uiDistCss,
+      ...(uiDistCss ? { '@fireflymit/ui/dist/index.css': uiDistCss } : {}),
     }
     config.build = {
       ...config.build,
