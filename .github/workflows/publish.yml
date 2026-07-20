@@ -3,6 +3,9 @@ name: 📦 Publish Packages
 on:
   push:
     branches: [main]
+    paths:
+      - 'packages/**'
+      - '.changeset/**'
     tags:
       - 'v*'
   workflow_dispatch:
