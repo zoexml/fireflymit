@@ -26,6 +26,19 @@ const config: StorybookConfig = {
   framework: getAbsolutePath('@storybook/vue3-vite'),
   docs: {},
   async viteFinal(config) {
+    // Vite 8/Rolldown: resolve imports that pnpm strict mode may not hoist
+    config.plugins = [
+      {
+        name: 'fireflymit:resolve-vueuse',
+        enforce: 'pre' as const,
+        resolveId(id: string) {
+          if (id === '@vueuse/core') {
+            return resolve(repoRoot, 'node_modules/@vueuse/core/index.mjs')
+          }
+          return undefined
+        },
+      },
+    ]
     const { default: vue } = await import('@vitejs/plugin-vue')
     const { default: vueJsx } = await import('@vitejs/plugin-vue-jsx')
     config.plugins = config.plugins || []
