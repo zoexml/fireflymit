@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
+import { createRequire } from 'node:module'
 
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -10,6 +11,11 @@ function getAbsolutePath(value: string) {
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const uiSrc = resolve(repoRoot, 'packages/ui/src')
+
+// Resolve from packages/ui context, which depends on element-plus
+const uiRequire = createRequire(resolve(repoRoot, 'packages/ui/package.json'))
+const epDir = dirname(uiRequire.resolve('element-plus/package.json'))
+const uiDistCss = uiRequire.resolve('@fireflymit/ui/dist/index.css')
 
 const config: StorybookConfig = {
   stories: [
@@ -26,19 +32,6 @@ const config: StorybookConfig = {
   framework: getAbsolutePath('@storybook/vue3-vite'),
   docs: {},
   async viteFinal(config) {
-    // Vite 8/Rolldown: resolve imports that pnpm strict mode may not hoist
-    config.plugins = [
-      {
-        name: 'fireflymit:resolve-vueuse',
-        enforce: 'pre' as const,
-        resolveId(id: string) {
-          if (id === '@vueuse/core') {
-            return resolve(repoRoot, 'node_modules/@vueuse/core/index.mjs')
-          }
-          return undefined
-        },
-      },
-    ]
     const { default: vue } = await import('@vitejs/plugin-vue')
     const { default: vueJsx } = await import('@vitejs/plugin-vue-jsx')
     config.plugins = config.plugins || []
@@ -52,6 +45,8 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '~': uiSrc,
+      'element-plus/dist/index.css': resolve(epDir, 'dist/index.css'),
+      '@fireflymit/ui/dist/index.css': uiDistCss,
     }
     config.build = {
       ...config.build,
