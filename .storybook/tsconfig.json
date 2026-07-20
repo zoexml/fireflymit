@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@fireflymit/utils": ["../packages/utils/src/index.ts"],
+      "@fireflymit/utils/*": ["../packages/utils/src/*"]
+    }
+  }
+}

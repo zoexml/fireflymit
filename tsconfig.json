@@ -10,7 +10,7 @@
       "@fireflymit/uno-preset/*": ["./packages/uno-preset/src/*"],
       "@fireflymit/hooks": ["./packages/hooks/src/index.ts"],
       "@fireflymit/hooks/*": ["./packages/hooks/src/*"],
-      "@fireflymit/utils": ["./packages/utils/src/index.ts"],
+      "@fireflymit/utils": ["./packages/utils/dist/index.d.ts"],
       "@fireflymit/utils/*": ["./packages/utils/src/*"]
     }
   }

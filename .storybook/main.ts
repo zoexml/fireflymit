@@ -25,7 +25,21 @@ const config: StorybookConfig = {
     getAbsolutePath('@chromatic-com/storybook'),
   ],
   framework: getAbsolutePath('@storybook/vue3-vite'),
-  docs: {},
+  docs: {
+    storySort: (a: { title: string }, b: { title: string }) => {
+      const order = ['指南', 'UI', '工具']
+      const g = order.findIndex(o => a.title.startsWith(o))
+      const h = order.findIndex(o => b.title.startsWith(o))
+      if (g !== -1 && h !== -1) return g - h
+      if (g !== -1) return -1
+      if (h !== -1) return 1
+      if (a.title.startsWith('工具/') && b.title.startsWith('工具/')) {
+        if (a.title.includes('总览')) return -1
+        if (b.title.includes('总览')) return 1
+      }
+      return a.title.localeCompare(b.title)
+    },
+  } as any,
   async viteFinal(config) {
     const { default: vue } = await import('@vitejs/plugin-vue')
     const { default: vueJsx } = await import('@vitejs/plugin-vue-jsx')
@@ -49,6 +63,7 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '~': uiSrc,
+      '@fireflymit/utils': resolve(repoRoot, 'packages/utils/src/index.ts'),
       'element-plus/dist/index.css': resolve(epDir, 'dist/index.css'),
       ...(uiDistCss ? { '@fireflymit/ui/dist/index.css': uiDistCss } : {}),
     }
