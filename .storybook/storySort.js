@@ -1,6 +1,6 @@
 // Inline sort function for Storybook preview
 // Must be plain JS (no TypeScript annotations — Storybook evals this
-const storySort = (a, b) => {
+export const storySort = (a, b) => {
   const order = ['指南', 'UI', '工具']
   const aGroup = order.findIndex(o => a.title.startsWith(o))
   const bGroup = order.findIndex(o => b.title.startsWith(o))
@@ -13,4 +13,3 @@ const storySort = (a, b) => {
   }
   return a.title.localeCompare(b.title)
 }
-module.exports = storySort
