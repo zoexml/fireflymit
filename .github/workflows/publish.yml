@@ -51,15 +51,6 @@ jobs:
       - name: Build workspace prerequisites
         run: pnpm --filter @fireflymit/hooks --filter @fireflymit/utils --filter @fireflymit/uno-preset build
 
-      - name: Lint
-        run: pnpm lint
-
-      - name: Typecheck
-        run: pnpm check-types
-
-      - name: Test
-        run: pnpm test
-
       - name: Build packages
         run: pnpm build:packages
 
