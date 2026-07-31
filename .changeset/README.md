@@ -47,9 +47,9 @@ git push                 # 推送后等待版本 PR
 
 **所需 GitHub Secrets：**
 
-| Secret      | 说明                                              |
-| ----------- | ------------------------------------------------- |
-| `NPM_TOKEN` | npm automation token，用于发布 `@fireflymit/*` 包 |
+项目已启用 npm trusted publishing（provenance），
+通过 GitHub OIDC 自动认证，无需额外配置 token secret。
+（原 `FFM_TOKEN` secret 已废弃，可从仓库 Settings 中删除。）
 
 ### 本地手动发版
 

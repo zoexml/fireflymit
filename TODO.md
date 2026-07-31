@@ -92,7 +92,7 @@
   - [ ] 增加 bundle size 检查，避免组件库体积意外膨胀
 - [ ] 发布流程
   - [ ] 完善 Changesets 发版流程和 changelog 规范
-  - [ ] 增加 npm provenance / trusted publishing 配置
+  - [x] 增加 npm provenance / trusted publishing 配置
   - [ ] 增加 alpha / beta / latest 发布通道说明
   - [ ] 发布前自动执行 lint、typecheck、test、build、文档构建
   - [ ] 明确 peerDependencies 兼容范围：Vue、Element Plus、@vueuse/core
