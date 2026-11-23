@@ -42,8 +42,28 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
+      # changesets 用 `npm info <pkg> --json` 判断包是否已发布，并把输出当成对象读取 `.versions`。
+      # npm 12 起该命令改为输出 JSON 数组，changesets 2.x 解析不到 versions，会把已发布的包
+      # 误判为"未发布"并重复 publish；因此固定 npm 11.x（>=11.5.1 才支持 trusted publishing），
+      # 不要改回 `npm@latest`。
       - name: Upgrade npm and configure trusted publishing
-        run: npm install -g npm@latest && npm config set provenance true
+        run: npm install -g npm@11 && npm config set provenance true
+
+      # 前置自检：npm 输出格式若再次变化，这里会先失败并打印实际输出，便于区分
+      # "registry 读不到" 与 "changesets 解析失败"。
+      - name: Verify npm info JSON shape
+        run: |
+          npm --version
+          node -e '
+            const { execFileSync } = require("node:child_process");
+            const stdout = execFileSync("npm", ["info", "npm", "--json"], { encoding: "utf8" });
+            const info = JSON.parse(stdout);
+            if (!info || Array.isArray(info) || !Array.isArray(info.versions)) {
+              console.error("Unexpected npm info --json output (expected object with versions):", stdout.slice(0, 500));
+              process.exit(1);
+            }
+            console.log("npm info --json shape OK; npm latest =", info["dist-tags"] && info["dist-tags"].latest);
+          '
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
