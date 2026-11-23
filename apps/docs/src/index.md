@@ -24,13 +24,13 @@ hero:
       link: /tools/hooks/hooks
     - theme: alt
       text: 🧩 组件文档
-      link: /tools/start/installation
+      link: /ui/
 
 features:
   - icon: 🧩
     title: UI 组件
     details: 基于 Element Plus 封装的 Vue 3 组件库，支持全局注册和按需引入。
-    link: /tools/start/installation
+    link: /ui/
   - icon: ⚡
     title: 自定义指令
     details: 内置 9 个实用指令 — v-copy、v-ripple、v-lazy-load、v-input 等。
