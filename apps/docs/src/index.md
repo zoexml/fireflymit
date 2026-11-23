@@ -23,14 +23,14 @@ hero:
       text: Hooks
       link: /tools/hooks/hooks
     - theme: alt
-      text: 🧩 组件预览
-      link: https://fireflymit.vercel.app
+      text: 🧩 组件文档
+      link: /tools/start/installation
 
 features:
   - icon: 🧩
     title: UI 组件
     details: 基于 Element Plus 封装的 Vue 3 组件库，支持全局注册和按需引入。
-    link: https://fireflymit.vercel.app
+    link: /tools/start/installation
   - icon: ⚡
     title: 自定义指令
     details: 内置 9 个实用指令 — v-copy、v-ripple、v-lazy-load、v-input 等。

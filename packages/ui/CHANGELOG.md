@@ -33,7 +33,7 @@
 - 新增 `FireflyMitResolver`，支持在 `unplugin-vue-components` 和 `unplugin-auto-import` 中自动按需引入组件。
 - `FireflyMitResolver` 支持自定义组件前缀、关闭样式副作用、覆盖包名，默认自动引入 `@fireflymit/ui/dist/index.css`。
 - `DragVerify` 的 `width` 支持 CSS 长度字符串，例如 `100%`、`320px`、`20rem`，可用于响应式布局。
-- `DragVerify` 新增 Storybook 文档示例，覆盖默认宽度、响应式宽度、固定宽度和实例 `reset()` 重置场景。
+- `DragVerify` 新增组件文档示例，覆盖默认宽度、响应式宽度、固定宽度和实例 `reset()` 重置场景。
 
 ### Improvements
 
