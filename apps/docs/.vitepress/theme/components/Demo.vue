@@ -6,7 +6,7 @@
 -->
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 defineOptions({ name: 'Demo' })
 
@@ -19,10 +19,16 @@ const props = withDefaults(defineProps<{
   description?: string
   /** 源码区默认展开 */
   defaultOpen?: boolean
+  /**
+   * 仅在浏览器中渲染示例本体（源码区仍然 SSR）。
+   * 用于含有无法与 SSG 输出对齐的第三方组件的示例，例如 Element Plus 的 ElSelect。
+   */
+  clientOnly?: boolean
 }>(), {
   title: '',
   description: '',
   defaultOpen: false,
+  clientOnly: false,
 })
 
 /**
@@ -49,6 +55,16 @@ if (import.meta.env.DEV && !demoComponent.value) {
 }
 
 const copied = ref(false)
+
+/**
+ * clientOnly 示例的挂载标记：
+ * SSR 与客户端首帧都渲染占位文案，挂载后再渲染示例，避免水合不一致。
+ * （VitePress 的 ClientOnly 不渲染 fallback，且 SSR 输出为空，所以这里自行实现。）
+ */
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 
 async function copySource() {
   if (!source.value || typeof navigator === 'undefined' || !navigator.clipboard) { return }
@@ -77,7 +93,12 @@ async function copySource() {
     </div>
 
     <div class="ffm-demo__preview">
-      <component :is="demoComponent" v-if="demoComponent" />
+      <template v-if="demoComponent">
+        <component :is="demoComponent" v-if="!clientOnly || mounted" />
+        <p v-else class="ffm-demo__pending">
+          示例包含依赖浏览器环境的组件，页面加载后渲染
+        </p>
+      </template>
       <p v-else class="ffm-demo__missing">
         未找到示例：{{ name }}
       </p>
@@ -135,6 +156,12 @@ async function copySource() {
   margin: 0;
   font-size: 13px;
   color: var(--vp-c-danger-1);
+}
+
+.ffm-demo__pending {
+  margin: 0;
+  font-size: 13px;
+  color: var(--vp-c-text-3);
 }
 
 .ffm-demo__source {

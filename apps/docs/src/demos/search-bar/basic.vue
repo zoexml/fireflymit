@@ -3,7 +3,12 @@ import type { SearchFormItem } from '@fireflymit/ui'
 import { SearchBar } from '@fireflymit/ui'
 import { ref } from 'vue'
 
-const formData = ref<Record<string, any>>({})
+const formData = ref<Record<string, any>>({
+  name: '',
+  level: '',
+  createdAt: '',
+  enabled: false,
+})
 const result = ref('')
 
 const items: SearchFormItem[] = [

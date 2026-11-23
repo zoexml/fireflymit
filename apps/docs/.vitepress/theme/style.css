@@ -127,3 +127,16 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/**
+ * 组件文档：放宽内容列
+ *
+ * Element Plus 的栅格断点按视口宽度计算，若画布只有 688px，
+ * 1920 视口命中 lg（4 列）时每列会被压到约 154px。
+ * 因此 /ui/ 页面隐藏右侧 TOC（见 .vitepress/config.ts 的 transformPageData），
+ * 并把内容列放宽到 1100px，让示例接近真实使用宽度。
+ * 仅作用于带 pageClass="ui-doc" 的组件文档页。
+ */
+.ui-doc .VPDoc .content-container {
+  max-width: 1100px;
+}

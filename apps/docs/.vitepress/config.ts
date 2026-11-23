@@ -13,6 +13,20 @@ export default defineConfig({
   description: '物料库',
   srcDir: 'src',
   ignoreDeadLinks: true,
+  /**
+   * 组件文档需要比默认 688px 更宽的画布：
+   * Element Plus 栅格按视口断点计算，内容列过窄会把 4 列压成 154px。
+   * 这里只对 /ui/ 下的页面隐藏右侧 TOC，并在 theme/style.css 中放宽内容列。
+   */
+  transformPageData(pageData) {
+    if (pageData.relativePath.startsWith('ui/')) {
+      pageData.frontmatter.aside = false
+      pageData.frontmatter.pageClass = [
+        pageData.frontmatter.pageClass,
+        'ui-doc',
+      ].filter(Boolean).join(' ')
+    }
+  },
   head: [
     [
       'link',
