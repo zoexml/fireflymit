@@ -4,7 +4,7 @@ import { nav, sidebar } from './utils/index'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/fireflymit/',
-  title: 'fireflymit-FE',
+  title: 'fireflymit',
   description: '物料库',
   srcDir: 'src',
   ignoreDeadLinks: true,
@@ -25,7 +25,7 @@ export default defineConfig({
     nav,
     sidebar,
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Joetoo/fireflymit' },
+      { icon: 'github', link: 'https://github.com/zoexml/fireflymit' },
     ],
   },
 })
