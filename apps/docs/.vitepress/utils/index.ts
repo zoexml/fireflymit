@@ -7,6 +7,7 @@ export const nav = [
     text: '前端物料库',
     items: [
       { text: '工具', link: '/tools/start/installation' },
+      { text: '组件文档', link: '/ui/' },
       { text: '开发手册', link: '/standard/guide/name' },
     ],
   },
@@ -35,7 +36,7 @@ export const nav = [
       {
         text: 'UI & 样式',
         items: [
-          { text: 'fireflymit 组件文档', link: '/tools/start/installation' },
+          { text: 'fireflymit 组件文档', link: '/ui/' },
           { text: 'Element Plus', link: 'https://element-plus.org/zh-CN/' },
           { text: 'UnoCSS', link: 'https://unocss.dev/' },
         ],
@@ -53,6 +54,15 @@ export const sidebar = generateSidebar([
     useTitleFromFrontmatter: true,
     manualSortFileNameByPriority: ['start', 'cli', 'hooks', 'plugins'],
     collapsed: false,
+  },
+  {
+    documentRootPath: 'apps/docs/src',
+    scanStartPath: 'ui',
+    resolvePath: '/ui/',
+    useTitleFromFrontmatter: true,
+    includeRootIndexFile: true,
+    collapsed: false,
+    manualSortFileNameByPriority: ['index.md', 'badge.md', 'search-bar.md'],
   },
   {
     documentRootPath: 'apps/docs/src',

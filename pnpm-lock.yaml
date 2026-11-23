@@ -443,6 +443,16 @@ importers:
         version: 3.3.6(typescript@6.0.3)
 
   apps/docs:
+    dependencies:
+      '@fireflymit/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      element-plus:
+        specifier: ^2.11.9
+        version: 2.13.7(typescript@6.0.3)(vue@3.5.33(typescript@6.0.3))
+      vue:
+        specifier: 3.5.33
+        version: 3.5.33(typescript@6.0.3)
     devDependencies:
       vitepress-sidebar:
         specifier: ^1.25.0
