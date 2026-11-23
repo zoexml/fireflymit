@@ -3,9 +3,14 @@ import { generateSidebar } from 'vitepress-sidebar'
 
 // 顶部导航栏
 export const nav = [
-  { text: '工具', link: '/tools/start/installation' },
-
-  { text: '开发手册', link: '/standard/guide/name' },
+  {
+    text: '前端物料库',
+    items: [
+      { text: '工具', link: '/tools/start/installation' },
+      { text: '开发手册', link: '/standard/guide/name' },
+    ],
+  },
+  { text: '项目管理', link: '/project/' },
   {
     text: '相关链接',
     items: [
@@ -69,5 +74,14 @@ export const sidebar = generateSidebar([
     ],
     manualSortFileNameByPriority: ['guide', 'solution'],
     collapsed: false,
+  },
+  {
+    documentRootPath: 'apps/docs/src',
+    scanStartPath: 'project',
+    resolvePath: '/project/',
+    useTitleFromFrontmatter: true,
+    includeRootIndexFile: true,
+    collapsed: false,
+    manualSortFileNameByPriority: ['index', 'development', 'backend', 'deployment', 'contract'],
   },
 ])
