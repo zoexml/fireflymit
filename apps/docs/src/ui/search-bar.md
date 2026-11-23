@@ -10,13 +10,19 @@ title: SearchBar 搜索栏
 
 通过 `v-model` 绑定查询条件，`@search` 拿到清洗后的参数，`@reset` 在重置时触发。
 
-<Demo name="search-bar/basic" title="基础查询表单" description="共 6 个表单项，默认折叠，点击「展开」查看全部。" />
+<Demo name="search-bar/input-only" title="基础输入项" description="仅包含输入框的查询表单，可直接静态渲染。" />
+
+## 完整查询表单
+
+包含下拉、单选、日期、开关、数字等控件；共 6 个表单项，默认折叠，点击「展开」查看全部。
+
+<Demo name="search-bar/basic" title="常见字段类型" client-only description="包含 ElSelect：Element Plus 的下拉组件在 SSG 水合时会补充仅客户端才有的属性，因此示例仅在浏览器中渲染。" />
 
 ## 自定义表单项
 
 每个表单项都有一个以 `item.key` 命名的插槽，作用域包含 `item` 与 `modelValue`，可用于接入 Element Plus 组件或业务组件。
 
-<Demo name="search-bar/slot" title="通过插槽自定义表单项" description="dept 字段通过 #dept 插槽渲染为自定义下拉框。" />
+<Demo name="search-bar/slot" title="通过插槽自定义表单项" client-only description="dept 字段通过 #dept 插槽渲染为自定义下拉框；同样包含 ElSelect，仅在浏览器中渲染。" />
 
 ## Props
 

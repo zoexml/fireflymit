@@ -4,7 +4,10 @@ import { SearchBar } from '@fireflymit/ui'
 import { ElOption, ElSelect } from 'element-plus'
 import { ref } from 'vue'
 
-const formData = ref<Record<string, any>>({})
+const formData = ref<Record<string, any>>({
+  keyword: '',
+  dept: '',
+})
 
 const items: SearchFormItem[] = [
   { key: 'keyword', label: '关键词', type: 'input', props: { placeholder: '请输入关键词', clearable: true } },
