@@ -29,7 +29,6 @@ pnpm format                 # Prettier format
 
 # Test (in playground package)
 pnpm test                   # Run vitest
-pnpm test:coverage          # Run with coverage
 
 # Package-specific commands
 pnpm <cmd> --filter <package>  # Run cmd for specific package

@@ -36,7 +36,6 @@ pnpm format                 # Prettier 格式化
 
 # 测试
 pnpm test                   # 运行 Vitest
-pnpm test:coverage          # 生成覆盖率报告
 ```
 
 ## 项目结构
