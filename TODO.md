@@ -2,7 +2,7 @@
 
 ## 近期优先级
 
-- [ ] P0：补齐核心组件的 Stories、Props/Events/Slots 文档和最小测试用例
+- [ ] P0：补齐核心组件的文档示例、Props/Events/Slots 文档和最小测试用例
 - [ ] P0：完善 `@fireflymit/ui` 按需引入、样式副作用和 Resolver 发布链路
 - [ ] P1：补齐 `@fireflymit/hooks`、`@fireflymit/utils` 文档和示例
 - [ ] P1：建立 CI 校验、Changesets 发布和文档部署的稳定流程
@@ -10,19 +10,12 @@
 
 ## 组件库文档
 
-- [ ] 使用 Storybook 搭建组件文档站点
-  - [x] 安装配置 Storybook for Vue 3
-  - [ ] 为每个组件编写 Stories
-  - [ ] 添加组件文档注释（Props、Events、Slots、Methods）
-  - [x] 部署文档到 GitHub Pages / Vercel
-- [ ] Storybook 文档体验增强
-  - [ ] 启用 Autodocs / Controls / ArgsTable，统一展示组件 API
+- [ ] VitePress 文档完善
+  - [ ] 增加 UI 组件文档导航与组件总览页
+  - [ ] 为组件补充文档注释（Props、Events、Slots、Methods）
   - [ ] 为组件补充基础用法、复杂场景、禁用态、加载态、边界态示例
   - [ ] 增加 `@fireflymit/ui/resolver` 自动按需引入示例
   - [ ] 增加主题变量、样式覆盖、暗色模式使用示例
-  - [ ] 接入 Storybook 静态构建产物的预览链接
-- [ ] VitePress 文档完善
-  - [ ] 增加 UI 组件文档导航与组件总览页
   - [ ] 增加安装、全量引入、手动按需引入、自动按需引入文档
   - [ ] 增加 Hooks、Directives、Utils 的 API 索引页
   - [ ] 增加常见问题：样式未生效、组件未自动导入、类型声明缺失、Element Plus peer 依赖
@@ -86,7 +79,7 @@
       `import { FireflyMitResolver } from 'unplugin-vue-components/resolvers'`
 - [ ] CI / 质量门禁
   - [ ] GitHub Actions 增加 `pnpm install --frozen-lockfile`
-  - [ ] GitHub Actions 增加 lint、typecheck、test、build、storybook build
+  - [ ] GitHub Actions 增加 lint、typecheck、test、build
   - [ ] 增加 PR 校验和 main 分支保护规则
   - [ ] 增加覆盖率报告和最小覆盖率阈值
   - [ ] 增加 bundle size 检查，避免组件库体积意外膨胀
@@ -97,9 +90,9 @@
   - [ ] 发布前自动执行 lint、typecheck、test、build、文档构建
   - [ ] 明确 peerDependencies 兼容范围：Vue、Element Plus、@vueuse/core
 - [ ] 开发体验
-  - [ ] 完善 `pnpm dev:play` 和 `pnpm dev:storybook` 的本地调试说明
+  - [ ] 完善 `pnpm dev:play` 和 `pnpm dev:docs` 的本地调试说明
   - [ ] playground 增加所有组件的可交互调试页面
-  - [ ] 增加组件生成脚本文档：命名、目录、导出、Story、测试
+  - [ ] 增加组件生成脚本文档：命名、目录、导出、测试
   - [ ] 增加 VS Code 推荐插件和 workspace settings
   - [ ] 增加 Docker 开发环境使用说明和适用场景
 - [ ] 仓库治理
@@ -118,7 +111,6 @@
   - [ ] 使用 Playwright 覆盖 ContextMenu、DragVerify、ProForm、SearchBar 等关键交互
   - [ ] 覆盖键盘操作、移动端触摸、弹层定位、滚动容器场景
 - [ ] 视觉回归
-  - [ ] Storybook 接入 Chromatic 或等价方案
   - [ ] 为主题、暗色模式、响应式布局建立截图基线
 - [ ] 兼容性测试
   - [ ] 验证 Vue 3、Element Plus、Vite、pnpm 的最低支持版本

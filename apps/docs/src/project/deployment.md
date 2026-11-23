@@ -59,8 +59,3 @@ pnpm preview:docs
 ::: warning 待确认
 `deploy.sh` 在 `docker/` 目录执行 `docker compose`，但仓库里只有 `docker-compose-example.yaml`，没有 `docker-compose.yaml`；脚本在缺少 `docker/.env` 时会尝试复制 `docker/.env.example`，而仓库里也没有这个示例文件。直接运行前需要先补齐这两个文件（可从示例改编），具体参数见仓库 `docker/README.md`。
 :::
-
-## 其他部署
-
-- `vercel.json` 配置的是 **Storybook 静态站**：先构建 `@fireflymit/hooks`、`@fireflymit/utils`、`@fireflymit/uno-preset`、`@fireflymit/ui`，再执行 `storybook build`，输出 `.storybook/dist`。它不负责文档站。
-- 组件库预览地址见导航「相关链接」中的 `https://fireflymit.vercel.app`。

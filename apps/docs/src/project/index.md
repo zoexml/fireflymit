@@ -49,13 +49,12 @@ fireflymit 是一个 pnpm Monorepo：既对外发布前端物料（UI 组件、H
 
 ## 默认端口
 
-| 应用                         | 启动命令             | 端口 / 地址                                 | 依据                                                                         |
-| ---------------------------- | -------------------- | ------------------------------------------- | ---------------------------------------------------------------------------- |
-| 后台前端 `apps/admin`        | `pnpm dev:admin`     | `3006`                                      | `apps/admin/.env` 中 `VITE_PORT = 3006`                                      |
-| 后端 `apps/admin-backend`    | `pnpm dev:backend`   | `8001`                                      | `env/.env.dev.example` 中 `SERVER_PORT = 8001`；接口文档在 `/docs`、`/redoc` |
-| 文档站 `apps/docs`           | `pnpm dev:docs`      | 仓库未显式配置端口（VitePress 默认 `5173`） | `apps/docs` 无端口配置                                                       |
-| playground `apps/playground` | `pnpm dev:play`      | 仓库未显式配置端口（Vite 默认 `5173`）      | `apps/playground/vite.config.ts` 未设置 `server.port`                        |
-| Storybook                    | `pnpm dev:storybook` | `6006`                                      | 根 `package.json` 中 `storybook dev -p 6006`                                 |
+| 应用                         | 启动命令           | 端口 / 地址                                 | 依据                                                                         |
+| ---------------------------- | ------------------ | ------------------------------------------- | ---------------------------------------------------------------------------- |
+| 后台前端 `apps/admin`        | `pnpm dev:admin`   | `3006`                                      | `apps/admin/.env` 中 `VITE_PORT = 3006`                                      |
+| 后端 `apps/admin-backend`    | `pnpm dev:backend` | `8001`                                      | `env/.env.dev.example` 中 `SERVER_PORT = 8001`；接口文档在 `/docs`、`/redoc` |
+| 文档站 `apps/docs`           | `pnpm dev:docs`    | 仓库未显式配置端口（VitePress 默认 `5173`） | `apps/docs` 无端口配置                                                       |
+| playground `apps/playground` | `pnpm dev:play`    | 仓库未显式配置端口（Vite 默认 `5173`）      | `apps/playground/vite.config.ts` 未设置 `server.port`                        |
 
 ::: warning 端口冲突
 `pnpm dev` 由 Turbo 同时运行各包的 `dev` 脚本。文档站与 playground 都落在 Vite 默认的 `5173`，同时启动会冲突。日常全栈开发优先用 `pnpm dev:full`（后端 + 后台前端），或单独启动需要的应用。
