@@ -140,7 +140,7 @@ pnpm release
 
 ## 🤔 常见问题、反馈
 
-[反馈问题、新增需求](https://github.com/Joetoo/fireflymit/issues/new)
+[反馈问题、新增需求](https://github.com/zoexml/fireflymit/issues/new)
 
 ## 🔔 温馨提示
 
