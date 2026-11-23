@@ -34,11 +34,6 @@
     "test": {
       "inputs": ["src/**/*.{ts,tsx,vue}", "**/*.spec.ts", "**/*.test.ts"]
     },
-    // 测试覆盖率任务
-    "test:coverage": {
-      "dependsOn": ["test"],
-      "outputs": ["coverage/**"]
-    },
     // 发包（使用 release 避免与 pnpm publish 生命周期冲突）
     "release": {
       "dependsOn": ["build", "^release"]
