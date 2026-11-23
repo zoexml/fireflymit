@@ -48,4 +48,8 @@ features:
   - icon: 🛠️
     title: TypeScript 支持
     details: 完整的类型声明，基于 Vite + Rolldown 构建，ESM + CJS 双格式输出。
+  - icon: 📋
+    title: 项目管理
+    details: 项目总览、本地全栈开发、后端、部署与前后端契约。
+    link: /project/
 ---
