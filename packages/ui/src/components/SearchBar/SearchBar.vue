@@ -57,7 +57,7 @@ const { width } = useWindowSize()
 const isMobile = computed(() => width.value < 500)
 
 const formInstance = useTemplateRef<FormInstance>('formRef')
-const modelValue = defineModel<Record<string, any>>({ default: {} })
+const modelValue = defineModel<Record<string, any>>({ default: () => ({}) })
 const initialModelValue = ref<Record<string, any>>({})
 
 initialModelValue.value = deepCloneModelValue(modelValue.value) as Record<string, any>

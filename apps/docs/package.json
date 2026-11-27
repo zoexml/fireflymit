@@ -17,7 +17,7 @@
   "dependencies": {
     "@fireflymit/ui": "workspace:*",
     "element-plus": "^2.11.9",
-    "vue": "3.5.33"
+    "vue": "3.5.46"
   },
   "devDependencies": {
     "vitepress-sidebar": "^1.25.0"
