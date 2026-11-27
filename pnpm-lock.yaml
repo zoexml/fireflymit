@@ -5,8 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  shell-quote: 1.11.0
-  tinypool: 2.2.0
+  shell-quote@<1.11.0: 1.11.0
+  tinypool@<2.2.0: 2.2.0
 
 importers:
 

@@ -5,9 +5,10 @@ packages:
 # 安全修复：父包把传递依赖精确锁死在有漏洞的版本上，只能通过 overrides 提升
 # - concurrently 锁定 shell-quote 1.8.4（CVE-2026-13311 / CVE-2026-102422）
 # - oxfmt 锁定 tinypool 2.1.0（CVE-2026-104848 / CVE-2026-104849）
+# 只覆盖低于修复版的请求，已满足安全版本的依赖（含未来的更高版本）不受影响
 overrides:
-  shell-quote: 1.11.0
-  tinypool: 2.2.0
+  shell-quote@<1.11.0: 1.11.0
+  tinypool@<2.2.0: 2.2.0
 
 allowBuilds:
   '@parcel/watcher': true
